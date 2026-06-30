@@ -1,0 +1,104 @@
+---
+import PageShell from "../components/PageShell.astro";
+import PlaybookSection from "../components/PlaybookSection.astro";
+import TableOfContents from "../components/TableOfContents.astro";
+import { getCollection, render } from "astro:content";
+import "../styles/reset.css";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/typography.css";
+import "../styles/layout.css";
+import "../styles/components.css";
+import "../styles/print.css";
+
+const rawSections = await getCollection("playbook");
+const sections = await Promise.all(
+  rawSections.map(async (section) => {
+    const { Content } = await render(section);
+    const id = section.id.replace(/\.md$/, "").replace(/^\d+-/, "");
+
+    return {
+      id,
+      title: section.data.title,
+      navLabel: section.data.navLabel ?? section.data.title,
+      summary: section.data.summary,
+      order: section.data.order,
+      Content,
+    };
+  }),
+).then((entries) => entries.sort((a, b) => a.order - b.order));
+
+const title = "Ctrl+Shift! Playbook";
+const description = "A living playbook documenting Ctrl+Shift! discussions among researchers in Indonesia.";
+---
+
+<PageShell title={title} description={description}>
+  <a class="skip-link" href="#playbook">Skip to playbook</a>
+
+  <header class="landing-hero" data-hero>
+    <div class="landing-hero__inner">
+      <p class="landing-hero__date">March, 2026</p>
+      <h1>Ctrl+Shift! Playbook</h1>
+      <p>
+        A slower layer for principles and judgment calls around research and AI, shaped by offline discussions with researchers across Indonesia.
+      </p>
+      <div class="landing-hero__actions" aria-label="Playbook actions">
+        <a class="button" href="#playbook">Read the Playbook</a>
+        <button class="button button--secondary" type="button" data-print-button>Download PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <header class="site-header" aria-label="Site header" data-site-header aria-hidden="true">
+    <a class="site-header__logo" href="#playbook">Ctrl+Shift!</a>
+    <button class="button" type="button" data-print-button>Download PDF</button>
+  </header>
+
+  <main class="page-shell" id="playbook">
+    <aside class="page-shell__nav">
+      <TableOfContents items={sections} />
+    </aside>
+
+    <article class="page-shell__content" aria-labelledby="playbook-title">
+      <h2 class="visually-hidden" id="playbook-title">Playbook content</h2>
+
+      <div class="section-stack">
+        {
+          sections.map((section) => (
+            <PlaybookSection
+              id={section.id}
+              title={section.title}
+              summary={section.summary}
+              Content={section.Content}
+            />
+          ))
+        }
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" aria-label="Site license">
+    <div class="site-footer__inner">
+      <div class="license-icons" aria-hidden="true">
+        <span class="license-icon license-icon--cc">CC</span>
+        <span class="license-icon license-icon--by">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <circle cx="12" cy="7" r="3.25"></circle>
+            <path d="M5.75 20c.65-3.65 2.7-5.5 6.25-5.5s5.6 1.85 6.25 5.5"></path>
+          </svg>
+          <span>BY</span>
+        </span>
+        <span class="license-icon license-icon--nc" aria-label="NonCommercial">NC</span>
+        <span class="license-icon license-icon--sa" aria-label="ShareAlike">SA</span>
+      </div>
+      <p>
+        Except where otherwise noted, content on this site is licensed under a
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license (CC BY-NC-SA 4.0)</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    import "../scripts/playbook.ts";
+  </script>
+</PageShell>

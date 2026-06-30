@@ -1,0 +1,13 @@
+---
+const { id, title, summary, Content } = Astro.props;
+---
+
+<section class="playbook-section" id={id} data-playbook-section>
+  <header class="playbook-section__header">
+    <h2>{title}</h2>
+    {summary && <p>{summary}</p>}
+  </header>
+  <div class="playbook-section__body">
+    <Content />
+  </div>
+</section>

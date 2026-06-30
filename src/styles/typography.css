@@ -1,0 +1,55 @@
+.playbook-section__header p {
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+
+.playbook-section__body {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  line-height: 1.72;
+}
+
+.playbook-section__body > * + * {
+  margin-top: var(--space-4);
+}
+
+.playbook-section__body p {
+  font-size: 1.5rem;
+  line-height: 1.55;
+}
+
+.playbook-section__body h2,
+.playbook-section__body h3 {
+  font-family: var(--font-sans);
+  margin-top: var(--space-6);
+  scroll-margin-top: var(--space-6);
+}
+
+.playbook-section__body blockquote {
+  border-left: 2px solid var(--color-text);
+  font-family: var(--font-sans);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 650;
+  line-height: 1.22;
+  padding-left: var(--space-5);
+}
+
+.playbook-section__body blockquote > * + * {
+  margin-top: var(--space-4);
+}
+
+.playbook-section__body blockquote p {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.playbook-section__body ul,
+.playbook-section__body ol {
+  padding-inline-start: 1.5rem;
+}
+
+@media (max-width: 760px) {
+  .playbook-section__body p {
+    font-size: 1.25rem;
+  }
+}

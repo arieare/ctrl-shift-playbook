@@ -1,0 +1,81 @@
+@media print {
+  @page {
+    margin: 18mm;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    color: #000000;
+    font-size: 11pt;
+  }
+
+  .skip-link,
+  .landing-hero__actions,
+  .site-header,
+  .reader-nav,
+  .page-shell__nav {
+    display: none !important;
+  }
+
+  .playbook-section[hidden],
+  [data-reader-page-element][hidden] {
+    display: block !important;
+  }
+
+  .page-shell {
+    display: block;
+    padding: 0;
+  }
+
+  .site-footer {
+    border-top: 1px solid #cccccc;
+    margin-top: 24pt;
+    padding: 12pt 0 0;
+  }
+
+  .site-footer__inner {
+    display: block;
+  }
+
+  .license-icons {
+    margin-bottom: 8pt;
+  }
+
+  .landing-hero {
+    border-bottom: 1px solid #cccccc;
+    display: block;
+    min-height: auto;
+    margin-bottom: 24pt;
+    padding-bottom: 18pt;
+  }
+
+  .landing-hero p,
+  .playbook-section__header p {
+    color: #333333;
+  }
+
+  h1 {
+    font-size: 30pt;
+  }
+
+  h2 {
+    font-size: 20pt;
+  }
+
+  .section-stack {
+    display: block;
+  }
+
+  .playbook-section {
+    break-inside: avoid;
+    margin-top: 24pt;
+    scroll-margin-top: 0;
+  }
+
+  .playbook-section__body {
+    font-size: 11pt;
+  }
+}
