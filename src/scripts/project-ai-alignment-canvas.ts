@@ -254,8 +254,148 @@ template.innerHTML = `
     }
 
     @media print {
+      :host {
+        break-inside: avoid;
+        display: block;
+        margin: 0;
+        page-break-inside: avoid;
+      }
+
+      .canvas {
+        border-top: 1px solid #cccccc;
+        font-size: 7.4pt;
+        padding-top: 5pt;
+      }
+
+      .canvas__header {
+        gap: 2pt 6pt;
+        margin-bottom: 5pt;
+      }
+
+      h3 {
+        font-size: 11pt;
+      }
+
+      .version {
+        font-size: 8pt;
+      }
+
+      .lede {
+        font-size: 7.4pt;
+        line-height: 1.2;
+      }
+
       .canvas-actions {
         display: none !important;
+      }
+
+      .canvas-form {
+        gap: 5pt;
+      }
+
+      fieldset {
+        break-inside: avoid;
+        gap: 3pt;
+        page-break-inside: avoid;
+      }
+
+      legend {
+        font-size: 7.8pt;
+        line-height: 1.1;
+      }
+
+      legend span {
+        margin-right: 3pt;
+      }
+
+      .hint {
+        display: none;
+      }
+
+      .field-grid {
+        gap: 4pt 7pt;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      label,
+      .field-label {
+        font-size: 6.4pt;
+        gap: 1pt;
+        line-height: 1.1;
+      }
+
+      input[type="text"],
+      textarea {
+        border-bottom-color: #bdbdbd;
+        font-size: 7.2pt;
+        min-height: 11pt;
+        padding: 1pt 0;
+      }
+
+      textarea {
+        line-height: 1.15;
+        min-height: 22pt;
+      }
+
+      .sentence {
+        gap: 3pt;
+        grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 0.45fr);
+      }
+
+      .sentence span {
+        font-size: 7.6pt;
+        line-height: 1.1;
+      }
+
+      .choice-stack,
+      .line-list,
+      .commitments {
+        gap: 2pt;
+      }
+
+      .choice {
+        font-size: 7pt;
+        gap: 4pt;
+        line-height: 1.1;
+      }
+
+      .choice input {
+        inline-size: 7pt;
+      }
+
+      .posture-wrap {
+        overflow: visible;
+      }
+
+      table {
+        font-size: 6.7pt;
+        min-width: 0;
+      }
+
+      th,
+      td {
+        padding: 2.5pt;
+      }
+
+      th {
+        font-size: 6.3pt;
+      }
+
+      .phase-name {
+        width: 48pt;
+      }
+
+      .posture-choice {
+        width: 32pt;
+      }
+
+      .posture-choice input {
+        transform: scale(0.72);
+        transform-origin: center;
+      }
+
+      .posture-note input {
+        min-height: 9pt;
       }
     }
   </style>

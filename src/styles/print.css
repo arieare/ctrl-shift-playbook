@@ -140,4 +140,57 @@
   .playbook-section__body {
     font-size: 11pt;
   }
+
+  .playbook-section__body table,
+  .playbook-section__body thead,
+  .playbook-section__body tbody,
+  .playbook-section__body tr,
+  .playbook-section__body th,
+  .playbook-section__body td {
+    display: revert !important;
+  }
+
+  .playbook-section__body table {
+    border-collapse: collapse;
+    break-inside: auto;
+    display: table !important;
+    font-size: 7.1pt;
+    line-height: 1.22;
+    margin: 10pt 0;
+    max-width: 100%;
+    overflow: visible;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .playbook-section__body thead {
+    display: table-header-group !important;
+  }
+
+  .playbook-section__body tbody {
+    display: table-row-group !important;
+  }
+
+  .playbook-section__body tr {
+    border: 0;
+    break-inside: avoid;
+    display: table-row !important;
+    page-break-inside: avoid;
+  }
+
+  .playbook-section__body th,
+  .playbook-section__body td {
+    border: 1px solid #cccccc;
+    display: table-cell !important;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    padding: 4pt;
+    vertical-align: top;
+    word-break: normal;
+  }
+
+  .playbook-section__body th:first-child,
+  .playbook-section__body td:first-child {
+    width: 15%;
+  }
 }

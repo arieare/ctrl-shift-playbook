@@ -481,6 +481,146 @@ template.innerHTML = `
       }
     }
 
+    @media print {
+      :host {
+        break-inside: avoid;
+        display: block;
+        margin: 10pt 0;
+        page-break-inside: avoid;
+      }
+
+      .quadrant {
+        overflow: visible;
+        padding: 0;
+        width: 100%;
+      }
+
+      .quadrant__canvas {
+        aspect-ratio: 16 / 10;
+        min-height: 0;
+      }
+
+      .axis,
+      .axis::before,
+      .axis::after,
+      .axis-label,
+      .zone,
+      .zone__title,
+      .zone__criteria,
+      .phase-label,
+      .phase-label__text {
+        transition: none !important;
+      }
+
+      .axis--x {
+        transform: scaleX(1);
+      }
+
+      .axis--y {
+        transform: scaleY(1);
+      }
+
+      .axis::before,
+      .axis::after,
+      .axis-label {
+        opacity: 1;
+      }
+
+      .axis::before,
+      .axis::after {
+        background: transparent;
+        border: 0;
+        display: block;
+        font-size: 10pt;
+        font-weight: 800;
+        height: auto;
+        line-height: 1;
+        width: auto;
+      }
+
+      .axis--x::before {
+        content: "←";
+        left: -10pt;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .axis--x::after {
+        content: "→";
+        right: -10pt;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .axis--y::before {
+        content: "↑";
+        left: 50%;
+        top: -10pt;
+        transform: translateX(-50%);
+      }
+
+      .axis--y::after {
+        bottom: -10pt;
+        content: "↓";
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .axis-label--y {
+        transform: translate(-50%, 0);
+      }
+
+      .axis-label--x {
+        transform: translate(0, 0);
+      }
+
+      .zone {
+        cursor: default;
+        gap: 0.24rem;
+        min-height: 34%;
+        padding: 0.32rem 0.45rem;
+      }
+
+      .zone__title,
+      .zone__criteria,
+      :host(.has-selected-phase) .zone__title,
+      :host(.has-selected-phase) .zone__criteria {
+        display: grid;
+        opacity: 1;
+        transform: none;
+      }
+
+      .zone__title {
+        font-size: 7.2pt;
+      }
+
+      .zone__criteria {
+        font-size: 6.2pt;
+        gap: 0.08rem;
+        line-height: 1.12;
+      }
+
+      .phase-label {
+        animation: none !important;
+        border-radius: 5px;
+        font-size: 6.2pt;
+        height: auto;
+        max-width: 43%;
+        opacity: 1;
+        padding: 0.28rem 0.4rem;
+        transform: translate(-50%, -50%) scale(1);
+        width: min(var(--label-width), 43%);
+      }
+
+      .phase-label__text {
+        opacity: 1;
+      }
+
+      .phase-control {
+        display: none;
+      }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .axis,
       .axis::before,
