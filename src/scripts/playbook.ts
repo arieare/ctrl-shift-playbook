@@ -12,6 +12,7 @@ const primaryButtons = Array.from(document.querySelectorAll<HTMLElement>(".butto
 const searchForm = document.querySelector<HTMLFormElement>("[data-site-search]");
 const searchInput = document.querySelector<HTMLInputElement>("[data-search-input]");
 const searchResults = document.querySelector<HTMLElement>("[data-search-results]");
+const glowInitializedButtons = new WeakSet<HTMLElement>();
 const tocLinks = new Map(
   Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")).map((link) => [
     link.dataset.tocLink,
@@ -35,6 +36,7 @@ type ReaderPage = {
   primaryHeadingId?: string;
   section: HTMLElement;
   sectionId: string;
+  sectionTitle: string;
 };
 
 type SearchItem = {
@@ -140,7 +142,13 @@ interactiveTables.forEach((table) => {
   });
 });
 
-primaryButtons.forEach((button) => {
+const initializePrimaryButtonGlow = (button: HTMLElement) => {
+  if (glowInitializedButtons.has(button)) {
+    return;
+  }
+
+  glowInitializedButtons.add(button);
+
   let animationFrame = 0;
   let currentX = 0;
   let currentY = 0;
@@ -208,7 +216,9 @@ primaryButtons.forEach((button) => {
   button.addEventListener("pointerleave", resetGlow);
   button.addEventListener("blur", resetGlow);
   button.addEventListener("focus", resetGlow);
-});
+};
+
+primaryButtons.forEach(initializePrimaryButtonGlow);
 
 printButtons.forEach((button) => button.addEventListener("click", () => {
   window.print();
@@ -309,6 +319,8 @@ const readerPageByHash = new Map<string, { headingId?: string; pageIndex: number
 
 sections.forEach((section) => {
   const body = section.querySelector<HTMLElement>(".playbook-section__body");
+  const sectionTitle = section.querySelector(".playbook-section__header h2")?.textContent?.trim()
+    ?? section.id;
 
   if (!body) {
     return;
@@ -335,8 +347,7 @@ sections.forEach((section) => {
       ? section.id
       : primaryHeading?.dataset.tocHeading ?? generatedHash;
     const label = primaryHeading?.textContent?.trim()
-      ?? section.querySelector(".playbook-section__header h2")?.textContent?.trim()
-      ?? `Page ${readerPages.length + 1}`;
+      ?? sectionTitle;
     const pageIndex = readerPages.length;
 
     if (!primaryHeading && sectionPageNumber > 1) {
@@ -358,6 +369,7 @@ sections.forEach((section) => {
       primaryHeadingId: scrollTargetId,
       section,
       sectionId: section.id,
+      sectionTitle,
     });
 
     readerPageByHash.set(hash, { headingId: scrollTargetId, pageIndex });
@@ -397,7 +409,9 @@ if (readerPages.length > 0) {
   const readerNav = document.createElement("nav");
   const previousButton = document.createElement("button");
   const nextButton = document.createElement("button");
+  const pageMeta = document.createElement("span");
   const pageStatus = document.createElement("span");
+  const sectionTitle = document.createElement("span");
   const sectionStack = document.querySelector<HTMLElement>(".section-stack");
 
   readerNav.className = "reader-nav";
@@ -408,15 +422,20 @@ if (readerPages.length > 0) {
   nextButton.className = "button";
   nextButton.type = "button";
   nextButton.textContent = "Next";
+  initializePrimaryButtonGlow(nextButton);
+  pageMeta.className = "reader-nav__meta";
   pageStatus.className = "reader-nav__status";
   pageStatus.setAttribute("aria-live", "polite");
-  readerNav.append(previousButton, pageStatus, nextButton);
+  sectionTitle.className = "reader-nav__section-title";
+  pageMeta.append(pageStatus, sectionTitle);
+  readerNav.append(pageMeta, previousButton, nextButton);
   sectionStack?.insertAdjacentElement("afterend", readerNav);
 
   const updateReaderNav = () => {
     previousButton.disabled = activeReaderPageIndex === 0;
     nextButton.disabled = activeReaderPageIndex === readerPages.length - 1;
     pageStatus.textContent = `${activeReaderPageIndex + 1} / ${readerPages.length}`;
+    sectionTitle.textContent = readerPages[activeReaderPageIndex]?.sectionTitle ?? "";
   };
 
   const setHash = (hash: string, replace: boolean) => {

@@ -22,7 +22,7 @@
 .playbook-section__body h3 {
   font-family: var(--font-sans);
   margin-top: var(--space-6);
-  scroll-margin-top: var(--space-6);
+  scroll-margin-top: calc(var(--sticky-header-height) + var(--space-4));
 }
 
 .playbook-section__body blockquote {
