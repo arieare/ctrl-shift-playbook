@@ -202,6 +202,8 @@ const initializeHeroGradient = () => {
   gl.uniform3fv(colorsLocation, new Float32Array(colors.flat()));
 
   let animationFrame = 0;
+  let isDocumentVisible = document.visibilityState === "visible";
+  let isHeroVisible = true;
   let startTime = window.performance.now();
 
   const resizeCanvas = () => {
@@ -232,7 +234,12 @@ const initializeHeroGradient = () => {
 
   const animate = (time: number) => {
     render(time);
-    animationFrame = window.requestAnimationFrame(animate);
+
+    if (!reduceMotionQuery.matches && isDocumentVisible && isHeroVisible) {
+      animationFrame = window.requestAnimationFrame(animate);
+    } else {
+      animationFrame = 0;
+    }
   };
 
   const stopAnimation = () => {
@@ -247,13 +254,41 @@ const initializeHeroGradient = () => {
     startTime = window.performance.now();
     render(startTime);
 
-    if (!reduceMotionQuery.matches) {
+    if (!reduceMotionQuery.matches && isDocumentVisible && isHeroVisible) {
       animationFrame = window.requestAnimationFrame(animate);
     }
   };
 
-  window.addEventListener("resize", () => render(window.performance.now()), { passive: true });
+  const updateHeroVisibility = () => {
+    const rect = hero.getBoundingClientRect();
+    const nextIsHeroVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+
+    if (nextIsHeroVisible !== isHeroVisible) {
+      isHeroVisible = nextIsHeroVisible;
+      updateMotion();
+    }
+  };
+
+  window.addEventListener("resize", () => {
+    render(window.performance.now());
+    updateHeroVisibility();
+  }, { passive: true });
+  window.addEventListener("scroll", updateHeroVisibility, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    isDocumentVisible = document.visibilityState === "visible";
+    updateMotion();
+  });
   reduceMotionQuery.addEventListener("change", updateMotion);
+
+  if ("IntersectionObserver" in window) {
+    const heroObserver = new IntersectionObserver((entries) => {
+      isHeroVisible = entries.some((entry) => entry.isIntersecting);
+      updateMotion();
+    });
+
+    heroObserver.observe(hero);
+  }
+
   hero.classList.add("is-hero-gradient-ready");
   updateMotion();
 };

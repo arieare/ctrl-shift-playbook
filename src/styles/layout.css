@@ -1,11 +1,11 @@
 .landing-hero {
   align-items: center;
   background:
-    linear-gradient(180deg, rgb(254 253 251 / 0.5), rgb(254 253 251 / 0.82)),
-    radial-gradient(circle at 18% 18%, #4b4bc3 0, transparent 34%),
-    radial-gradient(circle at 82% 22%, #6f62bc 0, transparent 31%),
-    radial-gradient(circle at 26% 84%, #d6a9ac 0, transparent 36%),
-    radial-gradient(circle at 80% 78%, #facfbd 0, transparent 34%),
+    /* linear-gradient(180deg, rgb(254 253 251 / 0.5), rgb(254 253 251 / 0.82)), */
+    radial-gradient(circle at 18% 18%, #4b4bc3 0, transparent 100%),
+    radial-gradient(circle at 82% 22%, #6f62bc 0, transparent 100%),
+    radial-gradient(circle at 26% 84%, #d6a9ac 0, transparent 100%),
+    radial-gradient(circle at 80% 78%, #facfbd 0, transparent 100%),
     var(--color-bg);
   border-bottom: 1px solid rgb(52 49 49 / 0.16);
   display: flex;
@@ -17,7 +17,7 @@
 
 .landing-hero::after {
   background:
-    radial-gradient(circle at center, rgb(254 253 251 / 0.08), rgb(254 253 251 / 0.64) 72%),
+    radial-gradient(circle at center, rgb(254 253 251 / 0.08), rgb(254 253 251 / 0.2) 72%),
     linear-gradient(180deg, rgb(254 253 251 / 0.06), rgb(254 253 251 / 0.76));
   content: "";
   inset: 0;
@@ -58,11 +58,11 @@
 }
 
 .landing-hero__inner p {
-  color: color-mix(in srgb, var(--color-text) 76%, var(--color-bg));
+  color: color-mix(in srgb, var(--color-text) 90%, var(--color-bg));
   font-size: 1.125rem;
   font-weight: 560;
   max-width: 38rem;
-  text-shadow: 0 1px 18px rgb(254 253 251 / 0.56);
+  text-shadow: 0 0px 4px rgb(254 253 251 / 1);
 }
 
 .landing-hero__date {
