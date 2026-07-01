@@ -1,0 +1,46 @@
+---
+interface PrintTocHeading {
+  id: string;
+  label: string;
+}
+
+interface PrintTocItem {
+  headings: PrintTocHeading[];
+  id: string;
+  navLabel: string;
+  title: string;
+}
+
+const { items } = Astro.props as { items: PrintTocItem[] };
+---
+
+<nav class="print-toc" aria-label="Print table of contents">
+  <p class="print-toc__eyebrow">Ctrl+Shift! Playbook</p>
+  <h2 class="print-toc__title">Table of Contents</h2>
+  <ol class="print-toc__list">
+    {
+      items.map((item) => (
+        <li class="print-toc__item">
+          <a class="print-toc__link" href={`#${item.id}`}>
+            {item.navLabel || item.title}
+          </a>
+          {
+            item.headings.length > 0 && (
+              <ol class="print-toc__sublist">
+                {
+                  item.headings.map((heading) => (
+                    <li class="print-toc__subitem">
+                      <a class="print-toc__sublink" href={`#${heading.id}`}>
+                        {heading.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ol>
+            )
+          }
+        </li>
+      ))
+    }
+  </ol>
+</nav>

@@ -12,7 +12,7 @@
   width: 100%;
 }
 
-.landing-hero__inner > * + * {
+.landing-hero__inner>*+* {
   margin-top: var(--space-5);
 }
 
@@ -37,7 +37,7 @@
   background: var(--color-bg);
   border-bottom: 1px solid var(--color-border);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   min-height: var(--sticky-header-height);
   opacity: 0;
   padding: var(--space-3) var(--space-5);
@@ -53,6 +53,14 @@
   z-index: 20;
 }
 
+.site-header__inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  max-width: calc(var(--nav-width) + var(--page-column-gap) + var(--content-width));
+  width: 100%;
+}
+
 .site-header.is-visible {
   opacity: 1;
   pointer-events: auto;
@@ -66,12 +74,21 @@
   text-decoration: none;
 }
 
+.site-header__actions {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  min-width: 0;
+}
+
 .page-shell {
-  column-gap: clamp(var(--space-8), 7vw, 7rem);
+  column-gap: var(--page-column-gap);
   display: grid;
   grid-template-columns: minmax(0, var(--nav-width)) minmax(0, var(--content-width));
   justify-content: center;
-  padding: var(--space-7) var(--space-5) var(--space-8);
+  min-height: calc(100svh - var(--sticky-header-height));
+  padding: var(--space-8) var(--space-5);
   row-gap: var(--space-7);
   scroll-margin-top: var(--space-6);
 }
@@ -97,11 +114,32 @@
 }
 
 .site-footer__inner {
-  align-items: center;
+  align-items: start;
+  column-gap: var(--page-column-gap);
   display: grid;
   gap: var(--space-5);
   grid-template-columns: minmax(0, var(--nav-width)) minmax(0, var(--content-width));
   justify-content: center;
+  margin-inline: auto;
+  max-width: calc(var(--nav-width) + var(--page-column-gap) + var(--content-width));
+  width: 100%;
+}
+
+.site-footer__links {
+  display: grid;
+  font-size: 0.9375rem;
+  gap: var(--space-2);
+}
+
+.site-footer__links a {
+  color: var(--color-text);
+}
+
+.site-footer__license {
+  align-items: center;
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: auto minmax(0, 1fr);
 }
 
 .site-footer p {
@@ -118,6 +156,14 @@
 
   .site-header {
     padding-inline: var(--space-4);
+  }
+
+  .site-header__inner {
+    gap: var(--space-3);
+  }
+
+  .site-header__actions {
+    flex: 1;
   }
 
   .page-shell {
@@ -138,5 +184,10 @@
     align-items: start;
     display: flex;
     flex-direction: column;
+  }
+
+  .site-footer__license {
+    align-items: start;
+    grid-template-columns: 1fr;
   }
 }

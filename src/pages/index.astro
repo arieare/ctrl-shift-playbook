@@ -1,6 +1,7 @@
 ---
 import PageShell from "../components/PageShell.astro";
 import PlaybookSection from "../components/PlaybookSection.astro";
+import PrintTableOfContents from "../components/PrintTableOfContents.astro";
 import TableOfContents from "../components/TableOfContents.astro";
 import { getCollection, render } from "astro:content";
 import "../styles/reset.css";
@@ -12,6 +13,25 @@ import "../styles/components.css";
 import "../styles/print.css";
 
 const rawSections = await getCollection("playbook");
+
+const slugifyHeading = (value: string) => {
+  return value
+    .toLowerCase()
+    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
+const getPrintHeadings = (sectionId: string, body: string) => {
+  return Array.from(body.matchAll(/^##\s+(?!#)(.+)$/gm)).map((match, index) => {
+    const label = match[1]?.trim() ?? "";
+
+    return {
+      id: `${sectionId}-${slugifyHeading(label) || "heading"}-${index + 1}`,
+      label,
+    };
+  });
+};
+
 const sections = await Promise.all(
   rawSections.map(async (section) => {
     const { Content } = await render(section);
@@ -23,6 +43,7 @@ const sections = await Promise.all(
       navLabel: section.data.navLabel ?? section.data.title,
       summary: section.data.summary,
       order: section.data.order,
+      headings: getPrintHeadings(id, section.body),
       Content,
     };
   }),
@@ -37,11 +58,13 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
 
   <header class="landing-hero" data-hero>
     <div class="landing-hero__inner">
-      <p class="landing-hero__date">March, 2026</p>
-      <h1>Ctrl+Shift! Playbook</h1>
+      
+      <h1 class=hidden>Ctrl+Shift! Playbook</h1>
+      <img src="images/ctrl-shift-playbook-logo.png" alt="Ctrl+Shift! Playbook" style="width:300px;"/>
       <p>
         A slower layer for principles and judgment calls around research and AI, shaped by offline discussions with researchers across Indonesia.
       </p>
+      <p class="landing-hero__date">March, 2026</p>
       <div class="landing-hero__actions" aria-label="Playbook actions">
         <a class="button" href="#playbook">Read the Playbook</a>
         <button class="button button--secondary" type="button" data-print-button>Download PDF</button>
@@ -50,8 +73,28 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
   </header>
 
   <header class="site-header" aria-label="Site header" data-site-header aria-hidden="true">
-    <a class="site-header__logo" href="#playbook">Ctrl+Shift!</a>
-    <button class="button" type="button" data-print-button>Download PDF</button>
+    <div class="site-header__inner">
+      <a class="site-header__logo" href="#playbook">
+      <img src="images/ctrl-shift-logo.png" style="max-height:56px"></a>
+      <div class="site-header__actions">
+        <form class="site-search" role="search" data-site-search>
+          <label class="visually-hidden" for="site-search-input">Search playbook</label>
+          <input
+            class="site-search__input"
+            id="site-search-input"
+            type="search"
+            placeholder="Search playbook"
+            autocomplete="off"
+            aria-controls="site-search-results"
+            aria-expanded="false"
+            data-search-input
+          />
+          <span class="site-search__shortcut" aria-hidden="true">⌘K</span>
+          <div class="site-search__results" id="site-search-results" data-search-results hidden></div>
+        </form>
+        <button class="button" type="button" data-print-button>Download PDF</button>
+      </div>
+    </div>
   </header>
 
   <main class="page-shell" id="playbook">
@@ -61,6 +104,7 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
 
     <article class="page-shell__content" aria-labelledby="playbook-title">
       <h2 class="visually-hidden" id="playbook-title">Playbook content</h2>
+      <PrintTableOfContents items={sections} />
 
       <div class="section-stack">
         {
@@ -79,22 +123,27 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
 
   <footer class="site-footer" aria-label="Site license">
     <div class="site-footer__inner">
-      <div class="license-icons" aria-hidden="true">
-        <span class="license-icon license-icon--cc">CC</span>
-        <span class="license-icon license-icon--by">
-          <svg viewBox="0 0 24 24" focusable="false">
-            <circle cx="12" cy="7" r="3.25"></circle>
-            <path d="M5.75 20c.65-3.65 2.7-5.5 6.25-5.5s5.6 1.85 6.25 5.5"></path>
-          </svg>
-          <span>BY</span>
-        </span>
-        <span class="license-icon license-icon--nc" aria-label="NonCommercial">NC</span>
-        <span class="license-icon license-icon--sa" aria-label="ShareAlike">SA</span>
+      <nav class="site-footer__links" aria-label="Ctrl+Shift links">
+        <a href="https://www.instagram.com/ctrlshift_id/?hl=en" rel="noreferrer" target="_blank">@ctrlshift_id</a>
+      </nav>
+      <div class="site-footer__license">
+        <div class="license-icons" aria-hidden="true">
+          <span class="license-icon license-icon--cc">CC</span>
+          <span class="license-icon license-icon--by">
+            <svg viewBox="0 0 24 24" focusable="false">
+              <circle cx="12" cy="7" r="3.25"></circle>
+              <path d="M5.75 20c.65-3.65 2.7-5.5 6.25-5.5s5.6 1.85 6.25 5.5"></path>
+            </svg>
+            <span>BY</span>
+          </span>
+          <span class="license-icon license-icon--nc" aria-label="NonCommercial">NC</span>
+          <span class="license-icon license-icon--sa" aria-label="ShareAlike">SA</span>
+        </div>
+        <p>
+          Except where otherwise noted, content on this site is licensed under a
+          <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license (CC BY-NC-SA 4.0)</a>.
+        </p>
       </div>
-      <p>
-        Except where otherwise noted, content on this site is licensed under a
-        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license (CC BY-NC-SA 4.0)</a>.
-      </p>
     </div>
   </footer>
 

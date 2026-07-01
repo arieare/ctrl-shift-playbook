@@ -5,8 +5,13 @@ import "./project-ai-alignment-canvas";
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));
 const hero = document.querySelector<HTMLElement>("[data-hero]");
 const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
+const playbookShell = document.querySelector<HTMLElement>("#playbook");
 const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-playbook-section]"));
 const interactiveTables = Array.from(document.querySelectorAll<HTMLTableElement>(".playbook-section__body table"));
+const primaryButtons = Array.from(document.querySelectorAll<HTMLElement>(".button:not(.button--secondary)"));
+const searchForm = document.querySelector<HTMLFormElement>("[data-site-search]");
+const searchInput = document.querySelector<HTMLInputElement>("[data-search-input]");
+const searchResults = document.querySelector<HTMLElement>("[data-search-results]");
 const tocLinks = new Map(
   Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]")).map((link) => [
     link.dataset.tocLink,
@@ -32,12 +37,35 @@ type ReaderPage = {
   sectionId: string;
 };
 
+type SearchItem = {
+  hash: string;
+  headingId?: string;
+  pageIndex: number;
+  sectionLabel: string;
+  text: string;
+  title: string;
+};
+
 const slugifyHeading = (value: string) => {
   return value
     .toLowerCase()
     .trim()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
+};
+
+const normalizeSearchText = (value: string) => {
+  return value.toLowerCase().replace(/\s+/g, " ").trim();
+};
+
+const createSearchSnippet = (text: string, query: string) => {
+  const normalizedText = normalizeSearchText(text);
+  const normalizedQuery = normalizeSearchText(query);
+  const matchIndex = normalizedQuery ? normalizedText.indexOf(normalizedQuery) : -1;
+  const start = matchIndex >= 0 ? Math.max(matchIndex - 64, 0) : 0;
+  const snippet = text.replace(/\s+/g, " ").trim().slice(start, start + 160);
+
+  return `${start > 0 ? "..." : ""}${snippet}${start + snippet.length < text.length ? "..." : ""}`;
 };
 
 const clearTableHighlight = (table: HTMLTableElement) => {
@@ -112,13 +140,87 @@ interactiveTables.forEach((table) => {
   });
 });
 
+primaryButtons.forEach((button) => {
+  let animationFrame = 0;
+  let currentX = 0;
+  let currentY = 0;
+  let targetX = 0;
+  let targetY = 0;
+
+  const setGlowPosition = (x: number, y: number) => {
+    button.style.setProperty("--button-glow-x", `${x}px`);
+    button.style.setProperty("--button-glow-y", `${y}px`);
+  };
+
+  const getRestPosition = () => {
+    const rect = button.getBoundingClientRect();
+
+    return {
+      x: rect.width,
+      y: 0,
+    };
+  };
+
+  const animateGlow = () => {
+    currentX += (targetX - currentX) * 0.18;
+    currentY += (targetY - currentY) * 0.18;
+    setGlowPosition(currentX, currentY);
+
+    if (Math.abs(targetX - currentX) < 0.2 && Math.abs(targetY - currentY) < 0.2) {
+      currentX = targetX;
+      currentY = targetY;
+      setGlowPosition(currentX, currentY);
+      animationFrame = 0;
+      return;
+    }
+
+    animationFrame = window.requestAnimationFrame(animateGlow);
+  };
+
+  const moveGlowTo = (x: number, y: number) => {
+    targetX = x;
+    targetY = y;
+
+    if (!animationFrame) {
+      animationFrame = window.requestAnimationFrame(animateGlow);
+    }
+  };
+
+  const resetGlow = () => {
+    const restPosition = getRestPosition();
+
+    moveGlowTo(restPosition.x, restPosition.y);
+  };
+
+  const restPosition = getRestPosition();
+
+  currentX = restPosition.x;
+  currentY = restPosition.y;
+  targetX = restPosition.x;
+  targetY = restPosition.y;
+  setGlowPosition(currentX, currentY);
+
+  button.addEventListener("pointermove", (event) => {
+    const rect = button.getBoundingClientRect();
+
+    moveGlowTo(event.clientX - rect.left, event.clientY - rect.top);
+  });
+  button.addEventListener("pointerleave", resetGlow);
+  button.addEventListener("blur", resetGlow);
+  button.addEventListener("focus", resetGlow);
+});
+
 printButtons.forEach((button) => button.addEventListener("click", () => {
   window.print();
 }));
 
+let updateSiteHeader = () => {};
+
 if (siteHeader) {
-  const updateSiteHeader = () => {
-    const isVisible = !hero || hero.getBoundingClientRect().bottom <= 0;
+  updateSiteHeader = () => {
+    const heroBottom = hero?.getBoundingClientRect().bottom ?? 0;
+    const playbookTop = playbookShell?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY;
+    const isVisible = !hero || heroBottom <= 0 || playbookTop <= window.innerHeight * 0.5;
 
     siteHeader.classList.toggle("is-visible", isVisible);
     siteHeader.setAttribute("aria-hidden", String(!isVisible));
@@ -171,7 +273,7 @@ sections.forEach((section) => {
     return;
   }
 
-  const headings = Array.from(section.querySelectorAll<HTMLHeadingElement>(".playbook-section__body h2, .playbook-section__body h3"));
+  const headings = Array.from(section.querySelectorAll<HTMLHeadingElement>(".playbook-section__body h2"));
 
   headings.forEach((heading, index) => {
     const label = heading.textContent?.trim();
@@ -241,6 +343,9 @@ sections.forEach((section) => {
       pageElements[0].id ||= generatedHash;
     }
 
+    const scrollTargetId = primaryHeading?.dataset.tocHeading
+      ?? (!primaryHeading && sectionPageNumber > 1 ? generatedHash : undefined);
+
     pageElements.forEach((element) => {
       element.dataset.readerPageElement = hash;
     });
@@ -250,12 +355,12 @@ sections.forEach((section) => {
       hash,
       headingIds: headings.flatMap((heading) => heading.dataset.tocHeading ? [heading.dataset.tocHeading] : []),
       label,
-      primaryHeadingId: primaryHeading?.dataset.tocHeading,
+      primaryHeadingId: scrollTargetId,
       section,
       sectionId: section.id,
     });
 
-    readerPageByHash.set(hash, { pageIndex });
+    readerPageByHash.set(hash, { headingId: scrollTargetId, pageIndex });
     if (sectionPageNumber === 1) {
       readerPageByHash.set(section.id, { pageIndex });
     }
@@ -325,6 +430,23 @@ if (readerPages.length > 0) {
     window.history.pushState(null, "", nextUrl);
   };
 
+  const clearHeroFromViewport = () => {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const heroBottom = hero?.getBoundingClientRect().bottom ?? 0;
+
+        if (heroBottom > 0) {
+          const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+
+          document.documentElement.style.scrollBehavior = "auto";
+          window.scrollBy(0, heroBottom + 1);
+          document.documentElement.style.scrollBehavior = previousScrollBehavior;
+        }
+        window.requestAnimationFrame(updateSiteHeader);
+      });
+    });
+  };
+
   const activateReaderPage = (
     pageIndex: number,
     options: { headingId?: string; replaceHash?: boolean; scroll?: boolean; updateHash?: boolean } = {},
@@ -355,6 +477,7 @@ if (readerPages.length > 0) {
       const target = activeHeadingId ? document.getElementById(activeHeadingId) : activePage.section;
 
       target?.scrollIntoView({ block: "start" });
+      clearHeroFromViewport();
     }
   };
 
@@ -373,6 +496,206 @@ if (readerPages.length > 0) {
     });
     return true;
   };
+
+  const closeSearchResults = () => {
+    if (!searchResults || !searchInput) {
+      return;
+    }
+
+    searchResults.hidden = true;
+    searchInput.setAttribute("aria-expanded", "false");
+  };
+
+  const openSearchResults = () => {
+    if (!searchResults || !searchInput) {
+      return;
+    }
+
+    searchResults.hidden = false;
+    searchInput.setAttribute("aria-expanded", "true");
+  };
+
+  const searchItems: SearchItem[] = readerPages.map((page, pageIndex) => {
+    const sectionLabel = tocLinks.get(page.sectionId)?.textContent?.trim()
+      ?? page.section.querySelector(".playbook-section__header h2")?.textContent?.trim()
+      ?? page.sectionId;
+    const sectionIntro = page.section.querySelector(".playbook-section__header")?.textContent?.trim() ?? "";
+    const text = [sectionLabel, page.label, sectionIntro, ...page.elements.map((element) => element.textContent?.trim() ?? "")]
+      .join(" ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    return {
+      hash: page.hash,
+      headingId: page.primaryHeadingId,
+      pageIndex,
+      sectionLabel,
+      text,
+      title: page.label,
+    };
+  });
+
+  const runSearch = (query: string) => {
+    const normalizedQuery = normalizeSearchText(query);
+    const terms = normalizedQuery.split(" ").filter(Boolean);
+
+    if (terms.length === 0) {
+      return [];
+    }
+
+    return searchItems
+      .map((item) => {
+        const normalizedText = normalizeSearchText(item.text);
+        const normalizedTitle = normalizeSearchText(`${item.sectionLabel} ${item.title}`);
+        const matchesAllTerms = terms.every((term) => normalizedText.includes(term));
+
+        if (!matchesAllTerms) {
+          return null;
+        }
+
+        const titleMatch = normalizedTitle.includes(normalizedQuery) ? 2 : 0;
+        const earlyMatch = Math.max(0, 1 - normalizedText.indexOf(terms[0]) / Math.max(normalizedText.length, 1));
+
+        return {
+          item,
+          score: titleMatch + earlyMatch,
+        };
+      })
+      .filter((result): result is { item: SearchItem; score: number } => Boolean(result))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map((result) => result.item);
+  };
+
+  let currentSearchResults: SearchItem[] = [];
+
+  const renderSearchResults = () => {
+    if (!searchInput || !searchResults) {
+      return;
+    }
+
+    const query = searchInput.value;
+
+    searchResults.replaceChildren();
+    currentSearchResults = runSearch(query);
+
+    if (!query.trim()) {
+      closeSearchResults();
+      return;
+    }
+
+    if (currentSearchResults.length === 0) {
+      const empty = document.createElement("span");
+
+      empty.className = "site-search__empty";
+      empty.textContent = "No results";
+      searchResults.append(empty);
+      openSearchResults();
+      return;
+    }
+
+    currentSearchResults.forEach((item) => {
+      const link = document.createElement("a");
+      const title = document.createElement("span");
+      const section = document.createElement("span");
+      const snippet = document.createElement("span");
+
+      link.className = "site-search__result";
+      link.href = `#${item.headingId ?? item.hash}`;
+      title.className = "site-search__result-title";
+      title.textContent = item.title;
+      section.className = "site-search__result-section";
+      section.textContent = item.sectionLabel;
+      snippet.className = "site-search__result-snippet";
+      snippet.textContent = createSearchSnippet(item.text, query);
+      link.append(title, section, snippet);
+      searchResults.append(link);
+    });
+    openSearchResults();
+  };
+
+  if (searchForm && searchInput && searchResults) {
+    const shortcutHint = searchForm.querySelector<HTMLElement>(".site-search__shortcut");
+    const navigatorWithUserAgentData = window.navigator as Navigator & {
+      userAgentData?: { platform?: string };
+    };
+    const platform = navigatorWithUserAgentData.userAgentData?.platform ?? window.navigator.userAgent;
+    const isMacPlatform = /mac|iphone|ipad|ipod/i.test(platform);
+
+    if (shortcutHint) {
+      shortcutHint.textContent = isMacPlatform ? "⌘K" : "Ctrl K";
+    }
+
+    const dismissSearchIfOutside = (target: EventTarget | null) => {
+      if (target instanceof Node && searchForm.contains(target)) {
+        return;
+      }
+      closeSearchResults();
+    };
+
+    searchInput.addEventListener("input", renderSearchResults);
+    searchInput.addEventListener("focus", renderSearchResults);
+    searchForm.addEventListener("focusout", (event) => {
+      window.setTimeout(() => {
+        dismissSearchIfOutside(event.relatedTarget);
+      });
+    });
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeSearchResults();
+        searchInput.blur();
+      }
+    });
+    searchForm.addEventListener("submit", (event) => {
+      const firstResult = currentSearchResults[0];
+
+      event.preventDefault();
+      if (!firstResult) {
+        return;
+      }
+
+      activateReaderPage(firstResult.pageIndex, {
+        headingId: firstResult.headingId,
+        scroll: true,
+        updateHash: true,
+      });
+      closeSearchResults();
+      searchInput.blur();
+    });
+    searchResults.addEventListener("click", () => {
+      closeSearchResults();
+      searchInput.blur();
+    });
+    document.addEventListener("pointerdown", (event) => dismissSearchIfOutside(event.target), { capture: true });
+    document.addEventListener("mousedown", (event) => dismissSearchIfOutside(event.target), { capture: true });
+    document.addEventListener("touchstart", (event) => dismissSearchIfOutside(event.target), { capture: true });
+    window.addEventListener("hashchange", closeSearchResults);
+    window.addEventListener("popstate", closeSearchResults);
+    window.addEventListener("keydown", (event) => {
+      const target = event.target;
+      const isEditing = target instanceof Element
+        ? Boolean(target.closest("input, textarea, select, [contenteditable='true']"))
+        : false;
+      const isSearchShortcut = event.key.toLowerCase() === "k" && (event.metaKey || event.ctrlKey);
+
+      if (event.key === "Escape" && !searchResults.hidden) {
+        event.preventDefault();
+        closeSearchResults();
+        searchInput.blur();
+        return;
+      }
+
+      if (!isSearchShortcut || isEditing || event.altKey || event.shiftKey) {
+        return;
+      }
+
+      event.preventDefault();
+      searchInput.focus();
+      searchInput.select();
+      renderSearchResults();
+    });
+  }
 
   document.addEventListener("click", (event) => {
     const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
@@ -456,11 +779,20 @@ if (readerPages.length > 0) {
 
   window.addEventListener("hashchange", activateCurrentHash);
   window.addEventListener("popstate", activateCurrentHash);
+  window.addEventListener("load", () => {
+    if (window.location.hash) {
+      activateCurrentHash();
+    }
+  }, { once: true });
 
   const initialHash = window.location.hash.slice(1);
 
   if (initialHash && activateHash(initialHash, { scroll: true })) {
     updateReaderNav();
+    window.setTimeout(activateCurrentHash, 0);
+    window.setTimeout(activateCurrentHash, 250);
+    window.setTimeout(activateCurrentHash, 750);
+    window.setTimeout(activateCurrentHash, 1200);
   } else {
     activateReaderPage(0);
   }

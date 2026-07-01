@@ -9,7 +9,7 @@
   line-height: 1.72;
 }
 
-.playbook-section__body > * + * {
+.playbook-section__body>*+* {
   margin-top: var(--space-4);
 }
 
@@ -26,21 +26,23 @@
 }
 
 .playbook-section__body blockquote {
-  border-left: 2px solid var(--color-text);
+  border-left: 6px solid var(--color-accent-3);
   font-family: var(--font-sans);
-  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-size: 1.5rem;
   font-weight: 650;
-  line-height: 1.22;
+  line-height: 1.4;
   padding-left: var(--space-5);
+  margin: var(--space-6) 0;
 }
 
-.playbook-section__body blockquote > * + * {
+.playbook-section__body blockquote>*+* {
   margin-top: var(--space-4);
 }
 
 .playbook-section__body blockquote p {
   font-size: inherit;
   line-height: inherit;
+  color: var(--color-accent);
 }
 
 .playbook-section__body ul,

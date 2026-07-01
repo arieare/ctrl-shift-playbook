@@ -5,17 +5,17 @@ summary: "How we approach AI in research: the principles that guide our posture,
 order: 3
 ---
 
+
+> The shift is real. The pressure is rising.
+> This space is still ours to shape. Step in before the lines are drawn without us.
+> Move forward with intent and deep understanding.
+> AI must be thoughtfully intertwined with the research process, not just layered on top of it.
+
+<hr />
+
 ## The Stance
 
 How we approach AI in research: the principles that guide our posture, individually and collectively.
-
-> The shift is real. The pressure is rising.
->
-> This space is still ours to shape. Step in before the lines are drawn without us.
->
-> Move forward with intent and deep understanding.
->
-> AI must be thoughtfully intertwined with the research process, not just layered on top of it.
 
 <div class="interactive-diagram">
   <genai-context-diagram></genai-context-diagram>
