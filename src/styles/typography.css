@@ -143,3 +143,25 @@ html {
   margin-bottom: 40px;
   line-height: 1.25em;
 }
+
+@media (max-width: 760px) {
+
+  .playbook-section__body h2,
+  .playbook-section__body h3,
+  .playbook-section__body h4,
+  .playbook-section__body h5,
+  .playbook-section__body h6 {
+    text-align: left;
+  }
+}
+
+@media (max-width: 1300px) {
+
+  .playbook-section__body h2,
+  .playbook-section__body h3,
+  .playbook-section__body h4,
+  .playbook-section__body h5,
+  .playbook-section__body h6 {
+    text-align: left;
+  }
+}

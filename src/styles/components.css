@@ -420,12 +420,15 @@
   border-collapse: collapse;
   display: block;
   font-family: var(--font-sans);
+  font-variant-numeric: lining-nums tabular-nums;
   font-size: var(--text-small);
-  line-height: 1.45;
+  hyphens: none;
+  line-height: 1.42;
   margin-block: var(--space-5);
   max-width: 100%;
   overflow-x: auto;
   position: relative;
+  text-align: left;
   width: 100%;
 }
 
@@ -434,9 +437,11 @@
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   min-width: 9rem;
+  overflow-wrap: break-word;
   padding: var(--space-3);
   position: relative;
   text-align: left;
+  text-wrap: pretty;
   transition:
     background-color 140ms ease,
     box-shadow 140ms ease;
@@ -464,6 +469,49 @@
   text-align: center;
   white-space: nowrap;
   width: 1%;
+}
+
+.playbook-section__body table.table-numbered {
+  table-layout: fixed;
+}
+
+.playbook-section__body table.table-numbered col.table-number-column {
+  width: 1.75rem;
+}
+
+.playbook-section__body table.table-numbered col.table-challenge-column {
+  width: 32%;
+}
+
+.playbook-section__body table.table-numbered col.table-principle-column {
+  width: auto;
+}
+
+.playbook-section__body table.table-numbered th:first-child {
+  width: 36%;
+}
+
+.playbook-section__body table.table-numbered th:last-child {
+  width: 64%;
+}
+
+.playbook-section__body table.table-numbered td:first-child {
+  color: var(--color-accent);
+  font-size: var(--text-tiny);
+  font-weight: 700;
+  padding-inline: var(--space-3) var(--space-2);
+  text-align: right;
+  white-space: nowrap;
+  width: 1%;
+}
+
+.playbook-section__body table.table-numbered td:nth-child(2) {
+  font-weight: 650;
+  width: 34%;
+}
+
+.playbook-section__body table.table-numbered td:last-child {
+  width: 64%;
 }
 
 .playbook-section__body table.is-interactive-table th.is-table-row-highlight,
@@ -613,6 +661,10 @@
     width: 100%;
   }
 
+  .playbook-section__body table.table-fit-first-column thead {
+    display: table-header-group;
+  }
+
   .playbook-section__body table.table-fit-first-column tbody {
     display: table-row-group;
   }
@@ -629,5 +681,25 @@
 
   .playbook-section__body table.table-fit-first-column td:first-child {
     width: 1%;
+  }
+
+  .playbook-section__body table.table-numbered {
+    table-layout: fixed;
+  }
+
+  .playbook-section__body table.table-numbered col.table-number-column {
+    width: 1.25rem;
+  }
+
+  .playbook-section__body table.table-numbered col.table-challenge-column {
+    width: 48%;
+  }
+
+  .playbook-section__body table.table-numbered td:first-child {
+    padding-inline: var(--space-1);
+  }
+
+  .playbook-section__body table.table-numbered td:nth-child(2) {
+    width: 48%;
   }
 }

@@ -54,23 +54,35 @@ As of 2024, only around 1% of AI models were trained using Indonesian language (
 
 These risks are real. But they’re not reasons to step away from AI. They’re reasons to step in with the right posture.
 
-<table>
+<table class="table-fit-first-column table-numbered">
+  <colgroup>
+    <col class="table-number-column" />
+    <col class="table-challenge-column" />
+    <col class="table-principle-column" />
+  </colgroup>
+  <thead>
   <tr>
-    <th>Challenge</th>
+    <th colspan="2">Challenge</th>
     <th>Principle</th>
   </tr>
+  </thead>
+  <tbody>
   <tr>
-    <td><ol start="1"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI can understand humans, but only the tip of the iceberg</li></ol></td>
+    <td class="table-number">1.</td>
+    <td>AI can understand humans, but only the tip of the iceberg</td>
     <td>Supplement your data analysis with everything GenAI cannot see (look beyond text and words: physical context, emotion, social politeness, cultural nuances, etc). Use your human intelligence and human senses to complete its understanding.</td>
   </tr>
   <tr>
-    <td><ol start="2"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI sounds confident even when it’s wrong</li></ol></td>
+    <td class="table-number">2.</td>
+    <td>AI sounds confident even when it’s wrong</td>
     <td>Always start with your own thesis and perspective. Let AI critique, build on and structure your thinking, rather than initiate it. If you rely on its answers, verify through sources outside of GenAI.</td>
   </tr>
   <tr>
-    <td><ol start="3"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI has a Western-biased worldview</li></ol></td>
+    <td class="table-number">3.</td>
+    <td>AI has a Western-biased worldview</td>
     <td>Prioritise your own local cultural interpretation, it’s much more valuable than you think. Don’t delegate human and cultural understanding to GenAI alone.</td>
   </tr>
+  </tbody>
 </table>
 
 In two sentences:

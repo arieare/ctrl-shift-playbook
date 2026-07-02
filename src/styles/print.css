@@ -205,12 +205,16 @@
     border-collapse: collapse;
     break-inside: auto;
     display: table !important;
+    font-family: var(--font-sans);
+    font-variant-numeric: lining-nums tabular-nums;
     font-size: var(--text-tiny);
-    line-height: 1.22;
+    hyphens: none;
+    line-height: 1.28;
     margin: 10pt 0;
     max-width: 100%;
     overflow: visible;
     table-layout: fixed;
+    text-align: left;
     width: 100%;
   }
 
@@ -234,10 +238,16 @@
     border: 1px solid #cccccc;
     display: table-cell !important;
     min-width: 0;
-    overflow-wrap: anywhere;
+    overflow-wrap: break-word;
     padding: 4pt;
+    text-align: left;
+    text-wrap: pretty;
     vertical-align: top;
     word-break: normal;
+  }
+
+  .playbook-section__body th {
+    font-weight: 700;
   }
 
   .playbook-section__body th:first-child,
@@ -254,5 +264,35 @@
     text-align: center;
     white-space: nowrap;
     width: 1%;
+  }
+
+  .playbook-section__body table.table-numbered {
+    table-layout: fixed;
+  }
+
+  .playbook-section__body table.table-numbered col.table-number-column {
+    width: 1.65rem;
+  }
+
+  .playbook-section__body table.table-numbered col.table-challenge-column {
+    width: 32%;
+  }
+
+  .playbook-section__body table.table-numbered col.table-principle-column {
+    width: auto;
+  }
+
+  .playbook-section__body table.table-numbered td:first-child {
+    color: var(--color-accent);
+    font-size: var(--text-tiny);
+    font-weight: 700;
+    padding-inline: 3pt;
+    text-align: right;
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .playbook-section__body table.table-numbered td:nth-child(2) {
+    font-weight: 650;
   }
 }

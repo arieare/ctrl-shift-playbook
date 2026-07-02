@@ -93,15 +93,64 @@ template.innerHTML = `
     .context-system {
       aspect-ratio: 1;
       justify-self: center;
+      overflow: visible;
       position: relative;
       width: min(100%, 19rem);
     }
 
     .context-field {
-      background: radial-gradient(circle at 50% 90%,var(--color-accent), var(--color-accent-2));
+      background:
+        radial-gradient(circle at 68% 32%, color-mix(in srgb, var(--diagram-accent-3) 24%, transparent), transparent 34%),
+        radial-gradient(circle at 50% 90%, var(--color-accent), var(--color-accent-2));
       border-radius: 50%;
+      box-shadow:
+        0 0.75rem 1.45rem color-mix(in srgb, var(--diagram-accent) 12%, transparent),
+        inset 0 0 2.25rem color-mix(in srgb, var(--diagram-bg) 12%, transparent);
       inset: 0;
+      overflow: hidden;
+      pointer-events: none;
       position: absolute;
+      z-index: 0;
+    }
+
+    .context-field__metaballs {
+      filter: blur(0.18rem) saturate(1.08);
+      height: 100%;
+      inset: 0;
+      mix-blend-mode: screen;
+      opacity: 0.54;
+      overflow: visible;
+      position: absolute;
+      width: 100%;
+    }
+
+    .context-field__blob {
+      fill: url(#context-field-gradient-a);
+      transform-box: fill-box;
+      transform-origin: center;
+      will-change: transform;
+    }
+
+    .context-field__blob--a {
+      animation: field-metaball-a 18s ease-in-out infinite alternate;
+    }
+
+    .context-field__blob--b {
+      animation: field-metaball-b 20s ease-in-out -3s infinite alternate;
+    }
+
+    .context-field__blob--c {
+      animation: field-metaball-c 17s ease-in-out -2s infinite alternate;
+    }
+
+    .context-field__blob--d {
+      animation: field-metaball-d 19s ease-in-out -4s infinite alternate;
+    }
+
+    .context-field__blob--e {
+      animation: field-metaball-e 21s ease-in-out -5s infinite alternate;
+      fill: url(#context-field-gradient-highlight);
+      opacity: 0.58;
     }
 
     .genai-core {
@@ -214,8 +263,16 @@ template.innerHTML = `
     }
 
     .context-word__label {
+      -webkit-text-stroke: 0.045rem var(--diagram-accent);
       animation: none;
       display: block;
+      paint-order: stroke fill;
+      text-shadow:
+        0 0.055rem 0 var(--diagram-accent),
+        0.055rem 0 0 var(--diagram-accent),
+        0 -0.055rem 0 var(--diagram-accent),
+        -0.055rem 0 0 var(--diagram-accent),
+        0 0.12rem 0.9rem color-mix(in srgb, var(--diagram-accent) 46%, transparent);
     }
 
     .context-word:nth-of-type(1) {
@@ -334,6 +391,36 @@ template.innerHTML = `
       100% { transform: translate3d(0.42rem, -0.18rem, 0) scale(1.16); }
     }
 
+    @keyframes field-metaball-a {
+      0% { transform: translate3d(-0.08rem, -0.06rem, 0) scale(1); }
+      45% { transform: translate3d(0.16rem, 0.08rem, 0) scale(1.015); }
+      100% { transform: translate3d(0.06rem, 0.14rem, 0) scale(0.99); }
+    }
+
+    @keyframes field-metaball-b {
+      0% { transform: translate3d(0.12rem, -0.1rem, 0) scale(0.995); }
+      50% { transform: translate3d(-0.12rem, 0.16rem, 0) scale(1.02); }
+      100% { transform: translate3d(-0.16rem, -0.02rem, 0) scale(1.005); }
+    }
+
+    @keyframes field-metaball-c {
+      0% { transform: translate3d(-0.14rem, 0.14rem, 0) scale(0.995); }
+      55% { transform: translate3d(0.08rem, -0.12rem, 0) scale(1.018); }
+      100% { transform: translate3d(0.12rem, 0.08rem, 0) scale(1); }
+    }
+
+    @keyframes field-metaball-d {
+      0% { transform: translate3d(0.04rem, 0.08rem, 0) scale(1.01); }
+      50% { transform: translate3d(-0.12rem, -0.14rem, 0) scale(0.995); }
+      100% { transform: translate3d(0.16rem, -0.06rem, 0) scale(1.02); }
+    }
+
+    @keyframes field-metaball-e {
+      0% { transform: translate3d(-0.06rem, -0.12rem, 0) scale(1); }
+      50% { transform: translate3d(0.12rem, 0.12rem, 0) scale(1.025); }
+      100% { transform: translate3d(-0.12rem, 0.04rem, 0) scale(0.99); }
+    }
+
     @media (max-width: 560px) {
       :host {
         margin: 1.5rem 0;
@@ -400,6 +487,10 @@ template.innerHTML = `
         width: min(18rem, 92vw);
       }
 
+      .context-field {
+        inset: 0;
+      }
+
       .context-word {
         font-size: var(--text-small);
         max-width: 5.75rem;
@@ -426,6 +517,7 @@ template.innerHTML = `
         font-size: var(--text-base);
       }
 
+      .context-field__metaballs,
       .genai-core__metaballs {
         display: none;
       }
@@ -468,11 +560,13 @@ template.innerHTML = `
       .connector__line,
       .connector__head,
       .genai-core__blob,
+      .context-field__blob,
       .context-word {
         transition: none;
       }
 
-      .genai-core__blob {
+      .genai-core__blob,
+      .context-field__blob {
         animation: none;
       }
 
@@ -492,7 +586,9 @@ template.innerHTML = `
       <span class="connector__head"></span>
     </div>
     <div class="context-system">
-      <div class="context-field" aria-hidden="true"></div>
+      <div class="context-field" aria-hidden="true">
+
+      </div>
       <div class="genai-core" aria-hidden="true">
         <svg class="genai-core__metaballs" viewBox="0 0 100 100" focusable="false">
           <defs>
