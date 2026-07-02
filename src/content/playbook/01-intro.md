@@ -1,5 +1,5 @@
 ---
-title: "Prologue"
+title: "Intro"
 navLabel: "Intro"
 summary: ""
 order: 1
@@ -18,4 +18,14 @@ Special gratitude for:
 - +30 workshop participants
 - Mention of names
 
-As AI is evolving in its nature, this playbook too is aiming to be updated following the flow of the fast moving AI.
+> As AI is evolving in its nature, this playbook too is aiming to be updated following the flow of the fast moving AI.
+
+**A note on what you won’t find here.**
+
+You won’t find specific tool recommendations or prompting templates in this playbook. That’s deliberate.
+
+Tools change. Models change. The way we communicate with AI today may look very different six months from now. What we’ve tried to capture here are the principles and judgment calls that should hold up regardless of which tool you’re using. For the faster-moving, more technical stuff, we’ll share those separately in places/avenues that are easier to keep updated.
+
+This playbook is meant to be the slower layer. The part that doesn’t go stale.
+
+March, 2026

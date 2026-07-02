@@ -1,5 +1,7 @@
 import "./ai-quadrant-diagram";
+import { confirmDownload } from "./download-confirm";
 import "./genai-context-diagram";
+import { downloadPlaybookPdf } from "./playbook-pdf";
 import "./project-ai-alignment-canvas";
 
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));
@@ -220,11 +222,26 @@ const initializePrimaryButtonGlow = (button: HTMLElement) => {
 
 primaryButtons.forEach(initializePrimaryButtonGlow);
 
-printButtons.forEach((button) => button.addEventListener("click", () => {
-  window.print();
+printButtons.forEach((button) => button.addEventListener("click", async () => {
+  const shouldDownload = await confirmDownload();
+
+  if (!shouldDownload) {
+    return;
+  }
+
+  const originalLabel = button.innerHTML;
+
+  button.disabled = true;
+  button.textContent = "Preparing PDF...";
+  try {
+    await downloadPlaybookPdf();
+  } finally {
+    button.disabled = false;
+    button.innerHTML = originalLabel;
+  }
 }));
 
-let updateSiteHeader = () => {};
+let updateSiteHeader = () => { };
 
 if (siteHeader) {
   updateSiteHeader = () => {
@@ -466,6 +483,29 @@ if (readerPages.length > 0) {
     });
   };
 
+  const getCssPixelValue = (name: string) => {
+    const value = window.getComputedStyle(document.documentElement).getPropertyValue(name);
+
+    return Number.parseFloat(value) || 0;
+  };
+
+  const scrollToReaderTarget = (target: HTMLElement) => {
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior;
+    const stickyHeaderHeight = siteHeader?.getBoundingClientRect().height
+      || getCssPixelValue("--sticky-header-height");
+    const mainContentOffset = playbookShell
+      ? Number.parseFloat(window.getComputedStyle(playbookShell).paddingTop) || 0
+      : getCssPixelValue("--space-4");
+    const scrollOffset = stickyHeaderHeight + mainContentOffset;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - scrollOffset;
+
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+    });
+    document.documentElement.style.scrollBehavior = previousScrollBehavior;
+  };
+
   const activateReaderPage = (
     pageIndex: number,
     options: { headingId?: string; replaceHash?: boolean; scroll?: boolean; updateHash?: boolean } = {},
@@ -495,7 +535,9 @@ if (readerPages.length > 0) {
     if (options.scroll) {
       const target = activeHeadingId ? document.getElementById(activeHeadingId) : activePage.section;
 
-      target?.scrollIntoView({ block: "start" });
+      if (target) {
+        scrollToReaderTarget(target);
+      }
       clearHeroFromViewport();
     }
   };

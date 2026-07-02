@@ -1,0 +1,87 @@
+---
+title: "Section 1: General Principle of AI in Research"
+navLabel: "General Principle"
+summary: ""
+order: 2
+---
+
+## The Stance
+<div class="sub-heading">
+How we approach AI in research - the principles that guide our posture, individually and collectively
+</div>
+
+
+<div class="editorial">
+
+The shift is real. The pressure is rising.
+
+This space is still ours to shape. Step in before the lines are drawn without us.
+
+Move forward with intent and deep understanding.
+
+AI must be thoughtfully intertwined with the research process,
+
+not just layered on top of it.
+
+</div>
+
+Generative AI's emergence is fundamentally altering life, notably impacting corporate researchers. Consequently, the potential disruptions driven by AI necessitate careful consideration.
+
+In the research domain, AI is a distinct tool compared to previous technologies. It presents an opportunity to revolutionize research practices, making them both faster and more cost-effective. This is definitely an exciting prospect for both researchers and stakeholders.
+
+---
+
+Before we talk about how to use AI, it’s worth being clear about what we’re working with.
+
+##### 1. AI has knowledge about humans, but only the tip of the iceberg.
+
+Generative AI is trained on vast amounts of information that humans have written on the internet about ourselves. Meanwhile most things we do, think and feel are hard to explain in words or are simply reflexes in response to our (social, physical, cultural) context which GenAI cannot “see”. 
+Two things are useful to understand humans
+Linguistic nuances e.g. slang, which AI gets to some extent but indeed may miss. 
+Context, non-verbal, intent, emotion, which AI cannot possibly know
+Both of these things are especially important in high context cultures like Indonesia. 
+Worse, when it hits a gap in its training data, it tends to fabricate rather than admit the gap. So even when AI sounds informed, it isn’t necessarily reliable.
+
+##### 2. AI sounds confident even when it’s wrong.
+
+The bigger danger isn’t the gap itself. It’s how AI presents the gap. Outputs come back fluent, polished, and persuasive, whether they’re accurate or completely fabricated. The risk is a degradation of research quality hidden under elegant language, that leads to poor business decisions based on it. Over time, that erodes trust in the research itself. Verification has to become a habit, not a final-step audit.
+
+##### 3. AI has a heavily Western-biased worldview.
+
+As of 2024, only around 1% of AI models were trained using Indonesian language (source). But the broader pattern matters more than the number: AI is heavily weighted toward English-language data and Western cultural reference points. Put simply, when we ask GenAI to analyse Indonesian people, we are using western perspectives and mental models to make sense of what Indonesians are thinking and doing.
+
+#### Three Principles That Answer Them
+
+These risks are real. But they’re not reasons to step away from AI. They’re reasons to step in with the right posture.
+
+<table>
+  <tr>
+    <th>Challenge</th>
+    <th>Principle</th>
+  </tr>
+  <tr>
+    <td><ol start="1"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI can understand humans, but only the tip of the iceberg</li></ol></td>
+    <td>Supplement your data analysis with everything GenAI cannot see (look beyond text and words: physical context, emotion, social politeness, cultural nuances, etc). Use your human intelligence and human senses to complete its understanding.</td>
+  </tr>
+  <tr>
+    <td><ol start="2"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI sounds confident even when it’s wrong</li></ol></td>
+    <td>Always start with your own thesis and perspective. Let AI critique, build on and structure your thinking, rather than initiate it. If you rely on its answers, verify through sources outside of GenAI.</td>
+  </tr>
+  <tr>
+    <td><ol start="3"><li style="font-size: 0.8rem; margin-left: -12px; padding-left: 8px;">AI has a Western-biased worldview</li></ol></td>
+    <td>Prioritise your own local cultural interpretation, it’s much more valuable than you think. Don’t delegate human and cultural understanding to GenAI alone.</td>
+  </tr>
+</table>
+
+In two sentences:
+**Gen AI has a narrow text-based Western-biased knowledge base. So we need to supplement it with a real-world culturally-attuned perspective.**
+
+Key words
+
+**GenAI**: Text Based, Western Biased
+vs.
+**You**: Context-Aware, Culturally Attuned
+
+<div class="interactive-diagram">
+  <genai-context-diagram></genai-context-diagram>
+</div>

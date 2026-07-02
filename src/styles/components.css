@@ -5,7 +5,7 @@
   color: var(--color-bg);
   cursor: pointer;
   display: inline-flex;
-  font-size: 0.9375rem;
+  font-size: var(--text-small);
   font-weight: 600;
   justify-content: center;
   min-height: 2.5rem;
@@ -22,7 +22,7 @@
     radial-gradient(circle at var(--button-glow-x) var(--button-glow-y),
       color-mix(in srgb, var(--button-glow-color) 72%, var(--color-accent)) 0%,
       color-mix(in srgb, var(--color-accent) 82%, var(--color-accent-2)) 34%,
-      var(--color-accent-2) 72%);
+      var(--color-accent-2) 80%);
   background-color: var(--color-accent);
   overflow: hidden;
   position: relative;
@@ -85,7 +85,7 @@
   border-radius: calc(var(--radius-sm) - 1px);
   color: var(--color-muted);
   display: inline-flex;
-  font-size: 0.75rem;
+  font-size: var(--text-tiny);
   font-weight: 700;
   height: 1.5rem;
   justify-content: center;
@@ -135,7 +135,7 @@
 
 .site-search__result-title {
   display: block;
-  font-size: 0.9375rem;
+  font-size: var(--text-small);
   font-weight: 700;
 }
 
@@ -144,7 +144,7 @@
 .site-search__empty {
   color: var(--color-muted);
   display: block;
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.45;
 }
 
@@ -167,7 +167,7 @@
 
 .toc__label {
   color: var(--color-muted);
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   font-weight: 700;
   margin-bottom: var(--space-3);
   text-transform: uppercase;
@@ -183,7 +183,7 @@
 .toc__link {
   color: var(--color-muted);
   display: inline-block;
-  font-size: 0.9375rem;
+  font-size: var(--text-small);
   text-decoration: none;
 }
 
@@ -211,7 +211,7 @@
 .toc__sublink {
   color: var(--color-muted);
   display: inline-block;
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.35;
   text-decoration: none;
 }
@@ -256,13 +256,13 @@
 }
 
 .reader-nav__status {
-  font-size: 0.9375rem;
+  font-size: var(--text-small);
   white-space: nowrap;
 }
 
 .reader-nav__section-title {
   flex: 1 1 auto;
-  font-size: 0.8125rem;
+  font-size: var(--text-small);
   line-height: 1.4;
   min-width: 0;
   overflow: hidden;
@@ -286,7 +286,7 @@
 .license-icons {
   align-items: center;
   display: flex;
-  font-size: 2rem;
+  font-size: var(--text-h4);
   gap: var(--space-2);
   line-height: 1;
 }
@@ -297,7 +297,7 @@
   border-radius: 50%;
   color: var(--color-text);
   display: inline-flex;
-  font-size: 0.75rem;
+  font-size: var(--text-tiny);
   font-weight: 800;
   height: 2.25rem;
   justify-content: center;
@@ -324,6 +324,56 @@
   width: 0.875rem;
 }
 
+.pdf-confirm {
+  background: transparent;
+  border: 0;
+  color: var(--color-text);
+  inset: 0;
+  margin: auto;
+  max-width: min(26rem, calc(100vw - 2rem));
+  padding: 0;
+  position: fixed;
+  width: max-content;
+}
+
+.pdf-confirm::backdrop {
+  background: color-mix(in srgb, var(--color-text) 34%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.pdf-confirm__panel {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 1.25rem 3rem color-mix(in srgb, var(--color-text) 18%, transparent);
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+}
+
+.pdf-confirm__title {
+  font-family: var(--font-sans);
+  font-size: var(--text-h6);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.pdf-confirm__copy {
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--text-small);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.pdf-confirm__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  margin-top: var(--space-2);
+}
+
 .playbook-section {
   scroll-margin-top: var(--space-6);
 }
@@ -336,6 +386,10 @@
   .playbook-section__header {
     display: none;
   }
+
+  [data-reader-page-element][hidden] {
+    display: none !important;
+  }
 }
 
 .playbook-section__header>*+* {
@@ -346,7 +400,7 @@
   border-collapse: collapse;
   display: block;
   font-family: var(--font-sans);
-  font-size: 0.9375rem;
+  font-size: var(--text-small);
   line-height: 1.45;
   margin-block: var(--space-5);
   max-width: 100%;

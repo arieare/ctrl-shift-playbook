@@ -1,4 +1,6 @@
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from "pdf-lib";
+import { confirmDownload } from "./download-confirm";
+import { getPdfTypeScale, type PdfTypeScale } from "./pdf-type-scale";
 
 const template = document.createElement("template");
 
@@ -30,21 +32,21 @@ template.innerHTML = `
     }
 
     h3 {
-      font-size: 1rem;
+      font-size: var(--text-base);
       line-height: 1.2;
       margin: 0;
     }
 
     .version {
       color: var(--canvas-muted);
-      font-size: 0.875rem;
+      font-size: var(--text-small);
       font-weight: 700;
     }
 
     .lede {
       color: var(--canvas-text);
       flex-basis: 100%;
-      font-size: 0.9375rem;
+      font-size: var(--text-small);
       line-height: 1.35;
       margin: 0;
     }
@@ -67,7 +69,7 @@ template.innerHTML = `
       border-radius: var(--radius-sm, 0.25rem);
       cursor: pointer;
       font: inherit;
-      font-size: 0.9rem;
+      font-size: var(--text-small);
       font-weight: 600;
       min-height: 2.4rem;
       padding: 0 0.9rem;
@@ -99,7 +101,7 @@ template.innerHTML = `
 
     legend {
       color: var(--canvas-text);
-      font-size: 1rem;
+      font-size: var(--text-base);
       font-weight: 700;
       line-height: 1.2;
       padding: 0;
@@ -119,7 +121,7 @@ template.innerHTML = `
     .field-label {
       color: var(--canvas-muted);
       display: grid;
-      font-size: 0.8125rem;
+      font-size: var(--text-small);
       font-weight: 700;
       gap: 0.25rem;
       letter-spacing: 0;
@@ -134,7 +136,7 @@ template.innerHTML = `
       border-radius: 0;
       color: var(--canvas-text);
       font: inherit;
-      font-size: 0.95rem;
+      font-size: var(--text-small);
       min-height: 2rem;
       padding: 0.25rem 0;
       resize: vertical;
@@ -160,7 +162,7 @@ template.innerHTML = `
     }
 
     .sentence span {
-      font-size: 1.05rem;
+      font-size: var(--text-base);
       line-height: 1.25;
     }
 
@@ -173,7 +175,7 @@ template.innerHTML = `
       align-items: baseline;
       color: var(--canvas-text);
       display: flex;
-      font-size: 0.95rem;
+      font-size: var(--text-small);
       font-weight: 500;
       gap: 0.55rem;
       text-transform: none;
@@ -191,7 +193,7 @@ template.innerHTML = `
 
     table {
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: var(--text-small);
       min-width: 42rem;
       width: 100%;
     }
@@ -207,7 +209,7 @@ template.innerHTML = `
     th {
       background: var(--canvas-surface);
       color: var(--canvas-text);
-      font-size: 0.78rem;
+      font-size: var(--text-tiny);
       font-weight: 700;
     }
 
@@ -249,7 +251,7 @@ template.innerHTML = `
       }
 
       .sentence span {
-        font-size: 1rem;
+        font-size: var(--text-base);
       }
     }
 
@@ -257,32 +259,39 @@ template.innerHTML = `
       :host {
         break-inside: avoid;
         display: block;
+        height: var(--canvas-print-height, calc(100vh - 36mm));
         margin: 0;
+        overflow: hidden;
         page-break-inside: avoid;
       }
 
       .canvas {
         border-top: 1px solid #cccccc;
-        font-size: 7.4pt;
-        padding-top: 5pt;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        font-size: var(--text-tiny);
+        height: 100%;
+        justify-content: start;
+        padding-top: 3pt;
       }
 
       .canvas__header {
         gap: 2pt 6pt;
-        margin-bottom: 5pt;
+        margin-bottom: 3pt;
       }
 
       h3 {
-        font-size: 11pt;
+        font-size: var(--text-base);
       }
 
       .version {
-        font-size: 8pt;
+        font-size: var(--text-tiny);
       }
 
       .lede {
-        font-size: 7.4pt;
-        line-height: 1.2;
+        font-size: var(--text-tiny);
+        line-height: 1.12;
       }
 
       .canvas-actions {
@@ -290,17 +299,17 @@ template.innerHTML = `
       }
 
       .canvas-form {
-        gap: 5pt;
+        gap: 3pt;
       }
 
       fieldset {
         break-inside: avoid;
-        gap: 3pt;
+        gap: 2pt;
         page-break-inside: avoid;
       }
 
       legend {
-        font-size: 7.8pt;
+        font-size: var(--text-tiny);
         line-height: 1.1;
       }
 
@@ -313,13 +322,13 @@ template.innerHTML = `
       }
 
       .field-grid {
-        gap: 4pt 7pt;
+        gap: 2.5pt 6pt;
         grid-template-columns: repeat(4, minmax(0, 1fr));
       }
 
       label,
       .field-label {
-        font-size: 6.4pt;
+        font-size: var(--text-tiny);
         gap: 1pt;
         line-height: 1.1;
       }
@@ -327,23 +336,23 @@ template.innerHTML = `
       input[type="text"],
       textarea {
         border-bottom-color: #bdbdbd;
-        font-size: 7.2pt;
-        min-height: 11pt;
+        font-size: var(--text-tiny);
+        min-height: 8pt;
         padding: 1pt 0;
       }
 
       textarea {
-        line-height: 1.15;
-        min-height: 22pt;
+        line-height: 1.1;
+        min-height: 14pt;
       }
 
       .sentence {
-        gap: 3pt;
+        gap: 2pt;
         grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 0.45fr);
       }
 
       .sentence span {
-        font-size: 7.6pt;
+        font-size: var(--text-tiny);
         line-height: 1.1;
       }
 
@@ -354,13 +363,13 @@ template.innerHTML = `
       }
 
       .choice {
-        font-size: 7pt;
-        gap: 4pt;
+        font-size: var(--text-tiny);
+        gap: 3pt;
         line-height: 1.1;
       }
 
       .choice input {
-        inline-size: 7pt;
+        inline-size: 6pt;
       }
 
       .posture-wrap {
@@ -368,34 +377,34 @@ template.innerHTML = `
       }
 
       table {
-        font-size: 6.7pt;
+        font-size: var(--text-tiny);
         min-width: 0;
       }
 
       th,
       td {
-        padding: 2.5pt;
+        padding: 1.5pt 2pt;
       }
 
       th {
-        font-size: 6.3pt;
+        font-size: var(--text-tiny);
       }
 
       .phase-name {
-        width: 48pt;
+        width: 43pt;
       }
 
       .posture-choice {
-        width: 32pt;
+        width: 28pt;
       }
 
       .posture-choice input {
-        transform: scale(0.72);
+        transform: scale(0.62);
         transform-origin: center;
       }
 
       .posture-note input {
-        min-height: 9pt;
+        min-height: 7pt;
       }
     }
   </style>
@@ -494,7 +503,7 @@ template.innerHTML = `
   </section>
 `;
 
-type CanvasData = {
+export type CanvasData = {
   commitments: {
     noExternal: boolean;
     raiseConcerns: boolean;
@@ -520,6 +529,7 @@ type PdfContext = {
   lightAccent: ReturnType<typeof rgb>;
   lightGray: ReturnType<typeof rgb>;
   page: PDFPage;
+  type: PdfTypeScale;
 };
 
 const phases = [
@@ -546,8 +556,8 @@ class ProjectAIAlignmentCanvas extends HTMLElement {
     }
 
     this.renderPostureRows();
-    this.shadowRoot?.querySelector("[data-download-canvas]")?.addEventListener("click", () => {
-      void this.downloadPdf();
+    this.shadowRoot?.querySelector<HTMLButtonElement>("[data-download-canvas]")?.addEventListener("click", (event) => {
+      void this.confirmAndDownloadPdf(event.currentTarget);
     });
     this.shadowRoot?.querySelector("[data-clear-canvas]")?.addEventListener("click", () => {
       this.clearCanvas();
@@ -618,6 +628,35 @@ class ProjectAIAlignmentCanvas extends HTMLElement {
     this.shadowRoot?.querySelector<HTMLFormElement>("[data-canvas-form]")?.reset();
   }
 
+  private async confirmAndDownloadPdf(button: EventTarget | null) {
+    const shouldDownload = await confirmDownload({
+      confirmLabel: "Download Canvas",
+      message: "This will generate the Project AI Alignment Canvas as a PDF file.",
+      title: "Download canvas?",
+    });
+
+    if (!shouldDownload) {
+      return;
+    }
+
+    const downloadButton = button instanceof HTMLButtonElement ? button : undefined;
+    const originalLabel = downloadButton?.textContent ?? "";
+
+    if (downloadButton) {
+      downloadButton.disabled = true;
+      downloadButton.textContent = "Preparing PDF...";
+    }
+
+    try {
+      await this.downloadPdf();
+    } finally {
+      if (downloadButton) {
+        downloadButton.disabled = false;
+        downloadButton.textContent = originalLabel;
+      }
+    }
+  }
+
   private async downloadPdf() {
     const data = this.getData();
     const bytes = await createCanvasPdf(data);
@@ -638,7 +677,7 @@ const drawText = (
   value: string,
   x: number,
   y: number,
-  size = 9,
+  size: number,
   maxWidth?: number,
 ) => {
   if (!value) {
@@ -655,11 +694,11 @@ const drawText = (
   });
 };
 
-const drawSectionTitle = ({ page, bold, accent }: PdfContext, number: string, title: string, y: number) => {
+const drawSectionTitle = ({ page, bold, accent, type }: PdfContext, number: string, title: string, y: number) => {
   page.drawText(`${number}  ${title}`, {
     color: accent,
     font: bold,
-    size: 13,
+    size: type.small,
     x: 32,
     y,
   });
@@ -675,14 +714,14 @@ const drawLineField = (
 ) => {
   const { page, bold, gray, lightGray } = ctx;
 
-  page.drawText(label, { color: gray, font: bold, size: 7.5, x, y: y + 14 });
+  page.drawText(label, { color: gray, font: bold, size: ctx.type.tiny, x, y: y + 14 });
   page.drawLine({
     color: lightGray,
     end: { x: x + width, y },
     start: { x, y },
     thickness: 1,
   });
-  drawText(ctx, value, x, y + 3, 9, width - 4);
+  drawText(ctx, value, x, y + 3, ctx.type.tiny, width - 4);
 };
 
 const drawCheckbox = (ctx: PdfContext, checked: boolean, x: number, y: number, size = 8) => {
@@ -713,8 +752,8 @@ const drawCheckbox = (ctx: PdfContext, checked: boolean, x: number, y: number, s
   }
 };
 
-const drawHint = ({ page, font, gray }: PdfContext, value: string, y: number) => {
-  page.drawText(value, { color: gray, font, size: 8.5, x: 32, y });
+const drawHint = ({ page, font, gray, type }: PdfContext, value: string, y: number) => {
+  page.drawText(value, { color: gray, font, size: type.tiny, x: 32, y });
 };
 
 const wrapText = (value: string, font: PDFFont, size: number, maxWidth: number) => {
@@ -743,7 +782,7 @@ const wrapText = (value: string, font: PDFFont, size: number, maxWidth: number) 
   return lines.length > 0 ? lines : [""];
 };
 
-const createCanvasPdf = async (data: CanvasData) => {
+export const createCanvasPdf = async (data: CanvasData) => {
   const pdf = await PDFDocument.create();
   const page = pdf.addPage([595.28, 841.89]);
   const font = await pdf.embedFont(StandardFonts.Helvetica);
@@ -757,27 +796,28 @@ const createCanvasPdf = async (data: CanvasData) => {
     lightAccent: rgb(0.96, 0.96, 0.96),
     lightGray: rgb(0.82, 0.82, 0.82),
     page,
+    type: getPdfTypeScale(),
   };
 
   page.drawText("Project AI Alignment Canvas", {
     color: ctx.black,
     font: bold,
-    size: 24,
+    size: ctx.type.h5,
     x: 32,
     y: 800,
   });
-  page.drawText("v1.0", { color: ctx.gray, font: bold, size: 12, x: 368, y: 804 });
+  page.drawText("v1.0", { color: ctx.gray, font: bold, size: ctx.type.small, x: 368, y: 804 });
   page.drawText("The agreement between researcher and stakeholder on how AI will be used in this project.", {
     color: ctx.black,
     font,
-    size: 10,
+    size: ctx.type.small,
     x: 32,
     y: 783,
   });
   page.drawText("Drafted by the research lead. Reviewed at kickoff. Re-open if scope changes.", {
     color: ctx.gray,
     font,
-    size: 9.5,
+    size: ctx.type.tiny,
     x: 32,
     y: 770,
   });
@@ -796,9 +836,9 @@ const createCanvasPdf = async (data: CanvasData) => {
 
   drawSectionTitle(ctx, "2", "THE DECISION THIS RESEARCH UNLOCKS", 632);
   drawHint(ctx, "One sentence. If this can't be filled, the project shouldn't start.", 618);
-  page.drawText("This research will inform", { color: ctx.black, font, size: 12, x: 32, y: 598 });
+  page.drawText("This research will inform", { color: ctx.black, font, size: ctx.type.small, x: 32, y: 598 });
   drawLineField(ctx, "", data.decisionWhat, 176, 594, 252);
-  page.drawText("by", { color: ctx.black, font, size: 12, x: 438, y: 598 });
+  page.drawText("by", { color: ctx.black, font, size: ctx.type.small, x: 438, y: 598 });
   drawLineField(ctx, "", data.decisionBy, 456, 594, 107);
 
   drawSectionTitle(ctx, "3", "SENSITIVITY LEVEL", 562);
@@ -811,8 +851,8 @@ const createCanvasPdf = async (data: CanvasData) => {
     const y = 527 - index * 17;
 
     drawCheckbox(ctx, data.sensitivity === label, 36, y, 8);
-    page.drawText(label, { color: ctx.black, font, size: 11, x: 52, y: y - 1 });
-    page.drawText(`— ${description}`, { color: ctx.gray, font, size: 10, x: 105, y: y - 1 });
+    page.drawText(label, { color: ctx.black, font, size: ctx.type.small, x: 52, y: y - 1 });
+    page.drawText(`— ${description}`, { color: ctx.gray, font, size: ctx.type.tiny, x: 105, y: y - 1 });
   });
 
   drawSectionTitle(ctx, "4", "AI POSTURE BY PHASE", 468);
@@ -828,12 +868,12 @@ const createCanvasPdf = async (data: CanvasData) => {
   drawSectionTitle(ctx, "6", "STAKEHOLDER COMMITMENTS", 130);
   drawHint(ctx, "Initialed by the stakeholder lead at kickoff.", 116);
   drawCheckbox(ctx, data.commitments.noExternal, 36, 94, 8);
-  drawText(ctx, "I will not feed deliverables into external LLMs without consulting the research lead.", 52, 93, 10, 470);
+  drawText(ctx, "I will not feed deliverables into external LLMs without consulting the research lead.", 52, 93, ctx.type.tiny, 470);
   drawCheckbox(ctx, data.commitments.raiseConcerns, 36, 74, 8);
-  drawText(ctx, "I will raise concerns about AI usage during the project, not after.", 52, 73, 10, 470);
+  drawText(ctx, "I will raise concerns about AI usage during the project, not after.", 52, 73, ctx.type.tiny, 470);
 
   drawSectionTitle(ctx, "7", "DISCLOSURE STATEMENT DRAFT", 42);
-  drawText(ctx, data.disclosure, 32, 26, 8.5, 520);
+  drawText(ctx, data.disclosure, 32, 26, ctx.type.tiny, 520);
 
   return pdf.save();
 };
@@ -855,7 +895,7 @@ const drawPostureTable = (ctx: PdfContext, data: CanvasData, x: number, y: numbe
   });
 
   headers.forEach((header, index) => {
-    page.drawText(header, { color: accent, font: bold, size: 8, x: currentX + 5, y: y + phases.length * rowHeight + 7 });
+    page.drawText(header, { color: accent, font: bold, size: ctx.type.tiny, x: currentX + 5, y: y + phases.length * rowHeight + 7 });
     currentX += colWidths[index];
   });
 
@@ -891,13 +931,13 @@ const drawPostureTable = (ctx: PdfContext, data: CanvasData, x: number, y: numbe
     const rowY = y + (phases.length - index - 1) * rowHeight;
     const posture = data.posture[phase] ?? { mode: "", notes: "" };
 
-    page.drawText(phase, { color: black, font: bold, size: 9.5, x: x + 6, y: rowY + 8 });
+    page.drawText(phase, { color: black, font: bold, size: ctx.type.tiny, x: x + 6, y: rowY + 8 });
     postureModes.forEach((mode, modeIndex) => {
       const cellX = x + colWidths[0] + colWidths.slice(1, modeIndex + 1).reduce((sum, width) => sum + width, 0);
 
       drawCheckbox(ctx, posture.mode === mode.value, cellX + colWidths[modeIndex + 1] / 2 - 4, rowY + 8, 8);
     });
-    drawText(ctx, posture.notes, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + 6, rowY + 8, 8, colWidths[4] - 12);
+    drawText(ctx, posture.notes, x + colWidths[0] + colWidths[1] + colWidths[2] + colWidths[3] + 6, rowY + 8, ctx.type.tiny, colWidths[4] - 12);
   });
 };
 

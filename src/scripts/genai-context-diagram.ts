@@ -31,7 +31,7 @@ template.innerHTML = `
       border-radius: 50%;
       display: inline-flex;
       font-family: var(--font-sans, system-ui, sans-serif);
-      font-size: clamp(1rem, 2.2vw, 1.35rem);
+      font-size: var(--text-h6);
       font-weight: 650;
       justify-content: center;
       justify-self: center;
@@ -96,7 +96,7 @@ template.innerHTML = `
       border-radius: 50%;
       display: flex;
       font-family: var(--font-sans, system-ui, sans-serif);
-      font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+      font-size: var(--text-h6);
       font-weight: 650;
       height: 43%;
       justify-content: center;
@@ -113,7 +113,7 @@ template.innerHTML = `
       color: var(--diagram-text);
       cursor: grab;
       font-family: var(--font-sans, system-ui, sans-serif);
-      font-size: clamp(0.72rem, 1.45vw, 0.95rem);
+      font-size: var(--text-small);
       font-weight: 650;
       line-height: 1.08;
       max-width: 7.25rem;
@@ -302,7 +302,7 @@ template.innerHTML = `
       }
 
       .context-word {
-        font-size: clamp(0.68rem, 3vw, 0.82rem);
+        font-size: var(--text-small);
         max-width: 5.75rem;
       }
     }
@@ -324,7 +324,7 @@ template.innerHTML = `
 
       .node,
       .genai-core {
-        font-size: 10pt;
+        font-size: var(--text-base);
       }
 
       .connector__line,
@@ -348,7 +348,7 @@ template.innerHTML = `
       .connector__head::before {
         content: "→";
         display: block;
-        font-size: 11pt;
+        font-size: var(--text-base);
         font-weight: 800;
         line-height: 1;
       }
@@ -358,7 +358,7 @@ template.innerHTML = `
       }
 
       .context-word {
-        font-size: 7.2pt;
+        font-size: var(--text-tiny);
         left: var(--target-left);
         max-width: 54pt;
         opacity: 1;

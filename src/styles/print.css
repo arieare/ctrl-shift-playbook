@@ -13,7 +13,7 @@
 
   body {
     color: #000000;
-    font-size: 11pt;
+    font-size: var(--text-base);
   }
 
   .skip-link,
@@ -50,12 +50,45 @@
   }
 
   .landing-hero {
-    border-bottom: 1px solid #cccccc;
+    align-items: center;
+    border-bottom: 0;
     break-after: page;
+    display: flex;
+    justify-content: center;
+    min-height: calc(100vh - 36mm);
+    margin: 0;
+    padding: 0;
+  }
+
+  .landing-hero__inner {
+    justify-content: center;
+    min-height: calc(100vh - 36mm);
+  }
+
+  .landing-hero__inner img {
+    margin-inline: auto;
+  }
+
+  .playbook-section__body h2:has(+ p project-ai-alignment-canvas) {
+    break-before: page;
+    break-after: avoid;
+    margin: 0 0 10pt;
+    page-break-after: avoid;
+    page-break-before: always;
+  }
+
+  .playbook-section__body p:has(> project-ai-alignment-canvas) {
+    break-after: page;
+    break-before: avoid;
+    margin: 0;
+    page-break-after: always;
+    page-break-before: avoid;
+  }
+
+  project-ai-alignment-canvas {
+    --canvas-print-height: calc(100vh - 36mm - 34pt);
     display: block;
-    min-height: auto;
-    margin-bottom: 24pt;
-    padding-bottom: 18pt;
+    min-height: var(--canvas-print-height);
   }
 
   .print-toc {
@@ -66,7 +99,7 @@
 
   .print-toc__eyebrow {
     color: #333333;
-    font-size: 10pt;
+    font-size: var(--text-small);
     letter-spacing: 0.08em;
     margin: 0 0 10pt;
     text-transform: uppercase;
@@ -74,7 +107,7 @@
 
   .print-toc__title {
     border-bottom: 1px solid #cccccc;
-    font-size: 24pt;
+    font-size: var(--text-h3);
     margin: 0 0 18pt;
     padding-bottom: 10pt;
   }
@@ -106,13 +139,13 @@
   }
 
   .print-toc__link {
-    font-size: 12pt;
+    font-size: var(--text-base);
     font-weight: 700;
   }
 
   .print-toc__sublink {
     color: #333333;
-    font-size: 10pt;
+    font-size: var(--text-small);
   }
 
   .landing-hero p,
@@ -121,11 +154,11 @@
   }
 
   h1 {
-    font-size: 30pt;
+    font-size: var(--text-h1);
   }
 
   h2 {
-    font-size: 20pt;
+    font-size: var(--text-h2);
   }
 
   .section-stack {
@@ -139,7 +172,7 @@
   }
 
   .playbook-section__body {
-    font-size: 11pt;
+    font-size: var(--text-base);
   }
 
   .playbook-section__body table,
@@ -155,7 +188,7 @@
     border-collapse: collapse;
     break-inside: auto;
     display: table !important;
-    font-size: 7.1pt;
+    font-size: var(--text-tiny);
     line-height: 1.22;
     margin: 10pt 0;
     max-width: 100%;

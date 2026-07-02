@@ -3,6 +3,10 @@ const template = document.createElement("template");
 template.innerHTML = `
   <style>
     :host {
+      --axis-hot-x: 50%;
+      --axis-hot-y: 50%;
+      --quadrant-accent: var(--color-accent, #4b4bc3);
+      --quadrant-accent-3: var(--color-accent-3, #d6a9ac);
       --quadrant-bg: var(--color-bg, #ffffff);
       --quadrant-text: var(--color-text, #111111);
       --quadrant-muted: var(--color-muted, #5d5d5d);
@@ -30,17 +34,23 @@ template.innerHTML = `
     }
 
     .axis {
-      background: currentColor;
       color: var(--quadrant-text);
       display: block;
-      opacity: 0.82;
+      opacity: 0.92;
       position: absolute;
       transition: transform 820ms cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 1;
     }
 
     .axis--x {
-      height: 2px;
+      background:
+        radial-gradient(
+          circle at var(--axis-hot-x) 50%,
+          var(--quadrant-accent-3) 0,
+          color-mix(in srgb, var(--quadrant-accent-3) 64%, var(--quadrant-accent)) 16%,
+          var(--quadrant-accent) 44%
+        );
+      height: 4px;
       left: 8%;
       top: 50%;
       transform: scaleX(0);
@@ -49,12 +59,19 @@ template.innerHTML = `
     }
 
     .axis--y {
+      background:
+        radial-gradient(
+          circle at 50% var(--axis-hot-y),
+          var(--quadrant-accent-3) 0,
+          color-mix(in srgb, var(--quadrant-accent-3) 64%, var(--quadrant-accent)) 16%,
+          var(--quadrant-accent) 44%
+        );
       height: 82%;
       left: 50%;
       top: 8%;
       transform: scaleY(0);
       transform-origin: center;
-      width: 2px;
+      width: 4px;
     }
 
     .axis::before,
@@ -68,53 +85,65 @@ template.innerHTML = `
     }
 
     .axis--x::before {
-      border-bottom: 0.45rem solid transparent;
-      border-right: 0.7rem solid currentColor;
-      border-top: 0.45rem solid transparent;
-      left: -0.7rem;
+      background: var(--quadrant-accent);
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+      height: 1.1rem;
+      left: -0.95rem;
       top: 50%;
       transform: translateY(-50%);
+      width: 0.95rem;
     }
 
     .axis--x::after {
-      border-bottom: 0.45rem solid transparent;
-      border-left: 0.7rem solid currentColor;
-      border-top: 0.45rem solid transparent;
-      right: -0.7rem;
+      background: var(--quadrant-accent);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      height: 1.1rem;
+      right: -0.95rem;
       top: 50%;
       transform: translateY(-50%);
+      width: 0.95rem;
     }
 
     .axis--y::before {
-      border-bottom: 0.7rem solid currentColor;
-      border-left: 0.45rem solid transparent;
-      border-right: 0.45rem solid transparent;
+      background: var(--quadrant-accent);
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      height: 0.95rem;
       left: 50%;
-      top: -0.7rem;
+      top: -0.95rem;
       transform: translateX(-50%);
+      width: 1.1rem;
     }
 
     .axis--y::after {
-      border-left: 0.45rem solid transparent;
-      border-right: 0.45rem solid transparent;
-      border-top: 0.7rem solid currentColor;
-      bottom: -0.7rem;
+      background: var(--quadrant-accent);
+      bottom: -0.95rem;
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      height: 0.95rem;
       left: 50%;
       transform: translateX(-50%);
+      width: 1.1rem;
     }
 
     .axis-label {
-      background: var(--quadrant-bg);
+      -webkit-text-stroke: 0.22rem var(--quadrant-bg);
+      background: transparent;
       color: var(--quadrant-muted);
-      font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      font-size: var(--text-small);
       font-weight: 700;
       letter-spacing: 0;
       line-height: 1.15;
       opacity: 0;
-      padding: 0.125rem 0.25rem;
+      padding: 0;
+      paint-order: stroke fill;
       pointer-events: none;
       position: absolute;
       text-align: center;
+      text-shadow:
+        0 0 1px var(--quadrant-bg),
+        0 1px 1px var(--quadrant-bg),
+        1px 0 1px var(--quadrant-bg),
+        0 -1px 1px var(--quadrant-bg),
+        -1px 0 1px var(--quadrant-bg);
       transition:
         opacity 360ms ease 900ms,
         transform 360ms ease 900ms;
@@ -128,7 +157,7 @@ template.innerHTML = `
     }
 
     .axis-label--x {
-      font-size: clamp(0.68rem, 1.3vw, 0.82rem);
+      font-size: var(--text-small);
       right: 0;
       top: calc(50% - 2rem);
       transform: translate(0.2rem, -0.15rem);
@@ -166,8 +195,8 @@ template.innerHTML = `
 
     .zone:hover,
     .zone.is-open {
-      background: transparent;
-      border-color: transparent;
+      background: color-mix(in srgb, var(--quadrant-accent, #4b4bc3) 7%, var(--quadrant-bg));
+      border-color: color-mix(in srgb, var(--quadrant-accent, #4b4bc3) 16%, transparent);
     }
 
     .zone--assist {
@@ -193,7 +222,7 @@ template.innerHTML = `
     .zone__title {
       color: var(--quadrant-muted);
       display: block;
-      font-size: clamp(0.78rem, 1.5vw, 0.95rem);
+      font-size: var(--text-small);
       font-weight: 700;
       letter-spacing: 0;
       line-height: 1.05;
@@ -208,7 +237,7 @@ template.innerHTML = `
       color: var(--quadrant-text);
       display: grid;
       gap: 0.42rem;
-      font-size: clamp(0.76rem, 1.45vw, 0.92rem);
+      font-size: var(--text-small);
       line-height: 1.25;
       opacity: 0;
       transform: translateY(0.2rem);
@@ -255,13 +284,13 @@ template.innerHTML = `
       box-sizing: border-box;
       color: #ffffff;
       cursor: grab;
-      font-size: clamp(0.74rem, 1.55vw, 1rem);
+      font-size: var(--text-small);
       font-weight: 500;
-      height: 0.8rem;
       left: var(--label-left);
       letter-spacing: 0;
       line-height: 1.16;
       max-width: 46%;
+      max-height: 0.8rem;
       opacity: 0;
       overflow: hidden;
       padding: 0;
@@ -270,16 +299,16 @@ template.innerHTML = `
       text-align: left;
       top: var(--label-top);
       touch-action: none;
-      transform: translate(-50%, -50%) scale(0.96);
+      transform: translate(-50%, -50%) scale(0.92);
       transition:
-        opacity 260ms ease var(--label-delay),
-        left 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--label-delay),
-      top 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--label-delay),
-      transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--label-delay),
-        width 180ms ease var(--expand-delay, 0ms),
-        height 180ms ease var(--expand-delay, 0ms),
-        padding 180ms ease var(--expand-delay, 0ms),
-        border-radius 180ms ease var(--expand-delay, 0ms);
+        opacity 340ms ease var(--label-delay),
+        left 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
+        top 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
+        transform 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
+        width 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        max-height 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        padding 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        border-radius 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms);
       user-select: none;
       width: 0.8rem;
     }
@@ -296,7 +325,7 @@ template.innerHTML = `
     .phase-label.is-dragging,
     .phase-label.is-returning {
       border-radius: 6px;
-      height: auto;
+      max-height: 7rem;
       padding: 0.55rem 0.75rem;
       width: min(var(--label-width), 46%);
     }
@@ -317,7 +346,10 @@ template.innerHTML = `
     .phase-label__text {
       display: block;
       opacity: 0;
-      transition: opacity 120ms ease var(--expand-delay, 0ms);
+      transform: translateY(0.18rem);
+      transition:
+        opacity 220ms ease calc(var(--expand-delay, 0ms) + 90ms),
+        transform 260ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--expand-delay, 0ms) + 70ms);
       white-space: normal;
     }
 
@@ -325,6 +357,7 @@ template.innerHTML = `
     .phase-label.is-dragging .phase-label__text,
     .phase-label.is-returning .phase-label__text {
       opacity: 1;
+      transform: translateY(0);
     }
 
     :host(.has-phase) .phase-label {
@@ -378,7 +411,7 @@ template.innerHTML = `
 
     .phase-control__label {
       color: var(--quadrant-muted);
-      font-size: 0.82rem;
+      font-size: var(--text-small);
       font-weight: 700;
       line-height: 1;
     }
@@ -390,7 +423,7 @@ template.innerHTML = `
       border-radius: 6px;
       color: var(--quadrant-text);
       font: inherit;
-      font-size: 0.9rem;
+      font-size: var(--text-small);
       max-width: 100%;
       min-height: 2.25rem;
       padding: 0.35rem 0.5rem;
@@ -435,7 +468,7 @@ template.innerHTML = `
       }
 
       .axis-label--x {
-        font-size: 0.75rem;
+        font-size: var(--text-small);
         right: 0;
         width: 7rem;
       }
@@ -457,11 +490,11 @@ template.innerHTML = `
       }
 
       .zone__title {
-        font-size: clamp(0.72rem, 3vw, 0.86rem);
+        font-size: var(--text-small);
       }
 
       .phase-label {
-        font-size: clamp(0.64rem, 2.8vw, 0.78rem);
+        font-size: var(--text-tiny);
         height: 0.7rem;
         max-width: 42%;
         width: 0.7rem;
@@ -513,11 +546,13 @@ template.innerHTML = `
       }
 
       .axis--x {
+        height: 3pt;
         transform: scaleX(1);
       }
 
       .axis--y {
         transform: scaleY(1);
+        width: 3pt;
       }
 
       .axis::before,
@@ -528,42 +563,48 @@ template.innerHTML = `
 
       .axis::before,
       .axis::after {
-        background: transparent;
         border: 0;
         display: block;
-        font-size: 10pt;
-        font-weight: 800;
-        height: auto;
-        line-height: 1;
-        width: auto;
       }
 
       .axis--x::before {
-        content: "←";
-        left: -10pt;
+        background: var(--quadrant-accent);
+        clip-path: polygon(100% 0, 0 50%, 100% 100%);
+        height: 8pt;
+        left: -7pt;
         top: 50%;
         transform: translateY(-50%);
+        width: 7pt;
       }
 
       .axis--x::after {
-        content: "→";
-        right: -10pt;
+        background: var(--quadrant-accent);
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+        height: 8pt;
+        right: -7pt;
         top: 50%;
         transform: translateY(-50%);
+        width: 7pt;
       }
 
       .axis--y::before {
-        content: "↑";
+        background: var(--quadrant-accent);
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
+        height: 7pt;
         left: 50%;
-        top: -10pt;
+        top: -7pt;
         transform: translateX(-50%);
+        width: 8pt;
       }
 
       .axis--y::after {
-        bottom: -10pt;
-        content: "↓";
+        background: var(--quadrant-accent);
+        bottom: -7pt;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
+        height: 7pt;
         left: 50%;
         transform: translateX(-50%);
+        width: 8pt;
       }
 
       .axis-label--y {
@@ -575,9 +616,13 @@ template.innerHTML = `
       }
 
       .zone {
+        background: #ffffff;
+        border-color: #bdbdbd;
+        color: #000000;
         cursor: default;
         gap: 0.24rem;
         min-height: 34%;
+        opacity: 1;
         padding: 0.32rem 0.45rem;
       }
 
@@ -591,20 +636,31 @@ template.innerHTML = `
       }
 
       .zone__title {
-        font-size: 7.2pt;
+        color: #000000;
+        font-size: var(--text-tiny);
       }
 
       .zone__criteria {
-        font-size: 6.2pt;
+        color: #000000;
+        font-size: var(--text-tiny);
         gap: 0.08rem;
         line-height: 1.12;
       }
 
+      .axis-label {
+        -webkit-text-stroke: 0;
+        color: #000000;
+        text-shadow: none;
+      }
+
       .phase-label {
         animation: none !important;
+        background: #ffffff;
+        border: 1px solid #666666;
         border-radius: 5px;
-        font-size: 6.2pt;
-        height: auto;
+        color: #000000;
+        font-size: var(--text-tiny);
+        max-height: none;
         max-width: 43%;
         opacity: 1;
         padding: 0.28rem 0.4rem;
@@ -775,6 +831,11 @@ const phaseLabels: Record<PhaseId, PhaseLabel[]> = {
 class AIQuadrantDiagram extends HTMLElement {
   private activePhase: PhaseId = "none";
   private activeLabelDrag?: PhaseLabelDragState;
+  private axisAnimationFrame = 0;
+  private axisCurrentX = 50;
+  private axisCurrentY = 50;
+  private axisTargetX = 50;
+  private axisTargetY = 50;
   private hoveredZone?: PhaseZone;
   private observer?: IntersectionObserver;
   private toggledZone?: PhaseZone;
@@ -793,6 +854,8 @@ class AIQuadrantDiagram extends HTMLElement {
     this.shadowRoot?.addEventListener("pointerdown", this.handleLabelPointerDown);
     this.shadowRoot?.addEventListener("pointerover", this.handlePointerOver);
     this.shadowRoot?.addEventListener("pointerout", this.handlePointerOut);
+    this.shadowRoot?.querySelector(".quadrant__canvas")?.addEventListener("pointermove", this.handleAxisPointerMove);
+    this.shadowRoot?.querySelector(".quadrant__canvas")?.addEventListener("pointerleave", this.handleAxisPointerLeave);
     this.renderPhaseLabels(this.getConfiguredPhase() ?? "none");
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -824,6 +887,9 @@ class AIQuadrantDiagram extends HTMLElement {
     this.shadowRoot?.removeEventListener("pointerdown", this.handleLabelPointerDown);
     this.shadowRoot?.removeEventListener("pointerover", this.handlePointerOver);
     this.shadowRoot?.removeEventListener("pointerout", this.handlePointerOut);
+    this.shadowRoot?.querySelector(".quadrant__canvas")?.removeEventListener("pointermove", this.handleAxisPointerMove);
+    this.shadowRoot?.querySelector(".quadrant__canvas")?.removeEventListener("pointerleave", this.handleAxisPointerLeave);
+    this.stopAxisPointerAnimation();
     this.stopLabelDragTracking();
   }
 
@@ -975,6 +1041,75 @@ class AIQuadrantDiagram extends HTMLElement {
 
     this.activeLabelDrag = undefined;
   };
+
+  private handleAxisPointerMove = (event: Event) => {
+    const pointerEvent = event as PointerEvent;
+    const canvas = pointerEvent.currentTarget as HTMLElement | null;
+
+    if (!canvas || pointerEvent.pointerType === "touch") {
+      return;
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    const x = ((pointerEvent.clientX - rect.left) / Math.max(rect.width, 1)) * 100;
+    const y = ((pointerEvent.clientY - rect.top) / Math.max(rect.height, 1)) * 100;
+
+    this.axisTargetX = this.clamp(x, 0, 100);
+    this.axisTargetY = this.clamp(y, 0, 100);
+    this.startAxisPointerAnimation();
+  };
+
+  private handleAxisPointerLeave = () => {
+    this.axisTargetX = 50;
+    this.axisTargetY = 50;
+    this.startAxisPointerAnimation();
+  };
+
+  private startAxisPointerAnimation() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      this.axisCurrentX = this.axisTargetX;
+      this.axisCurrentY = this.axisTargetY;
+      this.updateAxisPointerVariables();
+      return;
+    }
+
+    if (!this.axisAnimationFrame) {
+      this.axisAnimationFrame = window.requestAnimationFrame(this.animateAxisPointer);
+    }
+  }
+
+  private animateAxisPointer = () => {
+    this.axisCurrentX += (this.axisTargetX - this.axisCurrentX) * 0.16;
+    this.axisCurrentY += (this.axisTargetY - this.axisCurrentY) * 0.16;
+    this.updateAxisPointerVariables();
+
+    if (
+      Math.abs(this.axisTargetX - this.axisCurrentX) < 0.08
+      && Math.abs(this.axisTargetY - this.axisCurrentY) < 0.08
+    ) {
+      this.axisCurrentX = this.axisTargetX;
+      this.axisCurrentY = this.axisTargetY;
+      this.updateAxisPointerVariables();
+      this.axisAnimationFrame = 0;
+      return;
+    }
+
+    this.axisAnimationFrame = window.requestAnimationFrame(this.animateAxisPointer);
+  };
+
+  private updateAxisPointerVariables() {
+    this.style.setProperty("--axis-hot-x", `${this.axisCurrentX.toFixed(2)}%`);
+    this.style.setProperty("--axis-hot-y", `${this.axisCurrentY.toFixed(2)}%`);
+  }
+
+  private stopAxisPointerAnimation() {
+    if (!this.axisAnimationFrame) {
+      return;
+    }
+
+    window.cancelAnimationFrame(this.axisAnimationFrame);
+    this.axisAnimationFrame = 0;
+  }
 
   private handlePointerOver = (event: Event) => {
     const pointerEvent = event as PointerEvent;
