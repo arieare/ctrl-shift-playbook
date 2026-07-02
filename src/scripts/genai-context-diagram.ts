@@ -6,7 +6,7 @@ template.innerHTML = `
       --diagram-accent: var(--color-accent, #4b4bc3);
       --diagram-accent-3: var(--color-accent-3, #d6a9ac);
       --diagram-bg: var(--color-bg, #ffffff);
-      --diagram-text: var(--color-text, #111111);
+      --diagram-text: #fff;
       --diagram-muted: var(--color-muted, #5d5d5d);
       --diagram-surface: var(--color-surface, #f7f7f7);
       --diagram-border: var(--color-border, #d8d8d8);
@@ -33,7 +33,7 @@ template.innerHTML = `
       align-items: center;
       aspect-ratio: 1;
       background: var(--diagram-bg);
-      border: 2px solid currentColor;
+      // border: 2px solid currentColor;
       border-radius: 50%;
       display: inline-flex;
       font-family: var(--font-sans, system-ui, sans-serif);
@@ -47,10 +47,8 @@ template.innerHTML = `
     }
 
     .node.you {
-      background-color: var(--color-accent);
-      background: radial-gradient(circle at 50% 90%,var(--color-accent-2), var(--color-accent));
-      color: var(--color-bg);
-
+      background: radial-gradient(circle at 50% 90%,var(--color-accent-3), var(--color-accent-4), var(--color-accent-5));
+      color: var(--color-text);
     }
 
     .connector {
@@ -100,11 +98,7 @@ template.innerHTML = `
     }
 
     .context-field {
-      // background:
-      //   radial-gradient(circle at center, var(--diagram-bg) 0 37%, transparent 38%),
-      //   var(--diagram-surface);
-      // border: 2px solid currentColor;
-      background: radial-gradient(circle at 50% 90%,var(--color-accent-3), var(--color-accent-4), var(--color-accent-5));
+      background: radial-gradient(circle at 50% 90%,var(--color-accent), var(--color-accent-2));
       border-radius: 50%;
       inset: 0;
       position: absolute;
@@ -170,11 +164,11 @@ template.innerHTML = `
 
     .genai-core__label {
       position: relative;
-      text-shadow:
-        0 0 0.2rem var(--color-accent-4),
-        0 0.02rem 0.1rem var(--diagram-bg);
+      // text-shadow:
+      //   0 0 0.2rem var(--color-accent-4),
+      //   0 0.02rem 0.1rem var(--diagram-bg);
       z-index: 2;
-      color: var(--color-accent);
+      color: var(--color-bg);
     }
 
     .context-word {

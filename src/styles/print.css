@@ -244,4 +244,15 @@
   .playbook-section__body td:first-child {
     width: 15%;
   }
+
+  .playbook-section__body table.table-fit-first-column {
+    table-layout: auto;
+    width: 100%;
+  }
+
+  .playbook-section__body table.table-fit-first-column td:first-child {
+    text-align: center;
+    white-space: nowrap;
+    width: 1%;
+  }
 }

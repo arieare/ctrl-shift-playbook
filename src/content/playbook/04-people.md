@@ -28,70 +28,70 @@ Across all of these scenarios, what becomes clear is that AI is not redefining t
 
 The strongest researchers are not those who use AI the most, but those who are agile in understanding the context of their environment in respect to AI and then use it deliberately, be it by: 
 
-<table>
+<table class="table-fit-first-column">
   <tr>
     <th colspan=2>Framing better questions</th>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>what to ask AI</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>what NOT to ask AI</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>how to structure a problem before involving AI</td>
   </tr>
 </table>
 
-<table>
+<table class="table-fit-first-column">
   <tr>
     <th colspan=2>Evaluating outputs critically</th>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>spot when AI output is shallow, generic, or overconfident</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>detect missing nuance or flattened meaning</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>compare AI-generated patterns with actual data</td>
   </tr>
 </table>
 
-<table>
+<table class="table-fit-first-column">
   <tr>
     <th colspan=2>Making their reasoning visible to others</th>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>where AI was introduced</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>what steps remained human-led</td>
   </tr>
 </table>
 
-<table>
+<table class="table-fit-first-column">
   <tr>
     <th colspan=2>Boundary-setting</th>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>where AI adds value</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>where it introduces risk</td>
   </tr>
   <tr>
-    <td style="width: 64px;">☞</td>
+    <td>☞</td>
     <td>where it should not be used</td>
   </tr>
 </table>
