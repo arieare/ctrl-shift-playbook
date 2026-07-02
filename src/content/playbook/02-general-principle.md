@@ -85,3 +85,5 @@ vs.
 <div class="interactive-diagram">
   <genai-context-diagram></genai-context-diagram>
 </div>
+
+<img class="print-diagram-image" src="/images/print/genai-context-diagram.png" alt="Print version of the GenAI context diagram" />

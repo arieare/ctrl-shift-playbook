@@ -2,6 +2,10 @@
   display: none;
 }
 
+.print-diagram-image {
+  display: none;
+}
+
 @media print {
   @page {
     margin: 18mm;
@@ -89,6 +93,19 @@
     --canvas-print-height: calc(100vh - 36mm - 34pt);
     display: block;
     min-height: var(--canvas-print-height);
+  }
+
+  .interactive-diagram {
+    display: none !important;
+  }
+
+  .print-diagram-image {
+    break-inside: avoid;
+    display: block;
+    margin: 12pt 0;
+    max-width: 100%;
+    page-break-inside: avoid;
+    width: 100%;
   }
 
   .print-toc {

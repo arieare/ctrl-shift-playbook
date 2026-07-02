@@ -40,6 +40,8 @@ Map these forces and four zones appear:
   <ai-quadrant-diagram></ai-quadrant-diagram>
 </div>
 
+<img class="print-diagram-image" src="/images/print/ai-quadrant-default.png" alt="Print version of the default AI quadrant diagram" />
+
 #### The Four Zones
 
 - 🔴 **HUMAN ONLY** - High judgment, real consequences. Humans lead. Always.
@@ -63,6 +65,8 @@ Where strategic direction is determined.
 <div class="interactive-diagram">
   <ai-quadrant-diagram phase="planning"></ai-quadrant-diagram>
 </div>
+
+<img class="print-diagram-image" src="/images/print/ai-quadrant-planning.png" alt="Print version of the planning phase AI quadrant diagram" />
 
 ##### What we learn
 
@@ -96,6 +100,8 @@ Where authenticity is protected.
 <div class="interactive-diagram">
   <ai-quadrant-diagram phase="data-collection"></ai-quadrant-diagram>
 </div>
+
+<img class="print-diagram-image" src="/images/print/ai-quadrant-data-collection.png" alt="Print version of the data collection phase AI quadrant diagram" />
 
 ##### What we learn
 
@@ -137,6 +143,8 @@ Where things move fast — and where it's easiest to distort the truth.
 <div class="interactive-diagram">
   <ai-quadrant-diagram phase="data-analysis"></ai-quadrant-diagram>
 </div>
+
+<img class="print-diagram-image" src="/images/print/ai-quadrant-data-analysis.png" alt="Print version of the data analysis phase AI quadrant diagram" />
 
 ##### What we learn
 

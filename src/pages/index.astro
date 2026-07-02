@@ -76,6 +76,16 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
       <div class="site-header__actions">
         <form class="site-search" role="search" data-site-search>
           <label class="visually-hidden" for="site-search-input">Search playbook</label>
+          <button
+            class="site-search__trigger"
+            type="button"
+            aria-label="Search playbook"
+            aria-controls="site-search-input"
+            aria-expanded="false"
+            data-search-trigger
+          >
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          </button>
           <input
             class="site-search__input"
             id="site-search-input"
@@ -89,7 +99,10 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
           <span class="site-search__shortcut" aria-hidden="true">⌘K</span>
           <div class="site-search__results" id="site-search-results" data-search-results hidden></div>
         </form>
-        <button class="button" type="button" data-print-button><i class="fa-solid fa-download"></i> Download PDF</button>
+        <button class="button" type="button" aria-label="Download PDF" data-print-button>
+          <i class="fa-solid fa-download" aria-hidden="true"></i>
+          <span class="button__label">Download PDF</span>
+        </button>
       </div>
     </div>
   </header>

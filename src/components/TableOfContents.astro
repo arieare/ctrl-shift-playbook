@@ -9,7 +9,6 @@ const { items } = Astro.props as { items: TocItem[] };
 ---
 
 <nav class="toc" aria-label="Playbook sections">
-  <p class="toc__label">Sections</p>
   <ol class="toc__list">
     {
       items.map((item) => (

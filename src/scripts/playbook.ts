@@ -1,7 +1,6 @@
 import "./ai-quadrant-diagram";
 import { confirmDownload } from "./download-confirm";
 import "./genai-context-diagram";
-import { downloadPlaybookPdf } from "./playbook-pdf";
 import "./project-ai-alignment-canvas";
 
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));
@@ -223,22 +222,17 @@ const initializePrimaryButtonGlow = (button: HTMLElement) => {
 primaryButtons.forEach(initializePrimaryButtonGlow);
 
 printButtons.forEach((button) => button.addEventListener("click", async () => {
-  const shouldDownload = await confirmDownload();
+  const shouldDownload = await confirmDownload({
+    confirmLabel: "Open Print Dialog",
+    message: "This will open your browser print dialog. Choose Save as PDF to download the playbook.",
+    title: "Print to PDF?",
+  });
 
   if (!shouldDownload) {
     return;
   }
 
-  const originalLabel = button.innerHTML;
-
-  button.disabled = true;
-  button.textContent = "Preparing PDF...";
-  try {
-    await downloadPlaybookPdf();
-  } finally {
-    button.disabled = false;
-    button.innerHTML = originalLabel;
-  }
+  window.print();
 }));
 
 let updateSiteHeader = () => { };
@@ -247,7 +241,8 @@ if (siteHeader) {
   updateSiteHeader = () => {
     const heroBottom = hero?.getBoundingClientRect().bottom ?? 0;
     const playbookTop = playbookShell?.getBoundingClientRect().top ?? Number.POSITIVE_INFINITY;
-    const isVisible = !hero || heroBottom <= 0 || playbookTop <= window.innerHeight * 0.5;
+    const hasExpandedMobileSearch = searchForm?.classList.contains("is-expanded") ?? false;
+    const isVisible = hasExpandedMobileSearch || !hero || heroBottom <= 0 || playbookTop <= window.innerHeight * 0.5;
 
     siteHeader.classList.toggle("is-visible", isVisible);
     siteHeader.setAttribute("aria-hidden", String(!isVisible));
@@ -676,7 +671,9 @@ if (readerPages.length > 0) {
   };
 
   if (searchForm && searchInput && searchResults) {
+    const searchTrigger = searchForm.querySelector<HTMLButtonElement>("[data-search-trigger]");
     const shortcutHint = searchForm.querySelector<HTMLElement>(".site-search__shortcut");
+    const mobileSearchQuery = window.matchMedia("(max-width: 760px)");
     const navigatorWithUserAgentData = window.navigator as Navigator & {
       userAgentData?: { platform?: string };
     };
@@ -687,15 +684,47 @@ if (readerPages.length > 0) {
       shortcutHint.textContent = isMacPlatform ? "⌘K" : "Ctrl K";
     }
 
+    const expandMobileSearch = () => {
+      if (!mobileSearchQuery.matches) {
+        return;
+      }
+
+      searchForm.classList.add("is-expanded");
+      searchTrigger?.setAttribute("aria-expanded", "true");
+      updateSiteHeader();
+    };
+
+    const collapseMobileSearchIfEmpty = () => {
+      if (!mobileSearchQuery.matches || searchInput.value.trim()) {
+        return;
+      }
+
+      searchForm.classList.remove("is-expanded");
+      searchTrigger?.setAttribute("aria-expanded", "false");
+      updateSiteHeader();
+    };
+
     const dismissSearchIfOutside = (target: EventTarget | null) => {
-      if (target instanceof Node && searchForm.contains(target)) {
+      const nextTarget = target instanceof Node ? target : document.activeElement;
+
+      if (nextTarget instanceof Node && searchForm.contains(nextTarget)) {
         return;
       }
       closeSearchResults();
+      collapseMobileSearchIfEmpty();
     };
 
+    searchTrigger?.addEventListener("click", () => {
+      expandMobileSearch();
+      window.requestAnimationFrame(() => {
+        searchInput.focus({ preventScroll: true });
+      });
+    });
     searchInput.addEventListener("input", renderSearchResults);
-    searchInput.addEventListener("focus", renderSearchResults);
+    searchInput.addEventListener("focus", () => {
+      expandMobileSearch();
+      renderSearchResults();
+    });
     searchForm.addEventListener("focusout", (event) => {
       window.setTimeout(() => {
         dismissSearchIfOutside(event.relatedTarget);
@@ -706,6 +735,7 @@ if (readerPages.length > 0) {
         event.preventDefault();
         closeSearchResults();
         searchInput.blur();
+        collapseMobileSearchIfEmpty();
       }
     });
     searchForm.addEventListener("submit", (event) => {
