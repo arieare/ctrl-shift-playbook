@@ -103,6 +103,26 @@ html {
   padding-inline-start: 1.5rem;
 }
 
+.playbook-section__body .zone-text-highlight {
+  font-weight: 800;
+}
+
+.playbook-section__body .zone-text-highlight--human {
+  color: var(--color-red-4);
+}
+
+.playbook-section__body .zone-text-highlight--guided {
+  color: var(--color-orange-4);
+}
+
+.playbook-section__body .zone-text-highlight--assist {
+  color: var(--color-yellow-4);
+}
+
+.playbook-section__body .zone-text-highlight--automate {
+  color: var(--color-green-4);
+}
+
 .playbook-section__body .editorial {
   margin-bottom: var(--space-6);
 }

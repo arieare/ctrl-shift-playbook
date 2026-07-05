@@ -44,10 +44,10 @@ Map these forces and four zones appear:
 
 #### The Four Zones
 
-- 🔴 **HUMAN ONLY** - High judgment, real consequences. Humans lead. Always.
-- 🟠 **GUIDED INTERPRETATION** - AI explores. Humans interpret.
-- 🟡 **AI ASSIST** - AI accelerates. Humans refine.
-- 🟢 **AI AUTOMATE** - AI executes. Humans supervise.
+- <strong class="zone-text-highlight zone-text-highlight--human">HUMAN ONLY</strong> - High judgment, real consequences. Humans lead. Always.
+- <strong class="zone-text-highlight zone-text-highlight--guided">GUIDED INTERPRETATION</strong> - AI explores. Humans interpret.
+- <strong class="zone-text-highlight zone-text-highlight--assist">AI ASSIST</strong> - AI accelerates. Humans refine.
+- <strong class="zone-text-highlight zone-text-highlight--automate">AI AUTOMATE</strong> - AI executes. Humans supervise.
 
 This is not about permission. It is about responsibility.
 

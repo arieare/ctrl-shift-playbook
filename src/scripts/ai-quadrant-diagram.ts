@@ -12,6 +12,18 @@ template.innerHTML = `
       --quadrant-muted: var(--color-muted, #5d5d5d);
       --quadrant-surface: var(--color-surface, #f7f7f7);
       --quadrant-border: var(--color-border, #d8d8d8);
+      --quadrant-assist-highlight: var(--color-yellow-1, #F3EDCE);
+      --quadrant-assist-highlight-end: var(--color-yellow-2, #F5E49C);
+      --quadrant-human-highlight: var(--color-red-1, #FDE9EC);
+      --quadrant-human-highlight-end: var(--color-red-2, #F793A7);
+      --quadrant-human-label: var(--color-red-5, #2C030F);
+      --quadrant-automate-highlight: var(--color-green-1, #E2F4E4);
+      --quadrant-automate-highlight-end: var(--color-green-2, #A5D9AC);
+      --quadrant-automate-label: var(--color-green-5, #29392B);
+      --quadrant-guided-highlight: var(--color-orange-1, #FBEBDF);
+      --quadrant-guided-highlight-end: var(--color-orange-2, #F5C29C);
+      --quadrant-guided-label: var(--color-orange-5, #533114);
+      --quadrant-assist-label: var(--color-yellow-5, #695616);
       display: block;
       margin: 2rem 0;
     }
@@ -168,14 +180,17 @@ template.innerHTML = `
       appearance: none;
       background: transparent;
       border: 1px solid transparent;
-      border-radius: 0;
+      border-radius: var(--radius-sm, 0.25rem);
+      box-sizing: border-box;
       color: inherit;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      min-height: 32%;
+      height: 34%;
+      min-height: 0;
       opacity: 0.92;
+      overflow: hidden;
       padding: clamp(0.5rem, 2vw, 1.25rem);
       position: absolute;
       text-align: left;
@@ -188,39 +203,55 @@ template.innerHTML = `
     }
 
     .zone:focus-visible {
-      border-color: currentColor;
-      outline: 2px solid currentColor;
-      outline-offset: 3px;
+      outline: none;
     }
 
     .zone:hover,
-    .zone.is-open {
-      background: color-mix(in srgb, var(--quadrant-accent, #4b4bc3) 7%, var(--quadrant-bg));
-      border-color: color-mix(in srgb, var(--quadrant-accent, #4b4bc3) 16%, transparent);
+    .zone.is-open,
+    :host(.has-selected-phase) .zone {
+      background:
+        linear-gradient(
+          135deg,
+          var(--zone-highlight) 0%,
+          color-mix(in srgb, var(--zone-highlight) 68%, var(--zone-highlight-end)) 100%
+        );
+      border-color: transparent;
     }
 
     .zone--assist {
-      left: 7%;
-      top: 15%;
+      --zone-highlight: var(--quadrant-assist-highlight);
+      --zone-highlight-end: var(--quadrant-assist-highlight-end);
+      --zone-label-color: var(--quadrant-assist-label);
+      left: 8%;
+      top: 12%;
     }
 
     .zone--human {
+      --zone-highlight: var(--quadrant-human-highlight);
+      --zone-highlight-end: var(--quadrant-human-highlight-end);
+      --zone-label-color: var(--quadrant-human-label);
       left: 54%;
-      top: 15%;
+      top: 12%;
     }
 
     .zone--automate {
-      left: 7%;
-      top: 56%;
+      --zone-highlight: var(--quadrant-automate-highlight);
+      --zone-highlight-end: var(--quadrant-automate-highlight-end);
+      --zone-label-color: var(--quadrant-automate-label);
+      left: 8%;
+      top: 54%;
     }
 
     .zone--guided {
+      --zone-highlight: var(--quadrant-guided-highlight);
+      --zone-highlight-end: var(--quadrant-guided-highlight-end);
+      --zone-label-color: var(--quadrant-guided-label);
       left: 54%;
-      top: 56%;
+      top: 54%;
     }
 
     .zone__title {
-      color: var(--quadrant-muted);
+      color: var(--zone-label-color, var(--quadrant-muted));
       display: block;
       font-size: var(--text-small);
       font-weight: 700;
@@ -278,8 +309,8 @@ template.innerHTML = `
     }
 
     .phase-label {
-      background: #595959;
-      border: 1px solid #4d4d4d;
+      background: var(--phase-label-bg, #595959);
+      border: 1px solid color-mix(in srgb, var(--phase-label-bg, #595959) 82%, var(--quadrant-bg));
       border-radius: 999px;
       box-sizing: border-box;
       color: #ffffff;
@@ -305,12 +336,30 @@ template.innerHTML = `
         left 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
         top 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
         transform 620ms cubic-bezier(0.16, 1, 0.3, 1) var(--label-delay),
-        width 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
-        max-height 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
-        padding 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
-        border-radius 360ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms);
+        width 680ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        max-height 680ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        padding 680ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        border-radius 680ms cubic-bezier(0.16, 1, 0.3, 1) var(--expand-delay, 0ms),
+        filter 520ms ease var(--expand-delay, 0ms);
       user-select: none;
+      will-change: width, max-height, padding, border-radius, filter;
       width: 0.8rem;
+    }
+
+    .phase-label[data-zone="assist"] {
+      --phase-label-bg: var(--quadrant-assist-label);
+    }
+
+    .phase-label[data-zone="human"] {
+      --phase-label-bg: var(--quadrant-human-label);
+    }
+
+    .phase-label[data-zone="automate"] {
+      --phase-label-bg: var(--quadrant-automate-label);
+    }
+
+    .phase-label[data-zone="guided"] {
+      --phase-label-bg: var(--quadrant-guided-label);
     }
 
     .phase-label:hover {
@@ -345,17 +394,21 @@ template.innerHTML = `
 
     .phase-label__text {
       display: block;
+      filter: blur(0.18rem);
       opacity: 0;
-      transform: translateY(0.18rem);
+      transform: translateY(0.22rem) scale(0.985);
       transition:
-        opacity 220ms ease calc(var(--expand-delay, 0ms) + 90ms),
-        transform 260ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--expand-delay, 0ms) + 70ms);
+        opacity 460ms ease calc(var(--expand-delay, 0ms) + 180ms),
+        filter 520ms ease calc(var(--expand-delay, 0ms) + 140ms),
+        transform 560ms cubic-bezier(0.16, 1, 0.3, 1) calc(var(--expand-delay, 0ms) + 140ms);
       white-space: normal;
+      will-change: opacity, filter, transform;
     }
 
     .phase-label.is-expanded .phase-label__text,
     .phase-label.is-dragging .phase-label__text,
     .phase-label.is-returning .phase-label__text {
+      filter: blur(0);
       opacity: 1;
       transform: translateY(0);
     }
@@ -474,19 +527,19 @@ template.innerHTML = `
       }
 
       .zone {
-        min-height: 34%;
+        height: 34%;
         padding: 0.75rem;
         width: 43%;
       }
 
       .zone--assist,
       .zone--automate {
-        left: 1%;
+        left: 3%;
       }
 
       .zone--human,
       .zone--guided {
-        left: 55%;
+        left: 54%;
       }
 
       .zone__title {
@@ -621,6 +674,7 @@ template.innerHTML = `
         color: #000000;
         cursor: default;
         gap: 0.24rem;
+        height: 34%;
         min-height: 34%;
         opacity: 1;
         padding: 0.32rem 0.45rem;

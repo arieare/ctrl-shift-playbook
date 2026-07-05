@@ -48,7 +48,7 @@ The bigger danger isn’t the gap itself. It’s how AI presents the gap. Output
 
 ##### 3. AI has a heavily Western-biased worldview.
 
-As of 2024, only around 1% of AI models were trained using Indonesian language (source). But the broader pattern matters more than the number: AI is heavily weighted toward English-language data and Western cultural reference points. Put simply, when we ask GenAI to analyse Indonesian people, we are using western perspectives and mental models to make sense of what Indonesians are thinking and doing.
+As of 2024, only around 1% of AI models were trained using Indonesian language [source](https://arxiv.org/html/2506.07506v1#:~:text=However%2C%20these%20corpora%20remain%20dominated,et%20al.%2C%202021%20.&text=Limited%20data%20directly%20affects%20LT,in%20large%2Dscale%20LT%20development). But the broader pattern matters more than the number: AI is heavily weighted toward English-language data and Western cultural reference points. Put simply, when we ask GenAI to analyse Indonesian people, we are using western perspectives and mental models to make sense of what Indonesians are thinking and doing.
 
 #### Three Principles That Answer Them
 

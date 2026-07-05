@@ -9,6 +9,26 @@
   --color-accent-3: #D5A7AA;
   --color-accent-4: #FACFBC;
   --color-accent-5: #FEFDFB;
+  --color-red-1: #FDE9EC;
+  --color-red-2: #F793A7;
+  --color-red-3: #DB3069;
+  --color-red-4: #7D1839;
+  --color-red-5: #2C030F;
+  --color-orange-1: #FBEBDF;
+  --color-orange-2: #F5C29C;
+  --color-orange-3: #EE964B;
+  --color-orange-4: #9D612E;
+  --color-orange-5: #533114;
+  --color-yellow-1: #F3EDCE;
+  --color-yellow-2: #F5E49C;
+  --color-yellow-3: #F1D506;
+  --color-yellow-4: #C0B233;
+  --color-yellow-5: #695616;
+  --color-green-1: #E2F4E4;
+  --color-green-2: #A5D9AC;
+  --color-green-3: #87B38D;
+  --color-green-4: #56735A;
+  --color-green-5: #29392B;
 
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-sans-alt: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
