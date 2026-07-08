@@ -173,6 +173,36 @@ html {
   .playbook-section__body h6 {
     text-align: left;
   }
+
+  .playbook-section__body blockquote {
+    border-left-width: 4px;
+    font-size: var(--text-base);
+    line-height: 1.42;
+    margin: var(--space-4) 0;
+    padding-left: var(--space-3);
+  }
+
+  .playbook-section__body blockquote>*+* {
+    margin-top: var(--space-3);
+  }
+
+  .playbook-section__body .editorial {
+    margin-bottom: var(--space-5);
+  }
+
+  .playbook-section__body .editorial p {
+    display: block;
+    font-size: var(--text-h6);
+    line-height: 1.28;
+    margin-inline: var(--space-3);
+    padding-inline: 0;
+  }
+
+  .playbook-section__body .editorial::before {
+    font-size: var(--text-h3);
+    margin-left: var(--space-2);
+    max-height: 28px;
+  }
 }
 
 @media (max-width: 1300px) {

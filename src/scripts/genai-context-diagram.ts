@@ -23,10 +23,20 @@ template.innerHTML = `
       color: var(--diagram-text);
       display: grid;
       gap: clamp(0.5rem, 1.4vw, 1rem);
-      grid-template-columns: minmax(5.5rem, 7.5rem) minmax(3rem, 1fr) minmax(14rem, 19rem);
+      grid-template-columns: minmax(14rem, 19rem) minmax(3rem, 1fr) minmax(14rem, 19rem);
       max-width: 100%;
       overflow: visible;
       padding: 1.25rem 0.75rem;
+      position: relative;
+    }
+
+    .you-system {
+      aspect-ratio: 1;
+      display: grid;
+      justify-self: center;
+      place-items: center;
+      position: relative;
+      width: min(100%, 19rem);
     }
 
     .node {
@@ -48,7 +58,10 @@ template.innerHTML = `
 
     .node.you {
       background: radial-gradient(circle at 50% 90%,var(--color-accent-3), var(--color-accent-4), var(--color-accent-5));
-      color: var(--color-text);
+      box-shadow:
+        0 0.75rem 1.45rem color-mix(in srgb, var(--diagram-accent) 12%, transparent),
+        inset 0 0 2.25rem color-mix(in srgb, var(--diagram-bg) 12%, transparent);
+      color: var(--color-bg);
     }
 
     .connector {
@@ -99,13 +112,11 @@ template.innerHTML = `
     }
 
     .context-field {
-      background:
-        radial-gradient(circle at 68% 32%, color-mix(in srgb, var(--diagram-accent-3) 24%, transparent), transparent 34%),
-        radial-gradient(circle at 50% 90%, var(--color-accent), var(--color-accent-2));
+      background: transparent;
+      border: 3px dashed var(--diagram-accent);
       border-radius: 50%;
-      box-shadow:
-        0 0.75rem 1.45rem color-mix(in srgb, var(--diagram-accent) 12%, transparent),
-        inset 0 0 2.25rem color-mix(in srgb, var(--diagram-bg) 12%, transparent);
+      box-sizing: border-box;
+      box-shadow: none;
       inset: 0;
       overflow: hidden;
       pointer-events: none;
@@ -275,39 +286,39 @@ template.innerHTML = `
         0 0.12rem 0.9rem color-mix(in srgb, var(--diagram-accent) 46%, transparent);
     }
 
-    .context-word:nth-of-type(1) {
-      --target-left: 50%;
-      --target-top: 13%;
-      --word-delay: 1080ms;
-      --float-delay: 1740ms;
-    }
-
-    .context-word:nth-of-type(2) {
-      --target-left: 80%;
-      --target-top: 32%;
-      --word-delay: 1230ms;
-      --float-delay: 1890ms;
-    }
-
-    .context-word:nth-of-type(3) {
-      --target-left: 82%;
-      --target-top: 58%;
-      --word-delay: 1380ms;
-      --float-delay: 2040ms;
-    }
-
-    .context-word:nth-of-type(4) {
-      --target-left: 68%;
-      --target-top: 78%;
-      --word-delay: 1530ms;
-      --float-delay: 2190ms;
-    }
-
-    .context-word:nth-of-type(5) {
-      --target-left: 34%;
-      --target-top: 77%;
+    .context-word--transfer {
+      --target-left: var(--transfer-you-x, 22%);
+      --target-top: var(--transfer-you-y, 58%);
       --word-delay: 1680ms;
       --float-delay: 2340ms;
+      color: var(--diagram-accent);
+      max-width: 6.75rem;
+      z-index: 5;
+    }
+
+    .context-word--transfer.is-dropped {
+      --target-left: var(--transfer-genai-x, 77%);
+      --target-top: var(--transfer-genai-y, 72%);
+    }
+
+    .context-word--transfer.is-dragging {
+      z-index: 6;
+    }
+
+    .context-word--transfer .context-word__label {
+      -webkit-text-stroke: 0;
+      paint-order: normal;
+      text-shadow: none;
+    }
+
+    .diagram > .context-word--transfer {
+      --target-left: var(--transfer-you-x, 22%);
+      --target-top: var(--transfer-you-y, 58%);
+    }
+
+    .diagram > .context-word--transfer.is-dropped {
+      --target-left: var(--transfer-genai-x, 77%);
+      --target-top: var(--transfer-genai-y, 72%);
     }
 
     :host(.is-revealed) .connector__line {
@@ -326,23 +337,7 @@ template.innerHTML = `
       transform: translate(-50%, -50%) scale(1);
     }
 
-    :host(.is-revealed) .context-word:nth-of-type(1) .context-word__label {
-      animation: float-context-a 5.6s ease-in-out var(--float-delay) infinite;
-    }
-
-    :host(.is-revealed) .context-word:nth-of-type(2) .context-word__label {
-      animation: float-context-b 6.2s ease-in-out var(--float-delay) infinite;
-    }
-
-    :host(.is-revealed) .context-word:nth-of-type(3) .context-word__label {
-      animation: float-context-c 5.9s ease-in-out var(--float-delay) infinite;
-    }
-
-    :host(.is-revealed) .context-word:nth-of-type(4) .context-word__label {
-      animation: float-context-b 6.6s ease-in-out var(--float-delay) infinite;
-    }
-
-    :host(.is-revealed) .context-word:nth-of-type(5) .context-word__label {
+    :host(.is-revealed) .context-word--transfer .context-word__label {
       animation: float-context-a 6.1s ease-in-out var(--float-delay) infinite;
     }
 
@@ -444,6 +439,10 @@ template.innerHTML = `
         width: min(7rem, 42vw);
       }
 
+      .you-system {
+        width: min(7rem, 42vw);
+      }
+
       .connector {
         height: 3.5rem;
         justify-content: center;
@@ -494,6 +493,11 @@ template.innerHTML = `
       .context-word {
         font-size: var(--text-small);
         max-width: 5.75rem;
+      }
+
+      .context-word--transfer {
+        font-size: var(--text-tiny);
+        max-width: 4.75rem;
       }
     }
 
@@ -580,7 +584,9 @@ template.innerHTML = `
     role="img"
     aria-label="Human context moves from You toward GenAI, while physical context, social dynamic, emotion, cultural reflexes, and informal language remain around GenAI as contextual signals it cannot fully see."
   >
-    <div class="node you">You</div>
+    <div class="you-system">
+      <div class="node you">You</div>
+    </div>
     <div class="connector" aria-hidden="true">
       <span class="connector__line"></span>
       <span class="connector__head"></span>
@@ -611,12 +617,12 @@ template.innerHTML = `
         </svg>
         <span class="genai-core__label">GenAI</span>
       </div>
-      <span class="context-word"><span class="context-word__label">Physical<br />Context</span></span>
-      <span class="context-word"><span class="context-word__label">Social<br />Dynamic</span></span>
-      <span class="context-word"><span class="context-word__label">Emotion</span></span>
-      <span class="context-word"><span class="context-word__label">Cultural<br />Reflexes</span></span>
-      <span class="context-word"><span class="context-word__label">Informal<br />Language</span></span>
     </div>
+    <span class="context-word context-word--transfer" data-transfer-index="0"><span class="context-word__label">Physical<br />Context</span></span>
+    <span class="context-word context-word--transfer" data-transfer-index="1"><span class="context-word__label">Social<br />Dynamic</span></span>
+    <span class="context-word context-word--transfer" data-transfer-index="2"><span class="context-word__label">Emotion</span></span>
+    <span class="context-word context-word--transfer" data-transfer-index="3"><span class="context-word__label">Cultural<br />Reflexes</span></span>
+    <span class="context-word context-word--transfer" data-transfer-index="4"><span class="context-word__label">Informal<br />Language</span></span>
   </div>
 `;
 
@@ -626,6 +632,7 @@ type DragState = {
   offsetY: number;
   pointerId: number;
   returnTimer?: number;
+  transfer: boolean;
   word: HTMLElement;
 };
 
@@ -652,6 +659,8 @@ class GenAIContextDiagram extends HTMLElement {
     root.addEventListener("pointerdown", this.handlePointerDown);
     root.querySelector(".diagram")?.addEventListener("pointermove", this.handleConnectorPointerMove);
     root.querySelector(".diagram")?.addEventListener("pointerleave", this.handleConnectorPointerLeave);
+    window.addEventListener("resize", this.updateTransferWordPositions);
+    this.updateTransferWordPositions();
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -680,11 +689,13 @@ class GenAIContextDiagram extends HTMLElement {
     this.shadowRoot?.removeEventListener("pointerdown", this.handlePointerDown);
     this.shadowRoot?.querySelector(".diagram")?.removeEventListener("pointermove", this.handleConnectorPointerMove);
     this.shadowRoot?.querySelector(".diagram")?.removeEventListener("pointerleave", this.handleConnectorPointerLeave);
+    window.removeEventListener("resize", this.updateTransferWordPositions);
     this.stopConnectorPointerAnimation();
     this.stopDragTracking();
   }
 
   private reveal() {
+    this.updateTransferWordPositions();
     this.classList.add("is-revealed");
   }
 
@@ -697,7 +708,10 @@ class GenAIContextDiagram extends HTMLElement {
 
     const target = pointerEvent.target as Element | null;
     const word = target?.closest<HTMLElement>(".context-word");
-    const container = target?.closest<HTMLElement>(".context-system");
+    const transfer = word?.classList.contains("context-word--transfer") ?? false;
+    const container = transfer
+      ? target?.closest<HTMLElement>(".diagram")
+      : target?.closest<HTMLElement>(".context-system");
 
     if (!word || !container) {
       return;
@@ -727,6 +741,7 @@ class GenAIContextDiagram extends HTMLElement {
       offsetX: pointerX - centerX,
       offsetY: pointerY - centerY,
       pointerId: pointerEvent.pointerId,
+      transfer,
       word,
     };
 
@@ -773,6 +788,9 @@ class GenAIContextDiagram extends HTMLElement {
     this.stopDragTracking();
 
     drag.word.classList.remove("is-dragging");
+    if (drag.transfer) {
+      drag.word.classList.toggle("is-dropped", this.isPointInsideGenAIContainer(pointerEvent.clientX, pointerEvent.clientY));
+    }
     drag.word.classList.add("is-returning");
     drag.word.style.left = "";
     drag.word.style.top = "";
@@ -852,6 +870,73 @@ class GenAIContextDiagram extends HTMLElement {
     }
 
     return { x: 72, y: 50 };
+  }
+
+  private updateTransferWordPositions = () => {
+    const root = this.shadowRoot;
+    const diagram = root?.querySelector<HTMLElement>(".diagram");
+    const you = root?.querySelector<HTMLElement>(".node.you");
+    const contextSystem = root?.querySelector<HTMLElement>(".context-system");
+    const transferWords = Array.from(root?.querySelectorAll<HTMLElement>(".context-word--transfer") ?? []);
+
+    if (!diagram || !you || !contextSystem || transferWords.length === 0) {
+      return;
+    }
+
+    const diagramRect = diagram.getBoundingClientRect();
+    const youRect = you.getBoundingClientRect();
+    const contextRect = contextSystem.getBoundingClientRect();
+
+    if (!diagramRect.width || !diagramRect.height || !youRect.width || !contextRect.width) {
+      return;
+    }
+
+    const youPlacements = [
+      { x: 0.5, y: 0.28 },
+      { x: 0.7, y: 0.45 },
+      { x: 0.72, y: 0.62 },
+      { x: 0.5, y: 0.78 },
+      { x: 0.3, y: 0.62 },
+    ];
+    const genAIPlacements = [
+      { x: 0.5, y: 0.13 },
+      { x: 0.8, y: 0.32 },
+      { x: 0.82, y: 0.58 },
+      { x: 0.68, y: 0.78 },
+      { x: 0.34, y: 0.77 },
+    ];
+
+    transferWords.forEach((word, fallbackIndex) => {
+      const index = Number.parseInt(word.dataset.transferIndex ?? "", 10);
+      const placementIndex = Number.isNaN(index) ? fallbackIndex : index;
+      const youPlacement = youPlacements[placementIndex] ?? youPlacements[0];
+      const genAIPlacement = genAIPlacements[placementIndex] ?? genAIPlacements[0];
+      const youX = youRect.left - diagramRect.left + youRect.width * youPlacement.x;
+      const youY = youRect.top - diagramRect.top + youRect.height * youPlacement.y;
+      const genaiX = contextRect.left - diagramRect.left + contextRect.width * genAIPlacement.x;
+      const genaiY = contextRect.top - diagramRect.top + contextRect.height * genAIPlacement.y;
+
+      word.style.setProperty("--transfer-you-x", `${youX.toFixed(1)}px`);
+      word.style.setProperty("--transfer-you-y", `${youY.toFixed(1)}px`);
+      word.style.setProperty("--transfer-genai-x", `${genaiX.toFixed(1)}px`);
+      word.style.setProperty("--transfer-genai-y", `${genaiY.toFixed(1)}px`);
+    });
+  };
+
+  private isPointInsideGenAIContainer(clientX: number, clientY: number) {
+    const field = this.shadowRoot?.querySelector<HTMLElement>(".context-field");
+
+    if (!field) {
+      return false;
+    }
+
+    const rect = field.getBoundingClientRect();
+    const radius = Math.min(rect.width, rect.height) / 2;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const distance = Math.hypot(clientX - centerX, clientY - centerY);
+
+    return distance <= radius;
   }
 
   private stopConnectorPointerAnimation() {

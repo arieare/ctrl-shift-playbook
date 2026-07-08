@@ -36,10 +36,13 @@ Before we talk about how to use AI, it’s worth being clear about what we’re 
 ##### 1. AI has knowledge about humans, but only the tip of the iceberg.
 
 Generative AI is trained on vast amounts of information that humans have written on the internet about ourselves. Meanwhile most things we do, think and feel are hard to explain in words or are simply reflexes in response to our (social, physical, cultural) context which GenAI cannot “see”. 
+
 Two things are useful to understand humans
-Linguistic nuances e.g. slang, which AI gets to some extent but indeed may miss. 
-Context, non-verbal, intent, emotion, which AI cannot possibly know
+- Linguistic nuances e.g. slang, which AI gets to some extent but indeed may miss.
+- Context, non-verbal, intent, emotion, which AI cannot possibly know
+
 Both of these things are especially important in high context cultures like Indonesia. 
+
 Worse, when it hits a gap in its training data, it tends to fabricate rather than admit the gap. So even when AI sounds informed, it isn’t necessarily reliable.
 
 ##### 2. AI sounds confident even when it’s wrong.

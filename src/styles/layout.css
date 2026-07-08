@@ -41,6 +41,10 @@
   opacity: 1;
 }
 
+.landing-hero__desktop-notice {
+  display: none;
+}
+
 .landing-hero__inner {
   align-items: center;
   display: flex;
@@ -138,14 +142,18 @@
 }
 
 .page-shell {
+  box-sizing: border-box;
   column-gap: var(--page-column-gap);
   display: grid;
-  grid-template-columns: minmax(0, var(--nav-width)) minmax(0, var(--content-width));
+  grid-template-columns: minmax(0, var(--nav-width)) minmax(0, 1fr);
   justify-content: center;
+  margin-inline: auto;
+  max-width: calc(var(--nav-width) + var(--page-column-gap) + var(--content-width) + (var(--space-5) * 2));
   min-height: calc(100svh - var(--sticky-header-height));
   padding: var(--space-8) var(--space-5);
   row-gap: var(--space-7);
   scroll-margin-top: var(--space-6);
+  width: 100%;
 }
 
 .page-shell__nav {
@@ -161,6 +169,7 @@
 .section-stack {
   display: grid;
   gap: var(--space-8);
+  min-width: 0;
 }
 
 @media screen {
@@ -242,12 +251,53 @@
   .landing-hero__actions .button {
     width: 100%;
   }
+
+  .page-shell {
+    column-gap: var(--space-5);
+    grid-template-columns: minmax(10rem, 11rem) minmax(0, 1fr);
+    padding-inline: var(--space-4);
+  }
+
+  .site-footer__inner {
+    column-gap: var(--space-5);
+    grid-template-columns: minmax(10rem, 11rem) minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 760px) {
   .landing-hero {
     min-height: 92svh;
-    padding-inline: var(--space-4);
+    padding: calc(var(--space-7) + 2.5rem) var(--space-4) var(--space-7);
+  }
+
+  .landing-hero__desktop-notice {
+    align-items: center;
+    background: rgb(254 253 251 / 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgb(52 49 49 / 0.14);
+    color: var(--color-text);
+    display: flex;
+    font-size: var(--text-small);
+    font-weight: 700;
+    gap: var(--space-2);
+    justify-content: center;
+    left: 0;
+    min-height: 2.5rem;
+    padding: var(--space-2) var(--space-4);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 3;
+  }
+
+  .landing-hero__desktop-notice-text {
+    animation:
+      desktop-notice-type 500ms steps(22, end) 120ms both,
+      desktop-notice-caret 520ms steps(1, end) 0ms 3 forwards;
+    border-right: 0.1em solid currentColor;
+    clip-path: inset(0 100% 0 0);
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
   .site-header {
@@ -285,5 +335,32 @@
   .site-footer__license {
     align-items: start;
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) {
+  .landing-hero__desktop-notice-text {
+    animation: none;
+    border-right: 0;
+    clip-path: none;
+  }
+}
+
+@keyframes desktop-notice-type {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes desktop-notice-caret {
+
+  0%,
+  49% {
+    border-color: currentColor;
+  }
+
+  50%,
+  100% {
+    border-color: transparent;
   }
 }
