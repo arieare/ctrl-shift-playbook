@@ -20,24 +20,24 @@ You won’t find specific tool recommendations or prompting templates in this pl
 <section class="gratitude" aria-labelledby="gratitude-title">
   <p class="gratitude__eyebrow" id="gratitude-title">Special gratitude for:</p>
 
+  <figure class="gratitude-photo gratitude-photo--wide">
+    <img src="/images/photos/event.jpg" alt="Ctrl+Shift! workshop participants" />
+    <figcaption>30+ Workshop Participants</figcaption>
+  </figure>
   <div class="gratitude-gallery" aria-label="Ctrl+Shift! community photos">
     <figure class="gratitude-photo gratitude-photo--wide">
       <img src="/images/photos/volunteer_1.jpg" alt="Ctrl+Shift! volunteers gathered at an event" />
-      <figcaption>Volunteers</figcaption>
-    </figure>
-    <figure class="gratitude-photo">
-      <img src="/images/photos/volunteer_2.jpg" alt="Ctrl+Shift! volunteers in discussion" />
       <figcaption>Volunteers</figcaption>
     </figure>
     <figure class="gratitude-photo gratitude-photo--portrait">
       <img src="/images/photos/ideators.jpeg" alt="Ctrl+Shift! initial ideators" />
       <figcaption>Initial Ideators</figcaption>
     </figure>
-    <figure class="gratitude-photo gratitude-photo--wide">
-      <img src="/images/photos/event.jpg" alt="Ctrl+Shift! workshop participants" />
-      <figcaption>30+ Workshop Participants</figcaption>
-    </figure>
   </div>
+    <figure class="gratitude-photo">
+      <img src="/images/photos/volunteer_2.jpg" alt="Ctrl+Shift! volunteers in discussion" />
+      <figcaption>Volunteers</figcaption>
+    </figure>
 
   <div class="gratitude-credits" aria-label="Ctrl+Shift! contributor credits">
     <section class="gratitude-credit">

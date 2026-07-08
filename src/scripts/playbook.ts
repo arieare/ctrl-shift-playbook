@@ -49,6 +49,20 @@ type SearchItem = {
   title: string;
 };
 
+type ZoneCellClass = "assist" | "automate" | "guided" | "human";
+
+const zoneCellClasses = new Map<string, ZoneCellClass>([
+  ["assist", "assist"],
+  ["ai assist", "assist"],
+  ["ai assists", "assist"],
+  ["automate", "automate"],
+  ["ai automate", "automate"],
+  ["ai automates", "automate"],
+  ["guided", "guided"],
+  ["guided interpretation", "guided"],
+  ["human only", "human"],
+]);
+
 const slugifyHeading = (value: string) => {
   return value
     .toLowerCase()
@@ -59,6 +73,10 @@ const slugifyHeading = (value: string) => {
 
 const normalizeSearchText = (value: string) => {
   return value.toLowerCase().replace(/\s+/g, " ").trim();
+};
+
+const getZoneCellClass = (value: string) => {
+  return zoneCellClasses.get(normalizeSearchText(value));
 };
 
 const createSearchSnippet = (text: string, query: string) => {
@@ -106,6 +124,12 @@ interactiveTables.forEach((table) => {
 
   table.querySelectorAll<HTMLTableCellElement>("th, td").forEach((cell) => {
     cell.tabIndex = 0;
+
+    const zoneCellClass = getZoneCellClass(cell.textContent ?? "");
+
+    if (zoneCellClass) {
+      cell.classList.add("is-table-zone-cell", `is-table-zone-cell--${zoneCellClass}`);
+    }
   });
 
   table.addEventListener("pointerover", (event) => {

@@ -697,6 +697,47 @@
   background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg));
 }
 
+.playbook-section__body table.is-interactive-table .is-table-zone-cell {
+  background: var(--table-zone-bg);
+  color: var(--table-zone-text);
+  font-weight: 700;
+}
+
+.playbook-section__body table.is-interactive-table .is-table-zone-cell--human {
+  --table-zone-bg: var(--color-red-1);
+  --table-zone-hover-bg: color-mix(in srgb, var(--color-red-2) 46%, var(--color-bg));
+  --table-zone-outline: var(--color-red-3);
+  --table-zone-text: var(--color-red-5);
+}
+
+.playbook-section__body table.is-interactive-table .is-table-zone-cell--guided {
+  --table-zone-bg: var(--color-orange-1);
+  --table-zone-hover-bg: color-mix(in srgb, var(--color-orange-2) 52%, var(--color-bg));
+  --table-zone-outline: var(--color-orange-3);
+  --table-zone-text: var(--color-orange-5);
+}
+
+.playbook-section__body table.is-interactive-table .is-table-zone-cell--assist {
+  --table-zone-bg: var(--color-yellow-1);
+  --table-zone-hover-bg: color-mix(in srgb, var(--color-yellow-2) 58%, var(--color-bg));
+  --table-zone-outline: var(--color-yellow-4);
+  --table-zone-text: var(--color-yellow-5);
+}
+
+.playbook-section__body table.is-interactive-table .is-table-zone-cell--automate {
+  --table-zone-bg: var(--color-green-1);
+  --table-zone-hover-bg: color-mix(in srgb, var(--color-green-2) 50%, var(--color-bg));
+  --table-zone-outline: var(--color-green-3);
+  --table-zone-text: var(--color-green-5);
+}
+
+.playbook-section__body table.is-interactive-table th.is-table-zone-cell.is-table-row-highlight,
+.playbook-section__body table.is-interactive-table td.is-table-zone-cell.is-table-row-highlight,
+.playbook-section__body table.is-interactive-table th.is-table-zone-cell.is-table-column-highlight,
+.playbook-section__body table.is-interactive-table td.is-table-zone-cell.is-table-column-highlight {
+  background: var(--table-zone-bg);
+}
+
 .playbook-section__body table.is-interactive-table th.is-table-cell-highlight,
 .playbook-section__body table.is-interactive-table td.is-table-cell-highlight {
   background: color-mix(in srgb, var(--color-accent) 16%, var(--color-bg));
@@ -704,10 +745,20 @@
   z-index: 1;
 }
 
+.playbook-section__body table.is-interactive-table th.is-table-zone-cell.is-table-cell-highlight,
+.playbook-section__body table.is-interactive-table td.is-table-zone-cell.is-table-cell-highlight {
+  background: var(--table-zone-hover-bg);
+  box-shadow: inset 0 0 0 2px var(--table-zone-outline);
+}
+
 .playbook-section__body table.is-interactive-table th:focus-visible,
 .playbook-section__body table.is-interactive-table td:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: -2px;
+}
+
+.playbook-section__body table.is-interactive-table .is-table-zone-cell:focus-visible {
+  outline-color: var(--table-zone-outline);
 }
 
 @media (max-width: 760px) {
