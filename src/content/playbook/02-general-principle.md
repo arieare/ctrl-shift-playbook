@@ -24,9 +24,9 @@ not just layered on top of it.
 
 </div>
 
-Generative AI's emergence is fundamentally altering life, notably impacting corporate researchers. Consequently, the potential disruptions driven by AI necessitate careful consideration.
+Generative AI's emergence is fundamentally altering life, notably impacting corporate researchers. Consequently, <span class="highlight">the potential disruptions driven by AI necessitate careful consideration.</span>
 
-In the research domain, AI is a distinct tool compared to previous technologies. It presents an opportunity to revolutionize research practices, making them both faster and more cost-effective. This is definitely an exciting prospect for both researchers and stakeholders.
+In the research domain, AI is a distinct tool compared to previous technologies. <span class="highlight">It presents an opportunity to revolutionize research practices, making them both faster and more cost-effective.</span> This is definitely an exciting prospect for both researchers and stakeholders.
 
 Before we talk about how to use AI, it’s worth being clear about what we’re working with.
 

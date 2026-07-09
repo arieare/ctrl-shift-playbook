@@ -59,6 +59,14 @@ html {
   line-height: 1.6;
 }
 
+.playbook-section__body .highlight {
+  --highlight-fill: color-mix(in srgb, var(--color-yellow-2) 74%, transparent);
+  -webkit-box-decoration-break: clone;
+  background: linear-gradient(transparent 48%, var(--highlight-fill) 48% 88%, transparent 88%);
+  box-decoration-break: clone;
+  padding-inline: 0.05em;
+}
+
 .playbook-section__body ol li,
 .playbook-section__body ul li {
   font-size: var(--text-base);

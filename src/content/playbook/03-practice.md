@@ -36,7 +36,7 @@ Every research activity sits between two forces:
 Map these forces and four zones appear:
 
 <div class="interactive-diagram">
-  <ai-quadrant-diagram></ai-quadrant-diagram>
+  <ai-quadrant-diagram phase="none"></ai-quadrant-diagram>
 </div>
 
 <img class="print-diagram-image" src="/images/print/ai-quadrant-default.png" alt="Print version of the default AI quadrant diagram" />
