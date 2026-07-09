@@ -141,7 +141,7 @@ Where things move fast — and where it's easiest to distort the truth.
 </div>
 
 <div class="interactive-diagram">
-  <ai-quadrant-diagram phase="data-analysis"></ai-quadrant-diagram>
+  <ai-quadrant-diagram phase="analysis"></ai-quadrant-diagram>
 </div>
 
 <img class="print-diagram-image" src="/images/print/ai-quadrant-data-analysis.png" alt="Print version of the data analysis phase AI quadrant diagram" />
@@ -177,6 +177,10 @@ Transcripts and datasets tell you very little on their own. The meaning lives be
 Where influence is executed.
 </div>
 
+<div class="interactive-diagram">
+  <ai-quadrant-diagram phase="reporting"></ai-quadrant-diagram>
+</div>
+
 ##### What we learn
 Here the grip is at both ends: you decide what to say and you own how it lands, AI just helps with the craft in between.
 
@@ -203,6 +207,10 @@ The moment a recommendation appears, a human has to step up and own it. Enough t
 #### Knowledge Management Phase
 <div class="sub-heading">
 Where research compounds
+</div>
+
+<div class="interactive-diagram">
+  <ai-quadrant-diagram phase="knowledge-management"></ai-quadrant-diagram>
 </div>
 
 ##### What we learn

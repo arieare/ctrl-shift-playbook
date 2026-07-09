@@ -38,9 +38,9 @@ template.innerHTML = `
     }
 
     .quadrant__canvas {
-      aspect-ratio: 16 / 10;
+      aspect-ratio: 16 / 11;
       background: var(--quadrant-bg);
-      min-height: 20rem;
+      min-height: 22rem;
       position: relative;
       width: 100%;
     }
@@ -63,11 +63,11 @@ template.innerHTML = `
           var(--quadrant-accent) 44%
         );
       height: 4px;
-      left: 8%;
+      left: 3%;
       top: 50%;
       transform: scaleX(0);
       transform-origin: center;
-      width: 80%;
+      width: 90%;
     }
 
     .axis--y {
@@ -78,9 +78,9 @@ template.innerHTML = `
           color-mix(in srgb, var(--quadrant-accent-3) 64%, var(--quadrant-accent)) 16%,
           var(--quadrant-accent) 44%
         );
-      height: 82%;
+      height: 88%;
       left: 50%;
-      top: 8%;
+      top: 6%;
       transform: scaleY(0);
       transform-origin: center;
       width: 4px;
@@ -187,7 +187,7 @@ template.innerHTML = `
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      height: 34%;
+      height: 38%;
       min-height: 0;
       opacity: 0.92;
       overflow: hidden;
@@ -198,7 +198,7 @@ template.innerHTML = `
         background-color 160ms ease,
         border-color 160ms ease,
         opacity 180ms ease;
-      width: 38%;
+      width: 44%;
       z-index: 3;
     }
 
@@ -222,32 +222,32 @@ template.innerHTML = `
       --zone-highlight: var(--quadrant-assist-highlight);
       --zone-highlight-end: var(--quadrant-assist-highlight-end);
       --zone-label-color: var(--quadrant-assist-label);
-      left: 8%;
-      top: 12%;
+      left: 3%;
+      top: 9%;
     }
 
     .zone--human {
       --zone-highlight: var(--quadrant-human-highlight);
       --zone-highlight-end: var(--quadrant-human-highlight-end);
       --zone-label-color: var(--quadrant-human-label);
-      left: 54%;
-      top: 12%;
+      left: 53%;
+      top: 9%;
     }
 
     .zone--automate {
       --zone-highlight: var(--quadrant-automate-highlight);
       --zone-highlight-end: var(--quadrant-automate-highlight-end);
       --zone-label-color: var(--quadrant-automate-label);
-      left: 8%;
-      top: 54%;
+      left: 3%;
+      top: 53%;
     }
 
     .zone--guided {
       --zone-highlight: var(--quadrant-guided-highlight);
       --zone-highlight-end: var(--quadrant-guided-highlight-end);
       --zone-label-color: var(--quadrant-guided-label);
-      left: 54%;
-      top: 54%;
+      left: 53%;
+      top: 53%;
     }
 
     .zone__title {
@@ -507,17 +507,17 @@ template.innerHTML = `
     @media (max-width: 640px) {
       .quadrant__canvas {
         aspect-ratio: auto;
-        min-height: 31rem;
+        min-height: 35rem;
       }
 
       .axis--x {
-        left: 6%;
-        width: 76%;
+        left: 3%;
+        width: 90%;
       }
 
       .axis--y {
-        height: 78%;
-        top: 11%;
+        height: 88%;
+        top: 6%;
       }
 
       .axis-label--x {
@@ -527,19 +527,19 @@ template.innerHTML = `
       }
 
       .zone {
-        height: 34%;
+        height: 38%;
         padding: 0.75rem;
-        width: 43%;
+        width: 46%;
       }
 
       .zone--assist,
       .zone--automate {
-        left: 3%;
+        left: 2%;
       }
 
       .zone--human,
       .zone--guided {
-        left: 54%;
+        left: 52%;
       }
 
       .zone__title {
@@ -556,6 +556,7 @@ template.innerHTML = `
       .phase-label.is-expanded,
       .phase-label.is-dragging,
       .phase-label.is-returning {
+        height: auto;
         padding: 0.45rem 0.55rem;
         width: min(var(--label-width), 42%);
       }
@@ -849,21 +850,21 @@ const phaseLabels: Record<PhaseId, PhaseLabel[]> = {
     },
     {
       text: "Identify timeline and budget",
-      left: "68%",
+      left: "74%",
       top: "39%",
       width: "18rem",
       zone: "human",
     },
     {
       text: "Create the right sampling strategy",
-      left: "68%",
+      left: "74%",
       top: "58%",
       width: "21rem",
       zone: "guided",
     },
     {
       text: "Identify research method",
-      left: "64%",
+      left: "74%",
       top: "70%",
       width: "17rem",
       zone: "guided",
@@ -876,10 +877,287 @@ const phaseLabels: Record<PhaseId, PhaseLabel[]> = {
       zone: "guided",
     },
   ],
-  "data-collection": [],
-  analysis: [],
-  reporting: [],
-  "knowledge-management": [],
+  "data-collection": [
+    {
+      text: "Desk Research",
+      left: "24%",
+      top: "20%",
+      width: "16rem",
+      zone: "assist",
+    },
+    {
+      text: "Participant Recruitment",
+      left: "28%",
+      top: "30%",
+      width: "16rem",
+      zone: "assist",
+    },
+    {
+      text: "Survey collection",
+      left: "24%",
+      top: "40%",
+      width: "16rem",
+      zone: "assist",
+    },
+    {
+      text: "On-field translation",
+      left: "28%",
+      top: "49%",
+      width: "16rem",
+      zone: "assist",
+    },
+    {
+      text: "Interview process",
+      left: "72%",
+      top: "40%",
+      width: "17rem",
+      zone: "human",
+    },
+    {
+      text: "Data source determination",
+      left: "72%",
+      top: "71%",
+      width: "18rem",
+      zone: "guided",
+    },
+    {
+      text: "Transcript creation",
+      left: "26%",
+      top: "78%",
+      width: "16rem",
+      zone: "automate",
+    },
+  ],
+  analysis: [
+    {
+      text: "Define cluster & theme",
+      left: "24%",
+      top: "22%",
+      width: "17rem",
+      zone: "assist",
+    },
+    {
+      text: "Finding suitable quotes",
+      left: "28%",
+      top: "34%",
+      width: "17rem",
+      zone: "assist",
+    },
+    {
+      text: "Form insight statements",
+      left: "24%",
+      top: "46%",
+      width: "17rem",
+      zone: "assist",
+    },
+    {
+      text: "Rephrase insight statement",
+      left: "74%",
+      top: "10%",
+      width: "18rem",
+      zone: "human",
+    },
+    {
+      text: "Prioritize themes",
+      left: "78%",
+      top: "18%",
+      width: "16rem",
+      zone: "human",
+    },
+    {
+      text: "Curating seeds for insights",
+      left: "74%",
+      top: "26%",
+      width: "18rem",
+      zone: "human",
+    },
+    {
+      text: "Defining rules for data cleansing",
+      left: "78%",
+      top: "34%",
+      width: "19rem",
+      zone: "human",
+    },
+    {
+      text: "Prioritize insights",
+      left: "74%",
+      top: "42%",
+      width: "16rem",
+      zone: "human",
+    },
+    {
+      text: "Generate & cluster themes",
+      left: "24%",
+      top: "60%",
+      width: "18rem",
+      zone: "automate",
+    },
+    {
+      text: "Identify anomalies",
+      left: "28%",
+      top: "70%",
+      width: "16rem",
+      zone: "automate",
+    },
+    {
+      text: "Running data cleansing",
+      left: "24%",
+      top: "80%",
+      width: "17rem",
+      zone: "automate",
+    },
+    {
+      text: "Uncover motivations",
+      left: "28%",
+      top: "90%",
+      width: "16rem",
+      zone: "automate",
+    },
+    {
+      text: "Ideate on interpretation angles",
+      left: "74%",
+      top: "64%",
+      width: "19rem",
+      zone: "guided",
+    },
+    {
+      text: "Determine cluster & theme",
+      left: "76%",
+      top: "80%",
+      width: "18rem",
+      zone: "guided",
+    },
+  ],
+  reporting: [
+    {
+      text: "Generating image",
+      left: "24%",
+      top: "28%",
+      width: "16rem",
+      zone: "assist",
+    },
+    {
+      text: "Ideate visual structure",
+      left: "28%",
+      top: "42%",
+      width: "17rem",
+      zone: "assist",
+    },
+    {
+      text: "Presenting the report",
+      left: "74%",
+      top: "18%",
+      width: "17rem",
+      zone: "human",
+    },
+    {
+      text: "Decide hook & main insights",
+      left: "78%",
+      top: "28%",
+      width: "19rem",
+      zone: "human",
+    },
+    {
+      text: "Develop the narrative arc / skeleton",
+      left: "74%",
+      top: "38%",
+      width: "21rem",
+      zone: "human",
+    },
+    {
+      text: "Select the narration and report format",
+      left: "26%",
+      top: "66%",
+      width: "21rem",
+      zone: "automate",
+    },
+    {
+      text: "Recommendation wording",
+      left: "28%",
+      top: "82%",
+      width: "18rem",
+      zone: "automate",
+    },
+    {
+      text: "Rewrite / rephrase",
+      left: "74%",
+      top: "68%",
+      width: "17rem",
+      zone: "guided",
+    },
+    {
+      text: "Reframe to specific audience",
+      left: "78%",
+      top: "82%",
+      width: "19rem",
+      zone: "guided",
+    },
+  ],
+  "knowledge-management": [
+    {
+      text: "Curating the insights",
+      left: "24%",
+      top: "32%",
+      width: "17rem",
+      zone: "assist",
+    },
+    {
+      text: "Suggest related insights",
+      left: "28%",
+      top: "45%",
+      width: "18rem",
+      zone: "assist",
+    },
+    {
+      text: "Interpret multiple insights",
+      left: "74%",
+      top: "18%",
+      width: "19rem",
+      zone: "human",
+    },
+    {
+      text: "Synthesize data",
+      left: "78%",
+      top: "28%",
+      width: "16rem",
+      zone: "human",
+    },
+    {
+      text: "Validating",
+      left: "74%",
+      top: "38%",
+      width: "14rem",
+      zone: "human",
+    },
+    {
+      text: "Tagging, classification",
+      left: "24%",
+      top: "64%",
+      width: "18rem",
+      zone: "automate",
+    },
+    {
+      text: "Construct knowledge framework",
+      left: "28%",
+      top: "76%",
+      width: "20rem",
+      zone: "automate",
+    },
+    {
+      text: "Archiving",
+      left: "24%",
+      top: "88%",
+      width: "14rem",
+      zone: "automate",
+    },
+    {
+      text: "Find data",
+      left: "74%",
+      top: "68%",
+      width: "14rem",
+      zone: "guided",
+    },
+  ],
 };
 
 class AIQuadrantDiagram extends HTMLElement {
