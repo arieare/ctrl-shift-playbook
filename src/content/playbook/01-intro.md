@@ -9,11 +9,16 @@ order: 1
 
 These were the questions that brought us, researchers, together, and what made the Ctrl+Shift! initiatives exist in the first place.
 
-There were, so far, 2 offline events where researchers and users of research (product, design, business) gathered to discuss the matter. The first one was attended by 100+ enthusiasts; while the workshop on the 2nd event was capped at 30 participants. The discussions involved a wide range of attendees from across Indonesia, various research experience levels including industry leaders and across industry. Hence the changing of research and AI-related experiences were rich to contribute to the thinking of how we, as researchers, would be best to approach the new technology. This playbook is documenting the discussions that came out of it that we can refer to from time to time.
+There were, so far, 2 offline events where researchers and users of research (product, design, business) gathered to discuss the matter. The first one was attended by 100+ enthusiasts; while the workshop on the 2nd event was capped at 30 participants.
 
-**A note on what you won’t find here.**
+The discussions involved a wide range of attendees from across Indonesia, various research experience levels including industry leaders and across industry. Hence the changing of research and AI-related experiences were rich to contribute to the thinking of how we, as researchers, would be best to approach the new technology.
 
-You won’t find specific tool recommendations or prompting templates in this playbook. That’s deliberate.
+This playbook is documenting the discussions that came out of it that we can refer to from time to time.
+
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-note-sticky infobox__icon" aria-hidden="true"></i>A note on what you won’t find here.</p>
+  <p>You won’t find specific tool recommendations or prompting templates in this playbook. That’s deliberate.</p>
+</blockquote>
 
 ---
 

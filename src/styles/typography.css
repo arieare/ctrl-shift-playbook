@@ -98,6 +98,48 @@ html {
   color: var(--color-accent);
 }
 
+.playbook-section__body blockquote.infobox {
+  background: color-mix(in srgb, var(--color-surface) 86%, var(--color-border));
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-text);
+  font-family: var(--font-serif-alt);
+  font-size: var(--text-small);
+  font-weight: 400;
+  line-height: 1.55;
+  margin: var(--space-5) 0;
+  padding: var(--space-4);
+  text-align: left;
+}
+
+.playbook-section__body blockquote.infobox>*+* {
+  margin-top: var(--space-2);
+}
+
+.playbook-section__body blockquote.infobox p {
+  color: var(--color-text);
+  font-size: var(--text-small);
+  line-height: 1.55;
+  margin: 0;
+}
+
+.playbook-section__body blockquote.infobox .infobox__title {
+  align-items: center;
+  display: flex;
+  font-family: var(--font-sans);
+  font-weight: 800;
+  gap: 0.4em;
+  line-height: 1.25;
+  margin-bottom: var(--space-2);
+}
+
+.playbook-section__body blockquote.infobox .infobox__icon {
+  color: var(--color-accent);
+  flex: 0 0 auto;
+  font-size: 0.95em;
+  width: 1em;
+}
+
 .playbook-section__body ul,
 .playbook-section__body ol {
   padding-inline-start: 1.5rem;
@@ -184,6 +226,20 @@ html {
 
   .playbook-section__body blockquote>*+* {
     margin-top: var(--space-3);
+  }
+
+  .playbook-section__body blockquote.infobox {
+    margin: var(--space-4) 0;
+    padding: var(--space-3);
+  }
+
+  .playbook-section__body blockquote.infobox>*+* {
+    margin-top: var(--space-2);
+  }
+
+  .playbook-section__body blockquote.infobox p {
+    font-size: var(--text-small);
+    line-height: 1.5;
   }
 
   .playbook-section__body .editorial {

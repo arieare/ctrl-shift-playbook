@@ -690,6 +690,76 @@
   width: 64%;
 }
 
+.playbook-section__body table.people-scenario-table {
+  display: table;
+  font-size: var(--text-small);
+  line-height: 1.42;
+  table-layout: fixed;
+}
+
+.playbook-section__body table.people-scenario-table col.people-scenario-table__environment {
+  width: 31%;
+}
+
+.playbook-section__body table.people-scenario-table col.people-scenario-table__pivot {
+  width: 39%;
+}
+
+.playbook-section__body table.people-scenario-table col.people-scenario-table__loop {
+  width: 30%;
+}
+
+.playbook-section__body table.people-scenario-table th,
+.playbook-section__body table.people-scenario-table td {
+  min-width: 0;
+  padding: var(--space-3);
+}
+
+.playbook-section__body table.people-scenario-table th {
+  color: var(--color-text);
+  font-size: var(--text-tiny);
+  line-height: 1.2;
+}
+
+.playbook-section__body table.people-scenario-table p,
+.playbook-section__body table.people-scenario-table ul,
+.playbook-section__body table.people-scenario-table li {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.playbook-section__body table.people-scenario-table p,
+.playbook-section__body table.people-scenario-table ul {
+  margin: 0;
+}
+
+.playbook-section__body table.people-scenario-table ul {
+  padding-inline-start: 1.05rem;
+}
+
+.playbook-section__body table.people-scenario-table li+li {
+  margin-top: var(--space-1);
+}
+
+.people-scenario-table__scenario,
+.people-scenario-table__role {
+  display: block;
+  font-family: var(--font-sans);
+  line-height: 1.25;
+  margin-bottom: var(--space-2);
+}
+
+.people-scenario-table__scenario {
+  color: var(--color-accent);
+}
+
+.people-scenario-table__icon {
+  color: var(--color-accent);
+  font-size: 0.88em;
+  margin-right: 0.35em;
+  width: 1em;
+}
+
 .playbook-section__body table.is-interactive-table th.is-table-row-highlight,
 .playbook-section__body table.is-interactive-table td.is-table-row-highlight,
 .playbook-section__body table.is-interactive-table th.is-table-column-highlight,
@@ -928,6 +998,59 @@
 
   .playbook-section__body table.table-numbered td:nth-child(2) {
     width: 48%;
+  }
+
+  .playbook-section__body table.people-scenario-table,
+  .playbook-section__body table.people-scenario-table thead,
+  .playbook-section__body table.people-scenario-table tbody,
+  .playbook-section__body table.people-scenario-table tr,
+  .playbook-section__body table.people-scenario-table th,
+  .playbook-section__body table.people-scenario-table td {
+    display: block;
+  }
+
+  .playbook-section__body table.people-scenario-table {
+    font-size: var(--text-small);
+  }
+
+  .playbook-section__body table.people-scenario-table thead {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .playbook-section__body table.people-scenario-table tr {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .playbook-section__body table.people-scenario-table tr+tr {
+    margin-top: var(--space-3);
+  }
+
+  .playbook-section__body table.people-scenario-table td {
+    border: 0;
+    padding: var(--space-3);
+  }
+
+  .playbook-section__body table.people-scenario-table td+td {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .playbook-section__body table.people-scenario-table td::before {
+    color: var(--color-muted);
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-sans);
+    font-size: var(--text-tiny);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: var(--space-2);
   }
 }
 

@@ -11,4 +11,4 @@ This playbook is the direct product of our collective wisdom and real-world fiel
 
 Do not treat this as a static reference manual. Use it as a living guide to audit your current environment, re-calibrate your human-AI loop, and share your own learnings back with the collective. The ultimate goal is not to build a rigid boundary around how we work, but to foster a resilient, highly adaptive community that thrives no matter how fast the technology moves.
 
-Keep testing, keep sharing, and keep the human texture in the room. We run this season together.
+**Keep testing, keep sharing, and keep the human texture in the room. We run this season together.**

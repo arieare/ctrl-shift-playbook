@@ -1,11 +1,10 @@
 ---
 title: "Section 3: The People"
-navLabel: "People"
+navLabel: "The Researcher"
 summary: ""
 order: 4
 ---
 
-## The Researcher
 <div class="sub-heading">
 How your role evolves as the landscape shifts: you, your team, and the ground beneath you
 </div>
@@ -18,7 +17,98 @@ To visualise possible future scenarios, we used 2 main variables:
 AI progress: the speed in which AI updates its capabilities, specifically in the domain of research
 AI usage readiness: company/organization culture towards the embracing of AI usage
 
-"diagram here"
+<table class="people-scenario-table">
+  <colgroup>
+    <col class="people-scenario-table__environment" />
+    <col class="people-scenario-table__pivot" />
+    <col class="people-scenario-table__loop" />
+  </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">If This Happens (Your Environment)</th>
+      <th scope="col">Then Become This (Your Strategic Pivot)</th>
+      <th scope="col">Core Human-AI Loop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td data-label="If This Happens (Your Environment)">
+        <strong class="people-scenario-table__scenario">Scenario 1: Practical AI at Scale</strong>
+        <ul>
+          <li>AI ability is stagnant (caps at summarizing/clustering).</li>
+          <li>Company pressure is high (AI targets in OKRs; usage is a performance signal).</li>
+        </ul>
+      </td>
+      <td data-label="Then Become This (Your Strategic Pivot)">
+        <strong class="people-scenario-table__role"><i class="fa-solid fa-shield-halved people-scenario-table__icon" aria-hidden="true"></i> The Boundary-Setter &amp; Expectation Manager</strong>
+        <ul>
+          <li>Protect interpretive quality.</li>
+          <li>Push back on inappropriate automation.</li>
+          <li>Explain where AI stops saving time.</li>
+        </ul>
+      </td>
+      <td data-label="Core Human-AI Loop">
+        Human Frames → AI Pre-Processes → Human Interprets &amp; Justifies
+      </td>
+    </tr>
+    <tr>
+      <td data-label="If This Happens (Your Environment)">
+        <strong class="people-scenario-table__scenario">Scenario 2: Accelerated Transformation</strong>
+        <ul>
+          <li>AI ability is progressing fast.</li>
+          <li>Company culture embraces &amp; demands it for value/speed.</li>
+          <li>This is the current rising trend in tech industries.</li>
+        </ul>
+      </td>
+      <td data-label="Then Become This (Your Strategic Pivot)">
+        <strong class="people-scenario-table__role"><i class="fa-solid fa-diagram-project people-scenario-table__icon" aria-hidden="true"></i> The Orchestrator of Thinking Systems</strong>
+        <ul>
+          <li>Stop "doing all the work"; design how thinking happens.</li>
+          <li>Act as the director, choosing how to prompt the AI and which angles matter.</li>
+          <li>Ruthlessly sanity-check for "elegant garbage."</li>
+        </ul>
+      </td>
+      <td data-label="Core Human-AI Loop">
+        Human Frames → AI Expands → Human Judges &amp; Rejects → AI Stress-Tests
+      </td>
+    </tr>
+    <tr>
+      <td data-label="If This Happens (Your Environment)">
+        <strong class="people-scenario-table__scenario">Scenario 3: Untapped AI Potential</strong>
+        <ul>
+          <li>AI ability is progressing fast.</li>
+          <li>The company is slow, hesitant, or passive.</li>
+          <li>This is the current reality for many companies in Indonesia.</li>
+        </ul>
+      </td>
+      <td data-label="Then Become This (Your Strategic Pivot)">
+        <strong class="people-scenario-table__role"><i class="fa-solid fa-key people-scenario-table__icon" aria-hidden="true"></i> The Legitimizer &amp; Translator</strong>
+        <ul>
+          <li>Quietly test new AI steps and show the team what works.</li>
+          <li>Build stakeholder trust by making invisible steps visible.</li>
+          <li>Move at your own pace to master the basics faster.</li>
+        </ul>
+      </td>
+      <td data-label="Core Human-AI Loop">
+        Human Works → AI Assists Quietly → Human Validates &amp; Explains
+      </td>
+    </tr>
+    <tr>
+      <td data-label="If This Happens (Your Environment)">
+        <strong class="people-scenario-table__scenario">Scenario 4: Stagnant &amp; Slow</strong>
+        <ul>
+          <li>AI ability is stagnant.</li>
+          <li>Company pressure is slow/hesitant.</li>
+        </ul>
+      </td>
+      <td data-label="Then Become This (Your Strategic Pivot)">
+        <strong class="people-scenario-table__role"><i class="fa-solid fa-ban people-scenario-table__icon" aria-hidden="true"></i> Out of scope for this playbook</strong>
+        <p>Least likely to occur.</p>
+      </td>
+      <td data-label="Core Human-AI Loop">N/A</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 

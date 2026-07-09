@@ -1,11 +1,10 @@
 ---
 title: "Section 2: The Practice"
-navLabel: "Practice"
+navLabel: "The Workflow"
 summary: ""
 order: 3
 ---
 
-## The Workflow
 <div class="sub-heading">
 How AI fits across a research project: the mechanics, phase by phase
 </div>
@@ -86,7 +85,10 @@ The same activities, pulled into three moves:
 
 AI is strong at structure and pressure-testing, making sure the brief hangs together, and challenging the assumptions you didn't notice you were making.
 
-Try: “Here's my brief and how I plan to approach it. Challenge my assumptions and point out anything that doesn't add up.”
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-lightbulb infobox__icon" aria-hidden="true"></i>Try</p>
+  <p>“Here's my brief and how I plan to approach it. Challenge my assumptions and point out anything that doesn't add up.”</p>
+</blockquote>
 
 AI is excellent at writing a research plan. It is terrible at deciding whether the research needs to happen at all.
 
@@ -121,7 +123,10 @@ The same activities, pulled into three moves:
 
 AI is great at catching things while you're still in the field, themes or contradictions popping up early, so you can dig into them in your next session.
 
-Try: “Here are the themes from my first three interviews. What should I dig into harder next?”
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-lightbulb infobox__icon" aria-hidden="true"></i>Try</p>
+  <p>“Here are the themes from my first three interviews. What should I dig into harder next?”</p>
+</blockquote>
 
 If AI makes you plan fewer real conversations, something's wrong. If it makes the conversations you do have sharper, something's right.
 
@@ -164,7 +169,10 @@ The same activities, pulled into four moves: think of them as what's there, why,
 
 AI can widen what you notice, e.g. the rare signals, the contradictions, and how solid a pattern really is, far beyond what one person can hold in their head.
 
-Try: “Here are my coded themes. Show me the rare signals I might have underweighted, and any pattern that contradicts my main read.”
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-lightbulb infobox__icon" aria-hidden="true"></i>Try</p>
+  <p>“Here are my coded themes. Show me the rare signals I might have underweighted, and any pattern that contradicts my main read.”</p>
+</blockquote>
 
 The “so what” test: would the business actually change if this finding vanished? Does it explain why people behave this way, or just describe what they did? Would a leader make a different decision because of it? If not, it's a pattern, not an insight.
 
@@ -198,7 +206,10 @@ The same activities, pulled into three moves:
 
 AI helps one insight reach more people, rewording it for different audiences, correcting grammar and tightening the structure.
 
-Try:  “Rewrite this finding for a senior leader in three sentences, keeping the key tension right up front.”
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-lightbulb infobox__icon" aria-hidden="true"></i>Try</p>
+  <p>“Rewrite this finding for a senior leader in three sentences, keeping the key tension right up front.”</p>
+</blockquote>
 
 The moment a recommendation appears, a human has to step up and own it. Enough to say, if it fails: ‘Yes, that was my call.’
 
@@ -231,7 +242,10 @@ The same activities, pulled into three moves:
 
 AI turns your archive into something you can ask questions of what keeps coming up over time, and what old work is worth digging back into.
 
-Try:  “Across these past studies, what themes keep recurring, and what has shifted over time?”
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-lightbulb infobox__icon" aria-hidden="true"></i>Try</p>
+  <p>“Across these past studies, what themes keep recurring, and what has shifted over time?”</p>
+</blockquote>
 
 The least glamorous, highest-payoff move in research: making sure your team can find old work instead of redoing it.
 
