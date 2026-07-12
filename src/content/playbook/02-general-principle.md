@@ -38,6 +38,9 @@ Before we talk about how to use AI, it’s worth being clear about what we’re 
 
 <figure class="album">
   <img src="/images/photos/principle-1.jpg" alt="Iceberg" />
+  <figcaption>
+  Photo by <a href="https://unsplash.com/@sailingaroundtheworld">Christian Pfeifer</a> on <a href="https://unsplash.com/photos/white-and-gray-rock-formation-on-blue-sea-under-blue-sky-during-daytime-l6OraG-v0d8">Unsplash</a>
+  </figcaption>
 </figure>
 
 Generative AI is trained on vast amounts of information that humans have written on the internet about ourselves. Meanwhile most things we do, think and feel are hard to explain in words or are simply reflexes in response to our (social, physical, cultural) context which GenAI cannot “see”. 
@@ -58,6 +61,9 @@ Worse, when it hits a gap in its training data, it tends to fabricate rather tha
 
 <figure class="album">
   <img src="/images/photos/principle-2.jpg" alt="Hallucination" />
+  <figcaption>
+  Photo by <a href="https://unsplash.com/@monesprit">Mon Esprit</a> on <a href="https://unsplash.com/photos/a-blurry-photo-of-a-train-track-at-sunset--S8HuYdCDF4">Unsplash</a>
+  </figcaption>
 </figure>
 
 The bigger danger isn’t the gap itself. It’s how AI presents the gap. Outputs come back fluent, polished, and persuasive, whether they’re accurate or completely fabricated.
@@ -71,6 +77,9 @@ The risk is a degradation of research quality hidden under elegant language, tha
 
 <figure class="album">
   <img src="/images/photos/principle-3.jpg" alt="Indonesian Kids" />
+<figcaption>
+  Photo by <a href="https://unsplash.com/@afandystierpan">Ahmad Affandy</a> on <a href="https://unsplash.com/photos/a-couple-of-kids-sitting-on-the-side-of-a-road-73MuCMjlVBI">Unsplash</a>
+  </figcaption>
 </figure>
 
 As of 2024, only around 1% of AI models were trained using Indonesian language [source](https://arxiv.org/html/2506.07506v1#:~:text=However%2C%20these%20corpora%20remain%20dominated,et%20al.%2C%202021%20.&text=Limited%20data%20directly%20affects%20LT,in%20large%2Dscale%20LT%20development). But the broader pattern matters more than the number: AI is heavily weighted toward English-language data and Western cultural reference points.

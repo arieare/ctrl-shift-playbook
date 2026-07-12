@@ -57,6 +57,14 @@ This playbook is documenting the discussions that came out of it that we can ref
       <h4>30+ Workshop Participants</h4>
       <p>Adinda Angelica, Adisti Latief, Aditya Wicaksono, Adri reksodipoetro, Adwitya Nugrahawati, Albert Christian, Amanda Melissa, Annisa Jumaniar, Arie Aulia Nugraha, Dea Safirahilda, Ditto Priyawardhana, Fajar Lubis, Haris Fajar Rahmanto, Hidayatullah Cahyatama, Indriansyah Febrialdy, Iwan Murty, James Dewanto, Nanda Bagus Prakosa, Nizar Maulana Azhari, Novrizal Kamal, Raditya Bayu Pramono, Raihan Abimanyu, Ramda Yanurzha, Sarah Shafira Novianti, Tika Widyaningtyas, Ukasyah Q.A.P., Varyan Aryo, Wanda Azizah Yasin</p>
     </section>
+    <section class="gratitude-credit">
+    <h4>Playbook Content Editor</h4>
+    <p>Adri Reksodipoetro</p>
+    </section>
+    <section class="gratitude-credit">
+    <h4>Playbook Designer</h4>
+    <p>Arie Aulia Nugraha</p>
+    </section>
   </div>
 </section>
 
@@ -73,7 +81,7 @@ July, 2026
 <figure class="album">
   <img src="/images/photos/co-initiators.jpg" alt="Ctrl+Shift! Co-initiators" />
   <figcaption>
-    <strong>Ctrl+Shift! Co-initiators</strong>
-    Rajiv Ibrahim, Danisya Kartohadiprodjo, Christian Hermawan
+    <strong>Ctrl+Shift! Co-initiators</strong></br>
+    Rajiv Ibrahim, Danisya Kartohadiprodjo, Christian Hermawan.
   </figcaption>
 </figure>

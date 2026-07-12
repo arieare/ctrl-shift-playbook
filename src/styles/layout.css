@@ -216,7 +216,7 @@
 
 .site-footer__links {
   display: grid;
-  font-size: var(--text-small);
+  font-size: var(--text-tiny);
   gap: var(--space-2);
 }
 

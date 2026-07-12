@@ -30,6 +30,66 @@ template.innerHTML = `
       position: relative;
     }
 
+    .diagram-download {
+      align-items: center;
+      backdrop-filter: blur(0.35rem);
+      background: color-mix(in srgb, var(--diagram-bg) 88%, transparent);
+      border: 1px solid var(--diagram-border);
+      border-radius: 50%;
+      bottom: 0.65rem;
+      color: var(--color-text, #111111);
+      display: inline-flex;
+      height: 2rem;
+      justify-content: center;
+      position: absolute;
+      right: 0.65rem;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+      width: 2rem;
+      z-index: 6;
+    }
+
+    .diagram-download:hover,
+    .diagram-download:focus-visible {
+      background: var(--diagram-bg);
+      border-color: var(--diagram-accent);
+      transform: translateY(-0.1rem);
+    }
+
+    .diagram-download:focus-visible {
+      outline: 2px solid var(--diagram-accent);
+      outline-offset: 2px;
+    }
+
+    .diagram-download::after {
+      background: var(--color-text, #111111);
+      border-radius: 0.25rem;
+      bottom: calc(100% + 0.45rem);
+      color: var(--diagram-bg);
+      content: attr(data-tooltip);
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: var(--text-small);
+      font-weight: 600;
+      opacity: 0;
+      padding: 0.35rem 0.5rem;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      transform: translateY(0.2rem);
+      transition: opacity 140ms ease, transform 140ms ease;
+      white-space: nowrap;
+    }
+
+    .diagram-download:hover::after,
+    .diagram-download:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .diagram-download svg {
+      height: 0.85rem;
+      width: 0.85rem;
+    }
+
     .you-system {
       aspect-ratio: 1;
       display: grid;
@@ -61,7 +121,7 @@ template.innerHTML = `
       box-shadow:
         0 0.75rem 1.45rem color-mix(in srgb, var(--diagram-accent) 12%, transparent),
         inset 0 0 2.25rem color-mix(in srgb, var(--diagram-bg) 12%, transparent);
-      color: var(--color-bg);
+      color: var(--color-accent-2);
     }
 
     .connector {
@@ -558,6 +618,10 @@ template.innerHTML = `
         top: var(--target-top);
         transform: translate(-50%, -50%) scale(1);
       }
+
+      .diagram-download {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -581,7 +645,7 @@ template.innerHTML = `
   </style>
   <div
     class="diagram"
-    role="img"
+    role="group"
     aria-label="Human context moves from You toward GenAI, while physical context, social dynamic, emotion, cultural reflexes, and informal language remain around GenAI as contextual signals it cannot fully see."
   >
     <div class="you-system">
@@ -623,6 +687,17 @@ template.innerHTML = `
     <span class="context-word context-word--transfer" data-transfer-index="2"><span class="context-word__label">Emotion</span></span>
     <span class="context-word context-word--transfer" data-transfer-index="3"><span class="context-word__label">Cultural<br />Reflexes</span></span>
     <span class="context-word context-word--transfer" data-transfer-index="4"><span class="context-word__label">Informal<br />Language</span></span>
+    <a
+      class="diagram-download"
+      data-tooltip="download diagram"
+      href="/images/print/genai-context-diagram.png"
+      download="genai-context-diagram.png"
+      aria-label="Download diagram"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3Zm-5 16h12v2H6v-2Z" />
+      </svg>
+    </a>
   </div>
 `;
 

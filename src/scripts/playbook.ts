@@ -79,6 +79,21 @@ const getZoneCellClass = (value: string) => {
   return zoneCellClasses.get(normalizeSearchText(value));
 };
 
+const markStepTableLabels = (table: HTMLTableElement) => {
+  const firstHeader = table.tHead?.rows[0]?.cells[0];
+
+  if (normalizeSearchText(firstHeader?.textContent ?? "") !== "step") {
+    return;
+  }
+
+  table.classList.add("is-step-table");
+  Array.from(table.tBodies).forEach((tbody) => {
+    Array.from(tbody.rows).forEach((row) => {
+      row.cells[0]?.classList.add("is-table-step-label");
+    });
+  });
+};
+
 const createSearchSnippet = (text: string, query: string) => {
   const normalizedText = normalizeSearchText(text);
   const normalizedQuery = normalizeSearchText(query);
@@ -121,6 +136,7 @@ const highlightTableCell = (cell: HTMLTableCellElement) => {
 
 interactiveTables.forEach((table) => {
   table.classList.add("is-interactive-table");
+  markStepTableLabels(table);
 
   table.querySelectorAll<HTMLTableCellElement>("th, td").forEach((cell) => {
     cell.tabIndex = 0;

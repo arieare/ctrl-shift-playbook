@@ -348,12 +348,14 @@
 
 .album figcaption {
   color: var(--color-muted);
-  display: grid;
+  display: block;
   font-family: var(--font-sans);
   font-size: var(--text-small);
-  gap: var(--space-1);
   line-height: 1.45;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   text-align: center;
+  white-space: normal;
 }
 
 .album figcaption strong {
@@ -771,6 +773,17 @@
   background: var(--table-zone-bg);
   color: var(--table-zone-text);
   font-weight: 700;
+}
+
+.playbook-section__body table.is-step-table .is-table-step-label {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.playbook-section__body table.is-step-table th,
+.playbook-section__body table.is-step-table td {
+  hyphens: auto;
+  overflow-wrap: normal;
 }
 
 .playbook-section__body table.is-interactive-table .is-table-zone-cell--human {

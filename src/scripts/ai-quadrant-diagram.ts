@@ -458,6 +458,66 @@ template.innerHTML = `
       margin-top: 0.75rem;
     }
 
+    .diagram-download {
+      align-items: center;
+      backdrop-filter: blur(0.35rem);
+      background: color-mix(in srgb, var(--quadrant-bg) 88%, transparent);
+      border: 1px solid var(--quadrant-border);
+      border-radius: 50%;
+      bottom: 0.65rem;
+      color: var(--quadrant-text);
+      display: inline-flex;
+      height: 2rem;
+      justify-content: center;
+      position: absolute;
+      right: 0.65rem;
+      transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+      width: 2rem;
+      z-index: 6;
+    }
+
+    .diagram-download:hover,
+    .diagram-download:focus-visible {
+      background: var(--quadrant-bg);
+      border-color: var(--quadrant-accent);
+      transform: translateY(-0.1rem);
+    }
+
+    .diagram-download:focus-visible {
+      outline: 2px solid var(--quadrant-accent);
+      outline-offset: 2px;
+    }
+
+    .diagram-download::after {
+      background: var(--quadrant-text);
+      border-radius: 0.25rem;
+      bottom: calc(100% + 0.45rem);
+      color: var(--quadrant-bg);
+      content: attr(data-tooltip);
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: var(--text-small);
+      font-weight: 600;
+      opacity: 0;
+      padding: 0.35rem 0.5rem;
+      pointer-events: none;
+      position: absolute;
+      right: 0;
+      transform: translateY(0.2rem);
+      transition: opacity 140ms ease, transform 140ms ease;
+      white-space: nowrap;
+    }
+
+    .diagram-download:hover::after,
+    .diagram-download:focus-visible::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .diagram-download svg {
+      height: 0.85rem;
+      width: 0.85rem;
+    }
+
     :host([phase]) .phase-control {
       display: none;
     }
@@ -730,6 +790,10 @@ template.innerHTML = `
       .phase-control {
         display: none;
       }
+
+      .diagram-download {
+        display: none;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -789,6 +853,18 @@ template.innerHTML = `
         </span>
       </button>
       <div class="phase-label-layer" data-phase-label-layer aria-live="polite"></div>
+      <a
+        class="diagram-download"
+        data-diagram-download
+        data-tooltip="download diagram"
+        href="/images/print/ai-quadrant-default.png"
+        download="ai-quadrant-default.png"
+        aria-label="Download diagram"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17V3Zm-5 16h12v2H6v-2Z" />
+        </svg>
+      </a>
     </div>
     <label class="phase-control">
       <span class="phase-control__label">Phase</span>
@@ -813,6 +889,15 @@ type PhaseId =
   | "knowledge-management";
 
 type PhaseZone = "assist" | "human" | "automate" | "guided";
+
+const phaseImageNames: Record<PhaseId, string> = {
+  none: "ai-quadrant-default.png",
+  planning: "ai-quadrant-planning.png",
+  "data-collection": "ai-quadrant-data-collection.png",
+  analysis: "ai-quadrant-data-analysis.png",
+  reporting: "ai-quadrant-reporting.png",
+  "knowledge-management": "ai-quadrant-knowledge-management.png",
+};
 
 type PhaseLabel = {
   text: string;
@@ -1480,6 +1565,7 @@ class AIQuadrantDiagram extends HTMLElement {
     this.stopLabelDragTracking();
     this.activeLabelDrag = undefined;
     this.activePhase = phase;
+    this.syncDownloadLink(phase);
     this.hoveredZone = undefined;
     this.toggledZone = undefined;
     this.classList.remove("has-phase");
@@ -1517,6 +1603,18 @@ class AIQuadrantDiagram extends HTMLElement {
       this.classList.add("has-phase");
       this.updateExpandedLabels();
     });
+  }
+
+  private syncDownloadLink(phase: PhaseId) {
+    const link = this.shadowRoot?.querySelector<HTMLAnchorElement>("[data-diagram-download]");
+
+    if (!link) {
+      return;
+    }
+
+    const filename = phaseImageNames[phase];
+    link.href = `/images/print/${filename}`;
+    link.download = filename;
   }
 
   private toPhaseId(value: string): PhaseId {

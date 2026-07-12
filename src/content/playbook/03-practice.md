@@ -56,6 +56,8 @@ Let’s deep dive into each phase:
 
 ---
 
+<h2 style="display:none;">1-Planning Phase</h2>
+
 #### Planning Phase
 <div class="sub-heading">
 Where strategic direction is determined.
@@ -69,13 +71,13 @@ Where strategic direction is determined.
 
 ##### What we learn
 
-Here the grip is at the front: nail the framing early, and AI can safely help with the rest.
+<span class="highlight">Here the grip is at the front: nail the framing early, and AI can safely help with the rest.</span>
 
 The same activities, pulled into three moves:
 
 | Step | Frame the problem | Design the study | Build the guide |
 | --- | --- | --- | --- |
-| Activities | Defining the problem · pinning down the objective · naming the limits: time, budget | Choosing the method · deciding who to talk to: sampling | Drafting the interview or survey guide · gathering background |
+| Activities | Defining the problem, pinning down the objective, naming the limits: time, budget | Choosing the method, deciding who to talk to: sampling | Drafting the interview or survey guide, gathering background |
 | Zone | Human only | Guided | Assist |
 | Why this zone | So much of what shapes a brief is unspoken — it lives in your head and in stakeholder chats, not in a prompt. | It takes judgement to know what will actually work with real people. | Once the method is set, drafting the questions is low-risk. |
 | Watch out | If AI defines the problem, it builds in its own blind spots. | AI happily ignores real limits like time and budget. | Leading questions slip in without you noticing. |
@@ -94,6 +96,8 @@ AI is excellent at writing a research plan. It is terrible at deciding whether t
 
 ---
 
+<h2 style="display:none;">2-Data Collection</h2>
+
 #### Data Collection
 <div class="sub-heading">
 Where authenticity is protected.
@@ -107,13 +111,13 @@ Where authenticity is protected.
 
 ##### What we learn
 
-Here the grip is in the middle: AI can handle the setup and the cleanup, but humans have to be in the room for the real conversations.
+<span class="highlight">Here the grip is in the middle: AI can handle the setup and the cleanup, but humans have to be in the room for the real conversations.</span>
 
 The same activities, pulled into three moves:
 
 | Step | Recruit & set up | Interview & immerse | Transcribe & translate |
 | --- | --- | --- | --- |
-| Activities | Finding participants · handling survey logistics | Running interviews · spending time in people's real settings · exploring local culture | Turning recordings into text · translating from the field |
+| Activities | Finding participants, handling survey logistics | Running interviews, spending time in people's real settings, exploring local culture | Turning recordings into text, translating from the field |
 | Zone | Assist | Human only | Automate |
 | Why this zone | This is logistics, not judgement. | Real, face-to-face contact is where the meaning actually shows up. | It's mechanical work — as long as you've checked the accuracy. |
 | Watch out | Automated screening can let the wrong people through. | Fake or AI-run “interviews” strip out all the nuance. | Unchecked translation quietly changes what people mean. |
@@ -140,6 +144,8 @@ The tools are growing quickly, so keep an eye on them and let your confidence gr
 
 ---
 
+<h2 style="display:none;">3-Analysis & meaning-making</h2>
+
 #### Analysis & meaning-making
 <div class="sub-heading">
 Where things move fast — and where it's easiest to distort the truth.
@@ -153,13 +159,13 @@ Where things move fast — and where it's easiest to distort the truth.
 
 ##### What we learn
 
-Here the grip tightens as you go: AI can spot what's there, but you own what it means and what to do about it.
+<span class="highlight">Here the grip tightens as you go: AI can spot what's there, but you own what it means and what to do about it.</span>
 
 The same activities, pulled into four moves: think of them as what's there, why, so what, and now what.
 
 | Step | Observations | Meaning | Implications | Actions |
 | --- | --- | --- | --- | --- |
-| Activities | Cleaning the data · grouping and labelling themes · flagging odd cases · pulling good quotes | Exploring different readings · working out what drives people | Deciding which themes matter · choosing the seeds of an insight · ranking them · writing them up | Pressure-testing the options · deciding what to recommend |
+| Activities | Cleaning the data, grouping and labelling themes, flagging odd cases, pulling good quotes | Exploring different readings, working out what drives people | Deciding which themes matter, choosing the seeds of an insight, ranking them, writing them up | Pressure-testing the options, deciding what to recommend |
 | Zone | Automate | Guided | Human only | Human only |
 | Why this zone | “What's there.” Spotting patterns across lots of data is mechanical work. | “Why it's there.” Meaning and insights live beyond what people say. The why needs cultural context AI doesn't have, especially here. | “So what.” Only you know what your stakeholders actually care about. | “Now what.” The recommendation is yours to stand behind. |
 | Watch out | Themes you can't trace back to what people actually said. | AI reading local behaviour through a Western lens. | Findings that describe what happened but never explain it. | Conclusions you didn't really form yourself feel empty to everyone else. |
@@ -180,6 +186,8 @@ Transcripts and datasets tell you very little on their own. The meaning lives be
 
 ---
 
+<h2 style="display:none;">4-Reporting</h2>
+
 #### Reporting
 <div class="sub-heading">
 Where influence is executed.
@@ -189,14 +197,17 @@ Where influence is executed.
   <ai-quadrant-diagram phase="reporting"></ai-quadrant-diagram>
 </div>
 
+<img class="print-diagram-image" src="/images/print/ai-quadrant-reporting.png" alt="Print version of the reporting phase AI quadrant diagram" />
+
 ##### What we learn
-Here the grip is at both ends: you decide what to say and you own how it lands, AI just helps with the craft in between.
+
+<span class="highlight">Here the grip is at both ends: you decide what to say and you own how it lands, AI just helps with the craft in between.</span>
 
 The same activities, pulled into three moves:
 
 | Step | Set the message | Craft the telling | Tailor & deliver |
 | --- | --- | --- | --- |
-| Activities | Choosing the story and the hook · deciding the headline insights | Drafting framing options · rewriting and rephrasing · trying narrative techniques · shaping the visuals | Adapting it to each audience · wording the recommendations |
+| Activities | Choosing the story and the hook, deciding the headline insights | Drafting framing options, rewriting and rephrasing, trying narrative techniques, shaping the visuals | Adapting it to each audience, wording the recommendations |
 | Zone | Human only | Assist | Human only |
 | Why this zone | The story and the main point are judgement calls. You decide the main tensions, challenges or opportunities to highlight | Structure and phrasing are things AI can genuinely speed up. |
 | Watch out | Letting AI choose the headline for you. | Over-polishing until the tension — the bit that makes people care — is gone. |
@@ -215,6 +226,8 @@ The moment a recommendation appears, a human has to step up and own it. Enough t
 
 ---
 
+<h2 style="display:none;">5-Knowledge Management</h2>
+
 #### Knowledge Management Phase
 <div class="sub-heading">
 Where research compounds
@@ -224,15 +237,17 @@ Where research compounds
   <ai-quadrant-diagram phase="knowledge-management"></ai-quadrant-diagram>
 </div>
 
+<img class="print-diagram-image" src="/images/print/ai-quadrant-knowledge-management.png" alt="Print version of the knowledge management phase AI quadrant diagram" />
+
 ##### What we learn
 
-Here the grip is at the back again: AI can remember everything, but you decide what those memories actually mean.
+<span class="highlight">Here the grip is at the back again: AI can remember everything, but you decide what those memories actually mean.</span>
 
 The same activities, pulled into three moves:
 
 | Step | Archive & Tag | Retrieve & Connect | Synthesise over time |
 | --- | --- | --- | --- |
-| Activities | Storing studies · tagging · sorting · adding metadata | Suggesting related insights · spotting similar past studies · finding old work | Reading across many studies · pulling them together · checking what holds up over time |
+| Activities | Storing studies, tagging, sorting, adding metadata | Suggesting related insights, spotting similar past studies, finding old work | Reading across many studies, pulling them together, checking what holds up over time |
 | Zone | Automate | Assist | Human only |
 | Why this zone | High volume, low judgement. | AI spots links across old work that you'd easily miss. | Meaning that spans many studies is what sets direction. |
 | Watch out | Sloppy tagging makes everything impossible to find later. | AI surfacing something doesn't make it relevant. | Mistaking “we keep seeing this” for “this is true.” |
