@@ -301,6 +301,30 @@ template.innerHTML = `
       display: none;
     }
 
+    :host(.is-people-scenarios) .zone {
+      background:
+        linear-gradient(
+          135deg,
+          var(--zone-highlight) 0%,
+          color-mix(in srgb, var(--zone-highlight) 68%, var(--zone-highlight-end)) 100%
+        );
+      border-color: transparent;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    :host(.is-people-scenarios) .zone__title {
+      font-size: clamp(var(--text-small), 2.4vw, var(--text-base));
+      opacity: 1;
+      transform: none;
+    }
+
+    :host(.is-people-scenarios) .zone__criteria,
+    :host(.is-people-scenarios) .phase-label-layer,
+    :host(.is-people-scenarios) .phase-control {
+      display: none;
+    }
+
     .phase-label-layer {
       inset: 0;
       pointer-events: none;
@@ -1258,7 +1282,7 @@ class AIQuadrantDiagram extends HTMLElement {
   private toggledZone?: PhaseZone;
 
   static get observedAttributes() {
-    return ["phase"];
+    return ["phase", "variant"];
   }
 
   connectedCallback() {
@@ -1274,6 +1298,7 @@ class AIQuadrantDiagram extends HTMLElement {
     this.shadowRoot?.querySelector(".quadrant__canvas")?.addEventListener("pointermove", this.handleAxisPointerMove);
     this.shadowRoot?.querySelector(".quadrant__canvas")?.addEventListener("pointerleave", this.handleAxisPointerLeave);
     this.renderPhaseLabels(this.getConfiguredPhase() ?? "none");
+    this.applyVariant();
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1320,6 +1345,64 @@ class AIQuadrantDiagram extends HTMLElement {
     }
 
     this.renderPhaseLabels(this.getConfiguredPhase() ?? "none");
+    this.applyVariant();
+  }
+
+  private applyVariant() {
+    const isPeopleScenarios = this.getAttribute("variant") === "people-scenarios";
+    const quadrant = this.shadowRoot?.querySelector<HTMLElement>(".quadrant");
+    const yAxisLabel = this.shadowRoot?.querySelector<HTMLElement>(".axis-label--y");
+    const xAxisLabel = this.shadowRoot?.querySelector<HTMLElement>(".axis-label--x");
+    const downloadLink = this.shadowRoot?.querySelector<HTMLAnchorElement>("[data-diagram-download]");
+    const zones = this.shadowRoot?.querySelectorAll<HTMLButtonElement>(".zone");
+    const zoneTitles = this.shadowRoot?.querySelectorAll<HTMLElement>(".zone__title");
+    const defaultTitles = [
+      "Assist Zone",
+      "Human Only Zone",
+      "Automate Zone",
+      "Guided Interpretation Zone",
+    ];
+    const scenarioTitles = [
+      "Practical AI at Scale",
+      "Accelerated AI Transformation",
+      "Cautious AI Landscape",
+      "Untapped AI Potential",
+    ];
+
+    this.classList.toggle("is-people-scenarios", isPeopleScenarios);
+
+    if (quadrant) {
+      quadrant.setAttribute(
+        "aria-label",
+        isPeopleScenarios
+          ? "AI ecosystem scenario quadrant. Company and client adoption of AI increases upward; AI progress in the ecosystem increases to the right."
+          : "AI research responsibility quadrant. Task complexity increases upward; context and judgment sensitivity increase to the right. Select a project phase to map task labels into the quadrant.",
+      );
+    }
+
+    if (yAxisLabel) {
+      yAxisLabel.textContent = isPeopleScenarios ? "Company/Client adoption to AI" : "Task Complexity";
+    }
+
+    if (xAxisLabel) {
+      xAxisLabel.textContent = isPeopleScenarios
+        ? "AI Progress in the ecosystem"
+        : "Context / Judgment Sensitivity";
+    }
+
+    zoneTitles?.forEach((title, index) => {
+      title.textContent = (isPeopleScenarios ? scenarioTitles : defaultTitles)[index] ?? "";
+    });
+
+    zones?.forEach((zone) => {
+      zone.disabled = isPeopleScenarios;
+      zone.setAttribute("aria-expanded", "false");
+    });
+
+    if (downloadLink && isPeopleScenarios) {
+      downloadLink.href = "/images/print/ai-scenario-quadrant.png";
+      downloadLink.download = "ai-scenario-quadrant.png";
+    }
   }
 
   private handleClick = (event: Event) => {

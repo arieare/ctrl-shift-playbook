@@ -699,6 +699,14 @@
   table-layout: fixed;
 }
 
+.playbook-section__body .people-scenario-tables--screen table.people-scenario-table+table.people-scenario-table {
+  margin-top: var(--space-4);
+}
+
+.playbook-section__body table.people-scenario-table--print {
+  display: none;
+}
+
 .playbook-section__body table.people-scenario-table col.people-scenario-table__environment {
   width: 31%;
 }

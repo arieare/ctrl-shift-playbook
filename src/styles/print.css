@@ -192,6 +192,14 @@
     font-size: var(--text-base);
   }
 
+  .people-scenario-tables--screen {
+    display: none !important;
+  }
+
+  .playbook-section__body table.people-scenario-table--print {
+    display: table !important;
+  }
+
   .playbook-section__body table,
   .playbook-section__body thead,
   .playbook-section__body tbody,
