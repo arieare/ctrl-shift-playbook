@@ -56,16 +56,24 @@ const description = "A living playbook documenting Ctrl+Shift! discussions among
 <PageShell title={title} description={description}>
   <a class="skip-link" href="#playbook">Skip to playbook</a>
 
-  <header class="landing-hero" data-hero>
+  <header class="landing-hero landing-hero--gradient-blend" data-hero>
+    <img
+      class="landing-hero__photo"
+      src="/images/photos/hero.jpg"
+      alt=""
+      aria-hidden="true"
+      data-hero-photo
+      decoding="async"
+    />
     <canvas class="landing-hero__gradient" data-hero-gradient aria-hidden="true"></canvas>
     <div class="landing-hero__desktop-notice">
       <i class="fa-solid fa-desktop" aria-hidden="true"></i>
       <span class="landing-hero__desktop-notice-text">Best viewed on desktop</span>
     </div>
     <div class="landing-hero__inner">
-      
-      <h1 class=hidden>Ctrl+Shift! Playbook</h1>
-      <img src="images/ctrl-shift-playbook-logo.png" alt="Ctrl+Shift! Playbook" style="width:300px;"/>
+      <img src="images/ctrl-shift-playbook-logo.png" alt="Ctrl+Shift! Playbook" style="width:150px;"/>
+      <h1>Consumer researcher living in the age of AI</h1>
+      <h3>Should I be worried? or should I be learning?</h3>
       <div class="landing-hero__actions" aria-label="Playbook actions">
         <a class="button" href="#playbook">Read the Playbook</a>
         <button class="button button--secondary" type="button" data-print-button><i class="fa-solid fa-download"></i> Download PDF</button>

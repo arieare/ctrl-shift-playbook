@@ -1,4 +1,5 @@
 const canvas = document.querySelector<HTMLCanvasElement>("[data-hero-gradient]");
+const photo = document.querySelector<HTMLImageElement>("[data-hero-photo]");
 
 const vertexShaderSource = `
 attribute vec2 a_position;
@@ -94,7 +95,7 @@ void main() {
 }
 `;
 
-const hero = canvas?.closest<HTMLElement>("[data-hero]");
+const hero = (canvas ?? photo)?.closest<HTMLElement>("[data-hero]");
 const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 const colors = [
   [0.294, 0.294, 0.765],
@@ -102,6 +103,24 @@ const colors = [
   [0.839, 0.663, 0.675],
   [0.98, 0.812, 0.741],
 ] as const;
+
+const initializeHeroPhoto = () => {
+  if (!hero || !photo) {
+    return;
+  }
+
+  const showPhoto = () => {
+    if (photo.naturalWidth > 0) {
+      hero.classList.add("is-hero-photo-ready");
+    }
+  };
+
+  if (photo.complete) {
+    showPhoto();
+  } else {
+    photo.addEventListener("load", showPhoto, { once: true });
+  }
+};
 
 const compileShader = (gl: WebGLRenderingContext, type: number, source: string) => {
   const shader = gl.createShader(type);
@@ -293,4 +312,5 @@ const initializeHeroGradient = () => {
   updateMotion();
 };
 
+initializeHeroPhoto();
 initializeHeroGradient();

@@ -23,7 +23,24 @@
   inset: 0;
   pointer-events: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
+}
+
+.landing-hero__photo {
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition: opacity 600ms ease;
+  width: 100%;
+  z-index: 0;
+}
+
+.landing-hero.is-hero-photo-ready .landing-hero__photo {
+  opacity: 1;
 }
 
 .landing-hero__gradient {
@@ -34,11 +51,19 @@
   position: absolute;
   transition: opacity 600ms ease;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
 }
 
 .landing-hero.is-hero-gradient-ready .landing-hero__gradient {
   opacity: 1;
+}
+
+.landing-hero.is-hero-photo-ready.is-hero-gradient-ready .landing-hero__gradient {
+  opacity: 0.72;
+}
+
+.landing-hero--gradient-blend .landing-hero__gradient {
+  mix-blend-mode: exclusion;
 }
 
 .landing-hero__desktop-notice {
@@ -54,7 +79,7 @@
   position: relative;
   text-align: center;
   width: 100%;
-  z-index: 2;
+  z-index: 3;
 }
 
 .landing-hero__inner>*+* {
