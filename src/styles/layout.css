@@ -291,8 +291,44 @@
 
 @media (max-width: 760px) {
   .landing-hero {
-    min-height: 92svh;
-    padding: calc(var(--space-7) + 2.5rem) var(--space-4) var(--space-7);
+    min-height: 100svh;
+    padding: calc(2.5rem + var(--space-5)) var(--space-4) var(--space-5);
+  }
+
+  .landing-hero__photo {
+    object-position: 64% center;
+  }
+
+  .landing-hero__inner {
+    max-width: 31rem;
+  }
+
+  .landing-hero__inner>img {
+    width: min(8.5rem, 38vw) !important;
+  }
+
+  .landing-hero__inner>*+* {
+    margin-top: clamp(0.8rem, 2.5svh, 1.25rem);
+  }
+
+  .landing-hero__inner h1 {
+    font-size: clamp(38px, 10.5vw, 52px);
+    letter-spacing: -0.045em;
+    line-height: 0.98;
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .landing-hero__inner h3 {
+    font-size: clamp(19px, 5.4vw, 27px);
+    line-height: 1.12;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  .landing-hero__actions {
+    gap: var(--space-2);
+    width: min(13.5rem, 100%);
   }
 
   .landing-hero__desktop-notice {
