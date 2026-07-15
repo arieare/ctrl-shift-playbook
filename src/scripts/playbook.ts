@@ -9,6 +9,10 @@ const siteHeader = document.querySelector<HTMLElement>("[data-site-header]");
 const playbookShell = document.querySelector<HTMLElement>("#playbook");
 const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-playbook-section]"));
 const interactiveTables = Array.from(document.querySelectorAll<HTMLTableElement>(".playbook-section__body table"));
+const peopleScenarioDiagram = document.querySelector<HTMLElement>('ai-quadrant-diagram[variant="people-scenarios"]');
+const peopleScenarioTables = Array.from(
+  document.querySelectorAll<HTMLTableElement>(".people-scenario-tables--screen [data-scenario-table]"),
+);
 const primaryButtons = Array.from(document.querySelectorAll<HTMLElement>(".button:not(.button--secondary)"));
 const searchForm = document.querySelector<HTMLFormElement>("[data-site-search]");
 const searchInput = document.querySelector<HTMLInputElement>("[data-search-input]");
@@ -78,6 +82,38 @@ const normalizeSearchText = (value: string) => {
 const getZoneCellClass = (value: string) => {
   return zoneCellClasses.get(normalizeSearchText(value));
 };
+
+const showPeopleScenarioTable = (index: number, shouldScroll: boolean) => {
+  const selectedTable = peopleScenarioTables[index];
+
+  if (!selectedTable) {
+    return;
+  }
+
+  peopleScenarioTables.forEach((table, tableIndex) => {
+    table.hidden = tableIndex !== index;
+  });
+
+  if (shouldScroll) {
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    requestAnimationFrame(() => {
+      selectedTable.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "start",
+      });
+    });
+  }
+};
+
+showPeopleScenarioTable(0, false);
+peopleScenarioDiagram?.addEventListener("scenariochange", (event) => {
+  const scenarioIndex = (event as CustomEvent<{ index?: number }>).detail.index;
+
+  if (typeof scenarioIndex === "number") {
+    showPeopleScenarioTable(scenarioIndex, true);
+  }
+});
 
 const markStepTableLabels = (table: HTMLTableElement) => {
   const firstHeader = table.tHead?.rows[0]?.cells[0];
@@ -543,7 +579,13 @@ if (readerPages.length > 0) {
 
   const activateReaderPage = (
     pageIndex: number,
-    options: { headingId?: string; replaceHash?: boolean; scroll?: boolean; updateHash?: boolean } = {},
+    options: {
+      headingId?: string;
+      replaceHash?: boolean;
+      scroll?: boolean;
+      scrollToPageTop?: boolean;
+      updateHash?: boolean;
+    } = {},
   ) => {
     const nextIndex = Math.min(Math.max(pageIndex, 0), readerPages.length - 1);
     const activePage = readerPages[nextIndex];
@@ -568,7 +610,11 @@ if (readerPages.length > 0) {
     }
 
     if (options.scroll) {
-      const target = activeHeadingId ? document.getElementById(activeHeadingId) : activePage.section;
+      const target = options.scrollToPageTop
+        ? activePage.elements[0] ?? activePage.section
+        : activeHeadingId
+          ? document.getElementById(activeHeadingId)
+          : activePage.section;
 
       if (target) {
         scrollToReaderTarget(target);
@@ -854,6 +900,7 @@ if (readerPages.length > 0) {
     if (previousPage) {
       activateReaderPage(activeReaderPageIndex - 1, {
         scroll: true,
+        scrollToPageTop: true,
         updateHash: true,
       });
     }
@@ -865,6 +912,7 @@ if (readerPages.length > 0) {
     if (nextPage) {
       activateReaderPage(activeReaderPageIndex + 1, {
         scroll: true,
+        scrollToPageTop: true,
         updateHash: true,
       });
     }
@@ -884,6 +932,7 @@ if (readerPages.length > 0) {
       event.preventDefault();
       activateReaderPage(activeReaderPageIndex - 1, {
         scroll: true,
+        scrollToPageTop: true,
         updateHash: true,
       });
     }
@@ -892,6 +941,7 @@ if (readerPages.length > 0) {
       event.preventDefault();
       activateReaderPage(activeReaderPageIndex + 1, {
         scroll: true,
+        scrollToPageTop: true,
         updateHash: true,
       });
     }

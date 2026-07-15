@@ -310,7 +310,52 @@ template.innerHTML = `
         );
       border-color: transparent;
       cursor: default;
+      padding: 0.75rem;
       pointer-events: none;
+    }
+
+    :host(.is-people-scenarios) .zone--assist {
+      --zone-highlight: color-mix(in srgb, var(--color-accent, #4849c4) 12%, var(--quadrant-bg));
+      --zone-highlight-end: color-mix(in srgb, var(--color-accent-3, #d5a7aa) 20%, var(--quadrant-bg));
+      --zone-label-color: var(--color-accent, #4849c4);
+    }
+
+    :host(.is-people-scenarios) .zone--human {
+      --zone-highlight: color-mix(in srgb, var(--color-accent-2, #7164bc) 14%, var(--quadrant-bg));
+      --zone-highlight-end: color-mix(in srgb, var(--color-accent, #4849c4) 10%, var(--quadrant-bg));
+      --zone-label-color: var(--color-accent-2, #7164bc);
+    }
+
+    :host(.is-people-scenarios) .zone--automate {
+      --zone-highlight: color-mix(in srgb, var(--color-accent-3, #d5a7aa) 24%, var(--quadrant-bg));
+      --zone-highlight-end: color-mix(in srgb, var(--color-accent-2, #7164bc) 10%, var(--quadrant-bg));
+      --zone-label-color: color-mix(in srgb, var(--color-accent-3, #d5a7aa) 48%, var(--quadrant-text));
+    }
+
+    :host(.is-people-scenarios) .zone--guided {
+      --zone-highlight: var(--color-yellow-1, #f3edce);
+      --zone-highlight-end: var(--color-yellow-2, #f5e49c);
+      --zone-label-color: var(--color-yellow-5, #695616);
+    }
+
+    :host(.is-people-scenarios) .quadrant__canvas {
+      aspect-ratio: 16 / 12;
+    }
+
+    :host(.is-people-scenarios) .axis-label--x {
+      font-size: var(--text-tiny);
+      right: 0;
+      top: calc(50% + 0.65rem);
+      white-space: nowrap;
+      width: auto;
+    }
+
+    :host(.is-people-scenarios) .axis-label--y {
+      font-size: var(--text-tiny);
+    }
+
+    :host(.is-people-scenarios) .diagram-download {
+      display: none;
     }
 
     :host(.is-people-scenarios) .zone__title {
@@ -323,6 +368,94 @@ template.innerHTML = `
     :host(.is-people-scenarios) .phase-label-layer,
     :host(.is-people-scenarios) .phase-control {
       display: none;
+    }
+
+    :host(.is-people-scenarios) .zone .zone__criteria {
+      display: grid;
+      gap: 0.15rem;
+      opacity: 1;
+      transform: none;
+    }
+
+    :host(.is-people-scenarios) .zone {
+      gap: 0.25rem;
+      height: 40%;
+    }
+
+    :host(.is-people-scenarios) .zone .zone__criteria > span {
+      background: var(--zone-label-color);
+      border-radius: 999px;
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 600;
+      line-height: 1.05;
+      padding: 0.12rem 0.35rem;
+      width: fit-content;
+    }
+
+    .scenario-toggle-layer {
+      display: none;
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 5;
+    }
+
+    :host(.is-people-scenarios) .scenario-toggle-layer {
+      display: block;
+    }
+
+    .scenario-toggle {
+      background: color-mix(in srgb, var(--quadrant-bg) 92%, transparent);
+      border: 1px solid var(--quadrant-accent);
+      border-radius: 999px;
+      color: var(--quadrant-accent);
+      cursor: pointer;
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: 0.62rem;
+      font-weight: 750;
+      line-height: 1;
+      padding: 0.38rem 0.55rem;
+      pointer-events: auto;
+      position: absolute;
+      text-transform: lowercase;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+      white-space: nowrap;
+    }
+
+    .scenario-toggle:hover,
+    .scenario-toggle:focus-visible {
+      transform: translateY(-0.08rem);
+    }
+
+    .scenario-toggle:focus-visible {
+      outline: 2px solid var(--quadrant-accent);
+      outline-offset: 2px;
+    }
+
+    .scenario-toggle[aria-pressed="true"] {
+      background: var(--quadrant-accent);
+      color: #ffffff;
+    }
+
+    .scenario-toggle[data-scenario-index="0"],
+    .scenario-toggle[data-scenario-index="2"] {
+      right: 53.5%;
+    }
+
+    .scenario-toggle[data-scenario-index="1"],
+    .scenario-toggle[data-scenario-index="3"] {
+      right: 3.5%;
+    }
+
+    .scenario-toggle[data-scenario-index="0"],
+    .scenario-toggle[data-scenario-index="1"] {
+      top: calc(49% - 2.15rem);
+    }
+
+    .scenario-toggle[data-scenario-index="2"],
+    .scenario-toggle[data-scenario-index="3"] {
+      top: calc(93% - 2.15rem);
     }
 
     .phase-label-layer {
@@ -630,6 +763,24 @@ template.innerHTML = `
         font-size: var(--text-small);
       }
 
+      :host(.is-people-scenarios) .zone {
+        gap: 0.25rem;
+        height: 40%;
+      }
+
+      :host(.is-people-scenarios) .zone {
+        padding: 0.55rem;
+      }
+
+      :host(.is-people-scenarios) .zone .zone__criteria {
+        gap: 0.2rem;
+      }
+
+      :host(.is-people-scenarios) .zone .zone__criteria > span {
+        font-size: 0.68rem;
+        padding: 0.2rem 0.35rem;
+      }
+
       .phase-label {
         font-size: var(--text-tiny);
         height: 0.7rem;
@@ -649,6 +800,11 @@ template.innerHTML = `
         align-items: stretch;
         flex-direction: column;
         gap: 0.45rem;
+      }
+
+      .scenario-toggle {
+        font-size: 0.58rem;
+        padding: 0.34rem 0.45rem;
       }
     }
 
@@ -818,6 +974,10 @@ template.innerHTML = `
       .diagram-download {
         display: none;
       }
+
+      .scenario-toggle-layer {
+        display: none !important;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -876,6 +1036,12 @@ template.innerHTML = `
           <span>Senior judgment required</span>
         </span>
       </button>
+      <div class="scenario-toggle-layer" data-scenario-toggle-layer>
+        <button class="scenario-toggle" type="button" data-scenario-index="0" aria-label="See opportunity for Practical AI at Scale" aria-pressed="true">see opportunity</button>
+        <button class="scenario-toggle" type="button" data-scenario-index="1" aria-label="See opportunity for Accelerated AI Transformation" aria-pressed="false">see opportunity</button>
+        <button class="scenario-toggle" type="button" data-scenario-index="2" aria-label="See opportunity for Cautious AI Landscape" aria-pressed="false">see opportunity</button>
+        <button class="scenario-toggle" type="button" data-scenario-index="3" aria-label="See opportunity for Untapped AI Potential" aria-pressed="false">see opportunity</button>
+      </div>
       <div class="phase-label-layer" data-phase-label-layer aria-live="polite"></div>
       <a
         class="diagram-download"
@@ -1270,6 +1436,7 @@ const phaseLabels: Record<PhaseId, PhaseLabel[]> = {
 };
 
 class AIQuadrantDiagram extends HTMLElement {
+  private activeScenarioIndex = 0;
   private activePhase: PhaseId = "none";
   private activeLabelDrag?: PhaseLabelDragState;
   private axisAnimationFrame = 0;
@@ -1356,6 +1523,7 @@ class AIQuadrantDiagram extends HTMLElement {
     const downloadLink = this.shadowRoot?.querySelector<HTMLAnchorElement>("[data-diagram-download]");
     const zones = this.shadowRoot?.querySelectorAll<HTMLButtonElement>(".zone");
     const zoneTitles = this.shadowRoot?.querySelectorAll<HTMLElement>(".zone__title");
+    const zoneCriteria = this.shadowRoot?.querySelectorAll<HTMLElement>(".zone__criteria");
     const defaultTitles = [
       "Assist Zone",
       "Human Only Zone",
@@ -1367,6 +1535,36 @@ class AIQuadrantDiagram extends HTMLElement {
       "Accelerated AI Transformation",
       "Cautious AI Landscape",
       "Untapped AI Potential",
+    ];
+    const defaultCriteria = [
+      ["Medium risk", "Safe with senior supervision"],
+      ["Critical human judgment", "No AI involvement"],
+      ["Low risk", "Safe for all levels"],
+      ["High risk", "Senior judgment required"],
+    ];
+    const practicalAiItems = [
+      "Ample time & room to explore",
+      "Optimal AI usage where possible",
+      "Moderate adaptation",
+      "Hybrid status quo - AI",
+    ];
+    const acceleratedAiItems = [
+      "Super agile & sensitive to progress",
+      "High anxiety for researchers",
+      "Significant adpatation",
+      "More democratization",
+    ];
+    const cautiousAiItems = [
+      "Slow exploration",
+      "Less urgency",
+      "Low adaptation",
+      "Status quo",
+    ];
+    const untappedAiItems = [
+      "Ample time & room to explore",
+      "Less anxiety for researchers",
+      "Researcher take control of the change",
+      "No urgency to change",
     ];
 
     this.classList.toggle("is-people-scenarios", isPeopleScenarios);
@@ -1394,6 +1592,24 @@ class AIQuadrantDiagram extends HTMLElement {
       title.textContent = (isPeopleScenarios ? scenarioTitles : defaultTitles)[index] ?? "";
     });
 
+    zoneCriteria?.forEach((criteria, index) => {
+      const scenarioItems = [
+        practicalAiItems,
+        acceleratedAiItems,
+        cautiousAiItems,
+        untappedAiItems,
+      ];
+      const items = isPeopleScenarios ? scenarioItems[index] ?? [] : defaultCriteria[index] ?? [];
+
+      criteria.replaceChildren(
+        ...items.map((item) => {
+          const label = document.createElement("span");
+          label.textContent = item;
+          return label;
+        }),
+      );
+    });
+
     zones?.forEach((zone) => {
       zone.disabled = isPeopleScenarios;
       zone.setAttribute("aria-expanded", "false");
@@ -1407,6 +1623,18 @@ class AIQuadrantDiagram extends HTMLElement {
 
   private handleClick = (event: Event) => {
     const target = event.target as Element | null;
+    const scenarioToggle = target?.closest<HTMLButtonElement>("[data-scenario-index]");
+
+    if (scenarioToggle && this.classList.contains("is-people-scenarios")) {
+      const scenarioIndex = Number(scenarioToggle.dataset.scenarioIndex);
+
+      if (Number.isInteger(scenarioIndex)) {
+        this.selectScenario(scenarioIndex, true);
+      }
+
+      return;
+    }
+
     const zoneElement = target?.closest<HTMLElement>(".zone");
     const zone = this.getZoneFromElement(target);
 
@@ -1427,6 +1655,28 @@ class AIQuadrantDiagram extends HTMLElement {
     this.toggledZone = this.toggledZone === zone ? undefined : zone;
     this.updateExpandedLabels();
   };
+
+  private selectScenario(index: number, notify: boolean) {
+    const toggles = this.shadowRoot?.querySelectorAll<HTMLButtonElement>("[data-scenario-index]");
+    const tableIndexByQuadrant = [0, 1, 3, 2];
+
+    this.activeScenarioIndex = Math.min(Math.max(index, 0), 3);
+    toggles?.forEach((toggle) => {
+      toggle.setAttribute(
+        "aria-pressed",
+        String(Number(toggle.dataset.scenarioIndex) === this.activeScenarioIndex),
+      );
+    });
+
+    if (notify) {
+      this.dispatchEvent(
+        new CustomEvent("scenariochange", {
+          bubbles: true,
+          detail: { index: tableIndexByQuadrant[this.activeScenarioIndex] },
+        }),
+      );
+    }
+  }
 
   private handlePhaseChange = (event: Event) => {
     const target = event.target as HTMLSelectElement | null;

@@ -26,7 +26,7 @@ AI usage readiness: company/organization culture towards the embracing of AI usa
 <img class="print-diagram-image" src="/images/print/ai-scenario-quadrant.png" alt="Four-quadrant AI ecosystem scenario diagram showing Practical AI at Scale, Accelerated AI Transformation, Cautious AI Landscape, and Untapped AI Potential" />
 
 <div class="people-scenario-tables people-scenario-tables--screen">
-<table class="people-scenario-table">
+<table class="people-scenario-table" id="people-scenario-1" data-scenario-table="0">
   <colgroup>
     <col class="people-scenario-table__environment" />
     <col class="people-scenario-table__pivot" />
@@ -63,7 +63,7 @@ AI usage readiness: company/organization culture towards the embracing of AI usa
   </tbody>
 </table>
 
-<table class="people-scenario-table">
+<table class="people-scenario-table" id="people-scenario-2" data-scenario-table="1" hidden>
   <colgroup>
     <col class="people-scenario-table__environment" />
     <col class="people-scenario-table__pivot" />
@@ -101,7 +101,7 @@ AI usage readiness: company/organization culture towards the embracing of AI usa
   </tbody>
 </table>
 
-<table class="people-scenario-table">
+<table class="people-scenario-table" id="people-scenario-3" data-scenario-table="2" hidden>
   <colgroup>
     <col class="people-scenario-table__environment" />
     <col class="people-scenario-table__pivot" />
@@ -139,7 +139,7 @@ AI usage readiness: company/organization culture towards the embracing of AI usa
   </tbody>
 </table>
 
-<table class="people-scenario-table">
+<table class="people-scenario-table" id="people-scenario-4" data-scenario-table="3" hidden>
   <colgroup>
     <col class="people-scenario-table__environment" />
     <col class="people-scenario-table__pivot" />
