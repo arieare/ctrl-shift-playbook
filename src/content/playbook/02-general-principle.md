@@ -36,7 +36,7 @@ Before we talk about how to use AI, it’s worth being clear about what we’re 
 
 ##### 1. AI has knowledge about humans, but only the tip of the iceberg.
 
-<figure class="album">
+<figure class="album album--principle">
   <img src="/images/photos/principle-1.jpg" alt="Iceberg" />
   <figcaption>
   Photo by <a href="https://unsplash.com/@sailingaroundtheworld">Christian Pfeifer</a> on <a href="https://unsplash.com/photos/white-and-gray-rock-formation-on-blue-sea-under-blue-sky-during-daytime-l6OraG-v0d8">Unsplash</a>
@@ -59,7 +59,7 @@ Worse, when it hits a gap in its training data, it tends to fabricate rather tha
 
 ##### 2. AI sounds confident even when it’s wrong.
 
-<figure class="album">
+<figure class="album album--principle">
   <img src="/images/photos/principle-2.jpg" alt="Hallucination" />
   <figcaption>
   Photo by <a href="https://unsplash.com/@monesprit">Mon Esprit</a> on <a href="https://unsplash.com/photos/a-blurry-photo-of-a-train-track-at-sunset--S8HuYdCDF4">Unsplash</a>
@@ -75,7 +75,7 @@ The risk is a degradation of research quality hidden under elegant language, tha
 
 ##### 3. AI has a heavily Western-biased worldview.
 
-<figure class="album">
+<figure class="album album--principle">
   <img src="/images/photos/principle-3.jpg" alt="Indonesian Kids" />
 <figcaption>
   Photo by <a href="https://unsplash.com/@afandystierpan">Ahmad Affandy</a> on <a href="https://unsplash.com/photos/a-couple-of-kids-sitting-on-the-side-of-a-road-73MuCMjlVBI">Unsplash</a>
