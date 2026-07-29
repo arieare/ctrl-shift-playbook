@@ -28,6 +28,17 @@ template.innerHTML = `
       margin: 2rem 0;
     }
 
+    :host(.is-exporting) {
+      background: transparent;
+      max-width: none;
+      margin: 0;
+      width: 62.5rem;
+    }
+
+    :host(.is-exporting) .quadrant__canvas {
+      background: transparent;
+    }
+
     .quadrant {
       color: var(--quadrant-text);
       font-family: var(--font-sans, system-ui, sans-serif);
@@ -354,7 +365,7 @@ template.innerHTML = `
       font-size: var(--text-tiny);
     }
 
-    :host(.is-people-scenarios) .diagram-download {
+    :host(.is-people-scenarios) .diagram-reveal {
       display: none;
     }
 
@@ -615,17 +626,21 @@ template.innerHTML = `
       margin-top: 0.75rem;
     }
 
-    .diagram-download {
+    .diagram-download,
+    .diagram-reveal {
       align-items: center;
+      appearance: none;
       backdrop-filter: blur(0.35rem);
       background: color-mix(in srgb, var(--quadrant-bg) 88%, transparent);
       border: 1px solid var(--quadrant-border);
       border-radius: 50%;
       bottom: 0.65rem;
       color: var(--quadrant-text);
+      cursor: pointer;
       display: inline-flex;
       height: 2rem;
       justify-content: center;
+      padding: 0;
       position: absolute;
       right: 0.65rem;
       transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
@@ -633,19 +648,27 @@ template.innerHTML = `
       z-index: 6;
     }
 
+    .diagram-reveal {
+      right: 3.05rem;
+    }
+
     .diagram-download:hover,
-    .diagram-download:focus-visible {
+    .diagram-download:focus-visible,
+    .diagram-reveal:hover,
+    .diagram-reveal:focus-visible {
       background: var(--quadrant-bg);
       border-color: var(--quadrant-accent);
       transform: translateY(-0.1rem);
     }
 
-    .diagram-download:focus-visible {
+    .diagram-download:focus-visible,
+    .diagram-reveal:focus-visible {
       outline: 2px solid var(--quadrant-accent);
       outline-offset: 2px;
     }
 
-    .diagram-download::after {
+    .diagram-download::after,
+    .diagram-reveal::after {
       background: var(--quadrant-text);
       border-radius: 0.25rem;
       bottom: calc(100% + 0.45rem);
@@ -665,14 +688,66 @@ template.innerHTML = `
     }
 
     .diagram-download:hover::after,
-    .diagram-download:focus-visible::after {
+    .diagram-download:focus-visible::after,
+    .diagram-reveal:hover::after,
+    .diagram-reveal:focus-visible::after {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .diagram-download svg {
+    .diagram-download svg,
+    .diagram-reveal svg {
       height: 0.85rem;
       width: 0.85rem;
+    }
+
+    .diagram-reveal[aria-pressed="true"] {
+      background: var(--quadrant-accent);
+      border-color: var(--quadrant-accent);
+      color: var(--quadrant-bg);
+    }
+
+    :host(.is-exporting) .diagram-download,
+    :host(.is-exporting) .diagram-reveal,
+    :host(.is-exporting) .scenario-toggle-layer {
+      display: none !important;
+    }
+
+    :host(.is-static-view) .zone {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    :host(.is-static-view:not(.has-selected-phase)) .zone {
+      background:
+        linear-gradient(
+          135deg,
+          var(--zone-highlight) 0%,
+          color-mix(in srgb, var(--zone-highlight) 68%, var(--zone-highlight-end)) 100%
+        );
+      border-color: transparent;
+    }
+
+    :host(.is-static-view:not(.has-selected-phase)) .zone__title,
+    :host(.is-static-view:not(.has-selected-phase)) .zone__criteria {
+      opacity: 1;
+      transform: none;
+    }
+
+    :host(.is-static-view) .phase-label {
+      animation: none !important;
+      border-radius: 6px;
+      cursor: default;
+      max-height: 7rem;
+      padding: 0.55rem 0.75rem;
+      pointer-events: none;
+      width: min(var(--label-width), 46%);
+    }
+
+    :host(.is-static-view) .phase-label__text {
+      filter: blur(0);
+      opacity: 1;
+      transform: translateY(0);
     }
 
     :host([phase]) .phase-control {
@@ -971,7 +1046,8 @@ template.innerHTML = `
         display: none;
       }
 
-      .diagram-download {
+      .diagram-download,
+      .diagram-reveal {
         display: none;
       }
 
@@ -1043,6 +1119,18 @@ template.innerHTML = `
         <button class="scenario-toggle" type="button" data-scenario-index="3" aria-label="See opportunity for Untapped AI Potential" aria-pressed="false">see opportunity</button>
       </div>
       <div class="phase-label-layer" data-phase-label-layer aria-live="polite"></div>
+      <button
+        class="diagram-reveal"
+        data-diagram-reveal
+        data-tooltip="reveal"
+        type="button"
+        aria-label="Reveal all diagram content"
+        aria-pressed="false"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 5c5.3 0 9.27 4.11 10.5 6.17a1.6 1.6 0 0 1 0 1.66C21.27 14.89 17.3 19 12 19S2.73 14.89 1.5 12.83a1.6 1.6 0 0 1 0-1.66C2.73 9.11 6.7 5 12 5Zm0 2c-4.13 0-7.43 3.08-8.55 5C4.57 13.92 7.87 17 12 17s7.43-3.08 8.55-5C19.43 10.08 16.13 7 12 7Zm0 1.75A3.25 3.25 0 1 1 12 15.25 3.25 3.25 0 0 1 12 8.75Zm0 2A1.25 1.25 0 1 0 12 13.25 1.25 1.25 0 0 0 12 10.75Z" />
+        </svg>
+      </button>
       <a
         class="diagram-download"
         data-diagram-download
@@ -1457,6 +1545,10 @@ class AIQuadrantDiagram extends HTMLElement {
       this.attachShadow({ mode: "open" }).appendChild(template.content.cloneNode(true));
     }
 
+    const isExporting = new URL(window.location.href).searchParams.get("diagram-export") === "revealed";
+
+    this.classList.toggle("is-exporting", isExporting);
+    this.classList.toggle("is-static-view", isExporting);
     this.shadowRoot?.addEventListener("click", this.handleClick);
     this.shadowRoot?.addEventListener("change", this.handlePhaseChange);
     this.shadowRoot?.addEventListener("pointerdown", this.handleLabelPointerDown);
@@ -1466,6 +1558,11 @@ class AIQuadrantDiagram extends HTMLElement {
     this.shadowRoot?.querySelector(".quadrant__canvas")?.addEventListener("pointerleave", this.handleAxisPointerLeave);
     this.renderPhaseLabels(this.getConfiguredPhase() ?? "none");
     this.applyVariant();
+
+    if (isExporting) {
+      this.reveal();
+      return;
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -1623,6 +1720,13 @@ class AIQuadrantDiagram extends HTMLElement {
 
   private handleClick = (event: Event) => {
     const target = event.target as Element | null;
+    const revealButton = target?.closest<HTMLButtonElement>("[data-diagram-reveal]");
+
+    if (revealButton) {
+      this.toggleStaticView(revealButton);
+      return;
+    }
+
     const scenarioToggle = target?.closest<HTMLButtonElement>("[data-scenario-index]");
 
     if (scenarioToggle && this.classList.contains("is-people-scenarios")) {
@@ -1632,6 +1736,10 @@ class AIQuadrantDiagram extends HTMLElement {
         this.selectScenario(scenarioIndex, true);
       }
 
+      return;
+    }
+
+    if (this.classList.contains("is-static-view")) {
       return;
     }
 
@@ -1696,7 +1804,7 @@ class AIQuadrantDiagram extends HTMLElement {
   private handleLabelPointerDown = (event: Event) => {
     const pointerEvent = event as PointerEvent;
 
-    if (pointerEvent.button !== 0) {
+    if (this.classList.contains("is-static-view") || pointerEvent.button !== 0) {
       return;
     }
 
@@ -1796,7 +1904,7 @@ class AIQuadrantDiagram extends HTMLElement {
     const pointerEvent = event as PointerEvent;
     const canvas = pointerEvent.currentTarget as HTMLElement | null;
 
-    if (!canvas || pointerEvent.pointerType === "touch") {
+    if (this.classList.contains("is-static-view") || !canvas || pointerEvent.pointerType === "touch") {
       return;
     }
 
@@ -1866,7 +1974,7 @@ class AIQuadrantDiagram extends HTMLElement {
     const target = event.target as Element | null;
     const zone = this.getZoneFromElement(target);
 
-    if (!zone || pointerEvent.pointerType === "touch") {
+    if (this.classList.contains("is-static-view") || !zone || pointerEvent.pointerType === "touch") {
       return;
     }
 
@@ -1880,13 +1988,41 @@ class AIQuadrantDiagram extends HTMLElement {
     const zone = this.getZoneFromElement(target);
     const nextZone = this.getZoneFromElement(pointerEvent.relatedTarget as Element | null);
 
-    if (!zone || pointerEvent.pointerType === "touch" || zone === nextZone) {
+    if (
+      this.classList.contains("is-static-view")
+      || !zone
+      || pointerEvent.pointerType === "touch"
+      || zone === nextZone
+    ) {
       return;
     }
 
     this.hoveredZone = undefined;
     this.updateExpandedLabels();
   };
+
+  private toggleStaticView(button: HTMLButtonElement) {
+    const isStatic = this.classList.toggle("is-static-view");
+
+    button.setAttribute("aria-pressed", String(isStatic));
+    button.setAttribute(
+      "aria-label",
+      isStatic ? "Return to interactive diagram" : "Reveal all diagram content",
+    );
+
+    this.hoveredZone = undefined;
+    this.toggledZone = undefined;
+    this.stopLabelDragTracking();
+    this.activeLabelDrag = undefined;
+    this.resetZoneReveal();
+    this.updateExpandedLabels();
+
+    if (isStatic) {
+      this.axisTargetX = 50;
+      this.axisTargetY = 50;
+      this.startAxisPointerAnimation();
+    }
+  }
 
   private renderPhaseLabels(phase: PhaseId) {
     const layer = this.shadowRoot?.querySelector<HTMLElement>("[data-phase-label-layer]");

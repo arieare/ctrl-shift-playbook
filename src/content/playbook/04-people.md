@@ -266,7 +266,7 @@ AI usage readiness: company/organization culture towards the embracing of AI usa
 
 ---
 
-### What we learned from this
+<h3 class="people-learnings-heading">What we learned from this</h3>
 
 Across all of these scenarios, what becomes clear is that AI is not redefining the purpose of research, rather it is redistributing how the work gets done. While tools may accelerate organization, generate alternatives, or support early-stage thinking, **the responsibility for assigning meaning, judgment of priorities and context, also accountability of output remains firmly human**. 
 

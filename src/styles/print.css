@@ -23,6 +23,7 @@
   .skip-link,
   .landing-hero__photo,
   .landing-hero__gradient,
+  .landing-hero__desktop-notice,
   .landing-hero__actions,
   .site-header,
   .reader-nav,
@@ -41,13 +42,37 @@
   }
 
   .site-footer {
-    border-top: 1px solid #cccccc;
-    margin-top: 24pt;
-    padding: 12pt 0 0;
+    align-items: flex-end;
+    border-top: 0;
+    break-before: page;
+    break-inside: avoid;
+    box-sizing: border-box;
+    display: flex;
+    min-height: 100vh;
+    margin-top: 0;
+    padding: 0;
+    page-break-before: always;
+    page-break-inside: avoid;
   }
 
   .site-footer__inner {
-    display: block;
+    border-top: 1px solid #cccccc;
+    display: grid;
+    gap: 24pt;
+    grid-template-columns: 1fr;
+    padding-top: 12pt;
+  }
+
+  .site-footer__links {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 24pt;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .site-footer__links a {
+    white-space: nowrap;
   }
 
   .license-icons {
@@ -74,7 +99,7 @@
     margin-inline: auto;
   }
 
-  .playbook-section__body h2:has(+ p project-ai-alignment-canvas) {
+  #practice .playbook-section__body > h2 {
     break-before: page;
     break-after: avoid;
     margin: 0 0 10pt;
@@ -82,31 +107,69 @@
     page-break-before: always;
   }
 
+  #practice .playbook-section__body > h2 + h4 {
+    display: none !important;
+  }
+
+  #practice .playbook-section__body > h2:has(+ p > project-ai-alignment-canvas) {
+    display: none !important;
+  }
+
   .playbook-section__body p:has(> project-ai-alignment-canvas) {
     break-after: page;
-    break-before: avoid;
+    break-before: page;
     margin: 0;
     page-break-after: always;
-    page-break-before: avoid;
+    page-break-before: always;
   }
 
   project-ai-alignment-canvas {
-    --canvas-print-height: calc(100vh - 36mm - 34pt);
+    --canvas-print-height: calc(100vh - 36mm);
     display: block;
     min-height: var(--canvas-print-height);
   }
 
-  .interactive-diagram {
+  .interactive-diagram,
+  [data-reader-page-element].interactive-diagram {
     display: none !important;
   }
 
   .print-diagram-image {
     break-inside: avoid;
     display: block;
-    margin: 12pt 0;
+    height: auto;
+    margin: 12pt auto;
     max-width: 100%;
+    object-fit: contain;
+    object-position: center;
     page-break-inside: avoid;
     width: 100%;
+  }
+
+  .playbook-section__body figure {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .playbook-section__body figure img {
+    break-inside: avoid !important;
+    height: auto;
+    max-height: calc(100vh - 36mm - 48pt);
+    max-width: 100%;
+    object-fit: contain;
+    page-break-inside: avoid !important;
+  }
+
+  .playbook-section__body blockquote {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .playbook-section__body .album,
+  .playbook-section__body .album img,
+  .playbook-section__body .gratitude-photo,
+  .playbook-section__body .gratitude-photo img {
+    transform: none;
   }
 
   .print-toc {
@@ -175,8 +238,15 @@
     font-size: var(--text-h1);
   }
 
-  h2 {
-    font-size: var(--text-h2);
+  h2,
+  .playbook-section__body h2 {
+    font-size: 28pt;
+    line-height: 1.08;
+  }
+
+  .playbook-section__body .editorial p {
+    font-size: 15pt;
+    line-height: 1.3;
   }
 
   .section-stack {
@@ -184,21 +254,105 @@
   }
 
   .playbook-section {
+    break-before: page;
     break-inside: avoid;
     margin-top: 24pt;
+    page-break-before: always;
     scroll-margin-top: 0;
+  }
+
+  #general-principle {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  #practice {
+    break-inside: auto;
+    page-break-inside: auto;
+  }
+
+  #practice .sub-heading {
+    text-align: left;
+  }
+
+  #practice .print-diagram-image + h5 {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  #practice #the-spectrum-how-to-adjust-the-quadrant-for-your-project {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  #general-principle h2[style*="display:none"] {
+    display: none !important;
+  }
+
+  #general-principle h5[data-reader-page-element="general-principle-principle-1-1"],
+  #general-principle h5[data-reader-page-element="general-principle-principle-2-2"],
+  #general-principle h5[data-reader-page-element="general-principle-principle-3-3"],
+  #general-principle [data-reader-page-element="general-principle-principle-3-3"]
+    + [data-reader-page-element]:not([data-reader-page-element="general-principle-principle-3-3"]) {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  #general-principle
+    [data-reader-page-element^="general-principle-principle-"]
+    + [data-reader-page-element^="general-principle-principle-"] {
+    margin-top: 8pt;
+  }
+
+  #general-principle h5[data-reader-page-element^="general-principle-principle-"] {
+    font-size: 18pt;
+    line-height: 1.15;
+    margin: 0 0 8pt;
+  }
+
+  #general-principle .album--principle {
+    gap: 4pt;
+    justify-items: start;
+    margin: 8pt auto 10pt 0;
+    max-width: 52%;
+    text-align: left;
+  }
+
+  #general-principle .album--principle img {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    justify-self: start;
+    margin-inline: 0;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+  }
+
+  #general-principle .album--principle figcaption {
+    font-size: 8pt;
+    line-height: 1.25;
+    text-align: left;
   }
 
   .playbook-section__body {
     font-size: var(--text-base);
   }
 
-  .people-scenario-tables--screen {
+  .playbook-section__body .people-scenario-tables.people-scenario-tables--screen {
     display: none !important;
   }
 
   .playbook-section__body table.people-scenario-table--print {
     display: table !important;
+  }
+
+  #people .people-learnings-heading {
+    break-after: avoid;
+    break-before: page;
+    margin-top: 0;
+    page-break-after: avoid;
+    page-break-before: always;
   }
 
   .playbook-section__body table,
@@ -211,7 +365,8 @@
   }
 
   .playbook-section__body table {
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     break-inside: auto;
     display: table !important;
     font-family: var(--font-sans);
@@ -244,7 +399,9 @@
 
   .playbook-section__body th,
   .playbook-section__body td {
-    border: 1px solid #cccccc;
+    border: 0;
+    border-bottom: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
     display: table-cell !important;
     min-width: 0;
     overflow-wrap: break-word;
@@ -253,6 +410,15 @@
     text-wrap: pretty;
     vertical-align: top;
     word-break: normal;
+  }
+
+  .playbook-section__body tr > :first-child {
+    border-left: 1px solid #cccccc;
+  }
+
+  .playbook-section__body thead:first-child > tr:first-child > *,
+  .playbook-section__body tbody:first-child > tr:first-child > * {
+    border-top: 1px solid #cccccc;
   }
 
   .playbook-section__body th {
@@ -269,10 +435,34 @@
     width: 100%;
   }
 
+  #people .playbook-section__body table.table-fit-first-column {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
   .playbook-section__body table.table-fit-first-column td:first-child {
     text-align: center;
     white-space: nowrap;
     width: 1%;
+  }
+
+  .playbook-section__body table.people-scenario-table--print th,
+  .playbook-section__body table.people-scenario-table--print td {
+    border-bottom-color: #999999;
+    border-bottom-width: 1pt;
+    border-right-color: #999999;
+    border-right-width: 1pt;
+  }
+
+  .playbook-section__body table.people-scenario-table--print tr > :first-child {
+    border-left-color: #999999;
+    border-left-width: 1pt;
+  }
+
+  .playbook-section__body table.people-scenario-table--print thead:first-child > tr:first-child > *,
+  .playbook-section__body table.people-scenario-table--print tbody:first-child > tr:first-child > * {
+    border-top-color: #999999;
+    border-top-width: 1pt;
   }
 
   .playbook-section__body table.table-numbered {

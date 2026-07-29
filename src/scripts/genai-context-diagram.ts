@@ -18,6 +18,17 @@ template.innerHTML = `
       margin: 2rem 0;
     }
 
+    :host(.is-exporting) {
+      background: transparent;
+      max-width: none;
+      margin: 0;
+      width: 62.5rem;
+    }
+
+    :host(.is-exporting) .diagram {
+      background: transparent;
+    }
+
     .diagram {
       align-items: center;
       color: var(--diagram-text);
@@ -30,17 +41,21 @@ template.innerHTML = `
       position: relative;
     }
 
-    .diagram-download {
+    .diagram-download,
+    .diagram-reveal {
       align-items: center;
+      appearance: none;
       backdrop-filter: blur(0.35rem);
       background: color-mix(in srgb, var(--diagram-bg) 88%, transparent);
       border: 1px solid var(--diagram-border);
       border-radius: 50%;
       bottom: 0.65rem;
       color: var(--color-text, #111111);
+      cursor: pointer;
       display: inline-flex;
       height: 2rem;
       justify-content: center;
+      padding: 0;
       position: absolute;
       right: 0.65rem;
       transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
@@ -48,19 +63,27 @@ template.innerHTML = `
       z-index: 6;
     }
 
+    .diagram-reveal {
+      right: 3.05rem;
+    }
+
     .diagram-download:hover,
-    .diagram-download:focus-visible {
+    .diagram-download:focus-visible,
+    .diagram-reveal:hover,
+    .diagram-reveal:focus-visible {
       background: var(--diagram-bg);
       border-color: var(--diagram-accent);
       transform: translateY(-0.1rem);
     }
 
-    .diagram-download:focus-visible {
+    .diagram-download:focus-visible,
+    .diagram-reveal:focus-visible {
       outline: 2px solid var(--diagram-accent);
       outline-offset: 2px;
     }
 
-    .diagram-download::after {
+    .diagram-download::after,
+    .diagram-reveal::after {
       background: var(--color-text, #111111);
       border-radius: 0.25rem;
       bottom: calc(100% + 0.45rem);
@@ -80,14 +103,55 @@ template.innerHTML = `
     }
 
     .diagram-download:hover::after,
-    .diagram-download:focus-visible::after {
+    .diagram-download:focus-visible::after,
+    .diagram-reveal:hover::after,
+    .diagram-reveal:focus-visible::after {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .diagram-download svg {
+    .diagram-download svg,
+    .diagram-reveal svg {
       height: 0.85rem;
       width: 0.85rem;
+    }
+
+    .diagram-reveal[aria-pressed="true"] {
+      background: var(--diagram-accent);
+      border-color: var(--diagram-accent);
+      color: var(--diagram-bg);
+    }
+
+    :host(.is-exporting) .diagram-download,
+    :host(.is-exporting) .diagram-reveal {
+      display: none !important;
+    }
+
+    :host(.is-static-view) .genai-core__blob,
+    :host(.is-static-view) .context-field__blob,
+    :host(.is-static-view) .context-word__label {
+      animation: none !important;
+    }
+
+    :host(.is-static-view) .connector__line {
+      transform: scaleX(1);
+      transition: none;
+    }
+
+    :host(.is-static-view) .connector__head {
+      opacity: 1;
+      transform: translateX(0);
+      transition: none;
+    }
+
+    :host(.is-static-view) .context-word {
+      cursor: default;
+      left: var(--target-left);
+      opacity: 1;
+      pointer-events: none;
+      top: var(--target-top);
+      transform: translate(-50%, -50%) scale(1);
+      transition: none;
     }
 
     .you-system {
@@ -619,7 +683,8 @@ template.innerHTML = `
         transform: translate(-50%, -50%) scale(1);
       }
 
-      .diagram-download {
+      .diagram-download,
+      .diagram-reveal {
         display: none;
       }
     }
@@ -687,6 +752,18 @@ template.innerHTML = `
     <span class="context-word context-word--transfer" data-transfer-index="2"><span class="context-word__label">Emotion</span></span>
     <span class="context-word context-word--transfer" data-transfer-index="3"><span class="context-word__label">Cultural<br />Reflexes</span></span>
     <span class="context-word context-word--transfer" data-transfer-index="4"><span class="context-word__label">Informal<br />Language</span></span>
+    <button
+      class="diagram-reveal"
+      data-diagram-reveal
+      data-tooltip="reveal"
+      type="button"
+      aria-label="Reveal all diagram content"
+      aria-pressed="false"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M12 5c5.3 0 9.27 4.11 10.5 6.17a1.6 1.6 0 0 1 0 1.66C21.27 14.89 17.3 19 12 19S2.73 14.89 1.5 12.83a1.6 1.6 0 0 1 0-1.66C2.73 9.11 6.7 5 12 5Zm0 2c-4.13 0-7.43 3.08-8.55 5C4.57 13.92 7.87 17 12 17s7.43-3.08 8.55-5C19.43 10.08 16.13 7 12 7Zm0 1.75A3.25 3.25 0 1 1 12 15.25 3.25 3.25 0 0 1 12 8.75Zm0 2A1.25 1.25 0 1 0 12 13.25 1.25 1.25 0 0 0 12 10.75Z" />
+      </svg>
+    </button>
     <a
       class="diagram-download"
       data-tooltip="download diagram"
@@ -731,11 +808,21 @@ class GenAIContextDiagram extends HTMLElement {
       return;
     }
 
+    const isExporting = new URL(window.location.href).searchParams.get("diagram-export") === "revealed";
+
+    this.classList.toggle("is-exporting", isExporting);
+    this.classList.toggle("is-static-view", isExporting);
+    root.addEventListener("click", this.handleClick);
     root.addEventListener("pointerdown", this.handlePointerDown);
     root.querySelector(".diagram")?.addEventListener("pointermove", this.handleConnectorPointerMove);
     root.querySelector(".diagram")?.addEventListener("pointerleave", this.handleConnectorPointerLeave);
     window.addEventListener("resize", this.updateTransferWordPositions);
     this.updateTransferWordPositions();
+
+    if (isExporting) {
+      this.reveal();
+      return;
+    }
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -761,6 +848,7 @@ class GenAIContextDiagram extends HTMLElement {
 
   disconnectedCallback() {
     this.observer?.disconnect();
+    this.shadowRoot?.removeEventListener("click", this.handleClick);
     this.shadowRoot?.removeEventListener("pointerdown", this.handlePointerDown);
     this.shadowRoot?.querySelector(".diagram")?.removeEventListener("pointermove", this.handleConnectorPointerMove);
     this.shadowRoot?.querySelector(".diagram")?.removeEventListener("pointerleave", this.handleConnectorPointerLeave);
@@ -774,10 +862,41 @@ class GenAIContextDiagram extends HTMLElement {
     this.classList.add("is-revealed");
   }
 
+  private handleClick = (event: Event) => {
+    const target = event.target as Element | null;
+    const button = target?.closest<HTMLButtonElement>("[data-diagram-reveal]");
+
+    if (!button) {
+      return;
+    }
+
+    const isStatic = this.classList.toggle("is-static-view");
+
+    button.setAttribute("aria-pressed", String(isStatic));
+    button.setAttribute(
+      "aria-label",
+      isStatic ? "Return to interactive diagram" : "Reveal all diagram content",
+    );
+
+    this.reveal();
+    this.stopConnectorPointerAnimation();
+
+    const idlePoint = this.getConnectorIdlePoint();
+    this.connectorCurrentX = idlePoint.x;
+    this.connectorCurrentY = idlePoint.y;
+    this.connectorTargetX = idlePoint.x;
+    this.connectorTargetY = idlePoint.y;
+    this.updateConnectorPointerVariables();
+  };
+
   private handlePointerDown = (event: Event) => {
     const pointerEvent = event as PointerEvent;
 
-    if (!this.classList.contains("is-revealed") || pointerEvent.button !== 0) {
+    if (
+      this.classList.contains("is-static-view")
+      || !this.classList.contains("is-revealed")
+      || pointerEvent.button !== 0
+    ) {
       return;
     }
 
@@ -881,7 +1000,12 @@ class GenAIContextDiagram extends HTMLElement {
     const pointerEvent = event as PointerEvent;
     const diagram = pointerEvent.currentTarget as HTMLElement | null;
 
-    if (!diagram || pointerEvent.pointerType === "touch" || this.activeDrag) {
+    if (
+      this.classList.contains("is-static-view")
+      || !diagram
+      || pointerEvent.pointerType === "touch"
+      || this.activeDrag
+    ) {
       return;
     }
 

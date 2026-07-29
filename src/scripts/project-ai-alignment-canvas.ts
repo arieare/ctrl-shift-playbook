@@ -299,7 +299,9 @@ template.innerHTML = `
       }
 
       .canvas-form {
-        gap: 3pt;
+        align-content: space-between;
+        flex: 1;
+        gap: 0;
       }
 
       fieldset {
@@ -362,6 +364,10 @@ template.innerHTML = `
         gap: 2pt;
       }
 
+      .line-list input:nth-child(3) {
+        display: none;
+      }
+
       .choice {
         font-size: var(--text-tiny);
         gap: 3pt;
@@ -379,6 +385,7 @@ template.innerHTML = `
       table {
         font-size: var(--text-tiny);
         min-width: 0;
+        table-layout: fixed;
       }
 
       th,
@@ -390,12 +397,19 @@ template.innerHTML = `
         font-size: var(--text-tiny);
       }
 
+      th:first-child,
       .phase-name {
-        width: 43pt;
+        width: 22%;
       }
 
+      th:nth-child(n + 2):nth-child(-n + 4),
       .posture-choice {
-        width: 28pt;
+        width: 22%;
+      }
+
+      th:nth-child(5),
+      .posture-note {
+        width: 12%;
       }
 
       .posture-choice input {

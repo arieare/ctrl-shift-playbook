@@ -22,8 +22,12 @@ const slugifyHeading = (value: string) => {
 };
 
 const getPrintHeadings = (sectionId: string, body: string) => {
-  return Array.from(body.matchAll(/^##\s+(?!#)(.+)$/gm)).map((match, index) => {
-    const label = match[1]?.trim() ?? "";
+  const headingPattern = /^(?:##\s+(?!#)(.+)|<h2(?:\s[^>]*)?>([\s\S]*?)<\/h2>)\s*$/gim;
+
+  return Array.from(body.matchAll(headingPattern)).map((match, index) => {
+    const label = (match[1] ?? match[2] ?? "")
+      .replace(/<[^>]+>/g, "")
+      .trim();
 
     return {
       id: `${sectionId}-${slugifyHeading(label) || "heading"}-${index + 1}`,

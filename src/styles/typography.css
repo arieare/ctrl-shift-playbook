@@ -86,6 +86,11 @@ html {
   text-align: left;
 }
 
+.playbook-section__body h2 {
+  font-size: clamp(var(--text-h5), 5vw, var(--text-h4));
+  line-height: 1.08;
+}
+
 .playbook-section__body blockquote {
   border-left: 6px solid var(--color-accent-3);
   font-family: var(--font-sans);

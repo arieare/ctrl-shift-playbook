@@ -717,7 +717,7 @@
   scroll-margin-top: calc(var(--sticky-header-height) + var(--space-3));
 }
 
-.playbook-section__body table.people-scenario-table--print {
+.playbook-section__body table.people-scenario-table.people-scenario-table--print {
   display: none;
 }
 
@@ -773,8 +773,28 @@
   margin-bottom: var(--space-2);
 }
 
+.playbook-section__body table.people-scenario-table[data-scenario-table="0"],
+.playbook-section__body table.people-scenario-table--print tbody tr:nth-child(1) {
+  --people-scenario-heading-color: var(--color-accent);
+}
+
+.playbook-section__body table.people-scenario-table[data-scenario-table="1"],
+.playbook-section__body table.people-scenario-table--print tbody tr:nth-child(2) {
+  --people-scenario-heading-color: var(--color-accent-2);
+}
+
+.playbook-section__body table.people-scenario-table[data-scenario-table="2"],
+.playbook-section__body table.people-scenario-table--print tbody tr:nth-child(3) {
+  --people-scenario-heading-color: var(--color-yellow-5);
+}
+
+.playbook-section__body table.people-scenario-table[data-scenario-table="3"],
+.playbook-section__body table.people-scenario-table--print tbody tr:nth-child(4) {
+  --people-scenario-heading-color: color-mix(in srgb, var(--color-accent-3) 48%, var(--color-text));
+}
+
 .people-scenario-table__scenario {
-  color: var(--color-accent);
+  color: var(--people-scenario-heading-color, var(--color-accent));
 }
 
 .people-scenario-table__icon {
