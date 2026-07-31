@@ -1,6 +1,7 @@
 import "./ai-quadrant-diagram";
 import { confirmDownload } from "./download-confirm";
 import "./genai-context-diagram";
+import "./human-ai-loop-diagram";
 import "./project-ai-alignment-canvas";
 
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));

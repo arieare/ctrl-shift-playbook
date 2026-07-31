@@ -284,6 +284,12 @@ Skip any human step and something breaks:
 
 That is the standard. Not AI-first. Not human-only. A repeatable Human–AI execution loop across every phase.
 
+<div class="interactive-diagram">
+  <human-ai-loop-diagram></human-ai-loop-diagram>
+</div>
+
+<img class="print-diagram-image" src="/images/print/human-ai-loop-diagram.png" alt="Five-step Human and AI execution loop: Human Frames, AI Expands, Human Interprets, AI Scales, and Human Owns, returning to Human Frames" />
+
 ---
 
 #### The Spectrum: how to adjust the Quadrant for your project
