@@ -5,12 +5,10 @@ type GripLevel = "assist" | "automate" | "guided" | "human";
 type GripStep = {
   label: string;
   level: GripLevel;
-  position: "Beginning" | "End" | "Middle";
   zone: string;
 };
 
 type GripPhase = {
-  description: string;
   label: string;
   profile: string;
   steps: GripStep[];
@@ -18,54 +16,49 @@ type GripPhase = {
 
 const phases: Record<string, GripPhase> = {
   planning: {
-    description: "Human control starts strongest, then releases once the direction is set.",
     label: "Planning",
     profile: "Grip at the front",
     steps: [
-      { label: "Frame the problem", level: "human", position: "Beginning", zone: "Human only" },
-      { label: "Design the study", level: "guided", position: "Middle", zone: "Guided" },
-      { label: "Build the guide", level: "assist", position: "End", zone: "Assist" },
+      { label: "Frame the problem", level: "human", zone: "Human only" },
+      { label: "Design the study", level: "guided", zone: "Guided" },
+      { label: "Build the guide", level: "assist", zone: "Assist" },
     ],
   },
   "data-collection": {
-    description: "Human control concentrates where real conversations and lived context matter.",
     label: "Data Collection",
     profile: "Grip in the middle",
     steps: [
-      { label: "Recruit & set up", level: "assist", position: "Beginning", zone: "Assist" },
-      { label: "Interview & immerse", level: "human", position: "Middle", zone: "Human only" },
-      { label: "Transcribe & translate", level: "automate", position: "End", zone: "Automate" },
+      { label: "Recruit & set up", level: "assist", zone: "Assist" },
+      { label: "Interview & immerse", level: "human", zone: "Human only" },
+      { label: "Transcribe & translate", level: "automate", zone: "Automate" },
     ],
   },
   analysis: {
-    description: "Human control increases as patterns become meaning, implications, and action.",
     label: "Analysis & meaning-making",
     profile: "Grip tightens as you go",
     steps: [
-      { label: "Observations", level: "automate", position: "Beginning", zone: "Automate" },
-      { label: "Meaning", level: "guided", position: "Middle", zone: "Guided" },
-      { label: "Implications", level: "human", position: "Middle", zone: "Human only" },
-      { label: "Actions", level: "human", position: "End", zone: "Human only" },
+      { label: "Observations", level: "automate", zone: "Automate" },
+      { label: "Meaning", level: "guided", zone: "Guided" },
+      { label: "Implications", level: "human", zone: "Human only" },
+      { label: "Actions", level: "human", zone: "Human only" },
     ],
   },
   reporting: {
-    description: "Human control anchors the message at the start and owns its impact at the end.",
     label: "Reporting",
     profile: "Grip at both ends",
     steps: [
-      { label: "Set the message", level: "human", position: "Beginning", zone: "Human only" },
-      { label: "Craft the telling", level: "assist", position: "Middle", zone: "Assist" },
-      { label: "Tailor & deliver", level: "human", position: "End", zone: "Human only" },
+      { label: "Set the message", level: "human", zone: "Human only" },
+      { label: "Craft the telling", level: "assist", zone: "Assist" },
+      { label: "Tailor & deliver", level: "human", zone: "Human only" },
     ],
   },
   "knowledge-management": {
-    description: "Human control grows as stored material becomes shared meaning and direction.",
     label: "Knowledge Management",
     profile: "Grip at the back",
     steps: [
-      { label: "Archive & tag", level: "automate", position: "Beginning", zone: "Automate" },
-      { label: "Retrieve & connect", level: "assist", position: "Middle", zone: "Assist" },
-      { label: "Synthesise over time", level: "human", position: "End", zone: "Human only" },
+      { label: "Archive & tag", level: "automate", zone: "Automate" },
+      { label: "Retrieve & connect", level: "assist", zone: "Assist" },
+      { label: "Synthesise over time", level: "human", zone: "Human only" },
     ],
   },
 };
@@ -101,10 +94,6 @@ const styles = `
   }
 
   .diagram__intro {
-    align-items: start;
-    display: grid;
-    gap: 0.25rem 1rem;
-    grid-template-columns: minmax(0, auto) minmax(12rem, 1fr);
     margin-bottom: 0.4rem;
   }
 
@@ -116,19 +105,11 @@ const styles = `
     margin: 0;
   }
 
-  .diagram__description {
-    color: color-mix(in srgb, var(--grip-text) 76%, var(--grip-bg));
-    font-size: var(--text-small, 0.82rem);
-    line-height: 1.35;
-    margin: 0;
-    text-align: right;
-  }
-
   .timeline {
-    --grip-center-y: 5.8rem;
+    --grip-center-y: 4.65rem;
     display: grid;
     grid-template-columns: repeat(var(--step-count), minmax(0, 1fr));
-    min-height: 9.5rem;
+    min-height: 8.35rem;
     padding: 0.95rem 0.35rem 0.4rem;
     position: relative;
   }
@@ -158,7 +139,7 @@ const styles = `
 
   .step {
     display: grid;
-    grid-template-rows: 1.15rem 2.45rem 2.5rem 1.4rem;
+    grid-template-rows: 2.45rem 2.5rem 1.4rem;
     justify-items: center;
     min-width: 0;
     opacity: 0;
@@ -168,15 +149,6 @@ const styles = `
       opacity 320ms ease var(--step-delay),
       transform 420ms cubic-bezier(0.2, 0.75, 0.2, 1) var(--step-delay);
     z-index: 1;
-  }
-
-  .step__position {
-    color: color-mix(in srgb, var(--grip-text) 58%, var(--grip-bg));
-    font-size: var(--text-tiny, 0.68rem);
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 1;
-    text-transform: uppercase;
   }
 
   .step__name {
@@ -405,22 +377,13 @@ const styles = `
       padding: 0.7rem 0.4rem 3rem;
     }
 
-    .diagram__intro {
-      display: block;
-      padding-inline: 0.35rem;
-    }
+    .diagram__intro { padding-inline: 0.35rem; }
 
     .diagram__profile { font-size: var(--text-small, 0.82rem); }
 
-    .diagram__description {
-      font-size: var(--text-tiny, 0.67rem);
-      margin-top: 0.22rem;
-      text-align: left;
-    }
-
     .timeline {
-      --grip-center-y: 5.6rem;
-      min-height: 8.9rem;
+      --grip-center-y: 4.6rem;
+      min-height: 7.9rem;
       padding-inline: 0;
     }
 
@@ -430,12 +393,7 @@ const styles = `
     }
 
     .step {
-      grid-template-rows: 1rem 2.65rem 2rem 1.35rem;
-    }
-
-    .step__position {
-      font-size: 0.54rem;
-      letter-spacing: 0.02em;
+      grid-template-rows: 2.65rem 2rem 1.35rem;
     }
 
     .step__name {
@@ -504,7 +462,6 @@ class WorkflowGripDiagram extends HTMLElement {
         style="--step-delay: ${120 + index * 150}ms"
         role="listitem"
       >
-        <span class="step__position">${step.position}</span>
         <strong class="step__name">${step.label}</strong>
         <span class="step__grip" aria-hidden="true"></span>
         <span class="step__zone">${step.zone}</span>
@@ -517,7 +474,6 @@ class WorkflowGripDiagram extends HTMLElement {
       <section class="diagram" aria-label="${phase.label} workflow grip map">
         <header class="diagram__intro">
           <h6 class="diagram__profile">${phase.profile}</h6>
-          <p class="diagram__description">${phase.description}</p>
         </header>
         <div class="timeline" style="--step-count: ${phase.steps.length}" role="list">
           <span class="timeline__rail" aria-hidden="true"></span>
@@ -534,7 +490,7 @@ class WorkflowGripDiagram extends HTMLElement {
         <a
           class="diagram-download"
           data-tooltip="download diagram"
-          href="/images/print/${assetName}?v=20260801-4"
+          href="/images/print/${assetName}?v=20260801-6"
           download="${assetName}"
           aria-label="Download ${phase.label} grip map"
         >${downloadIcon}</a>

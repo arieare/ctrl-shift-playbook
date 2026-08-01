@@ -75,7 +75,7 @@ Where strategic direction is determined.
   <workflow-grip-diagram phase="planning"></workflow-grip-diagram>
 </div>
 
-<img class="print-diagram-image" src="/images/print/workflow-grip-planning.png?v=20260801-4" alt="Planning workflow grip map showing strongest human ownership at the beginning" />
+<img class="print-diagram-image" src="/images/print/workflow-grip-planning.png?v=20260801-6" alt="Planning workflow grip map showing strongest human ownership at the beginning" />
 
 <span class="highlight">Here the grip is at the front: nail the framing early, and AI can safely help with the rest.</span>
 
@@ -121,7 +121,7 @@ Where authenticity is protected.
   <workflow-grip-diagram phase="data-collection"></workflow-grip-diagram>
 </div>
 
-<img class="print-diagram-image" src="/images/print/workflow-grip-data-collection.png?v=20260801-4" alt="Data collection workflow grip map showing strongest human ownership in the middle" />
+<img class="print-diagram-image" src="/images/print/workflow-grip-data-collection.png?v=20260801-6" alt="Data collection workflow grip map showing strongest human ownership in the middle" />
 
 <span class="highlight">Here the grip is in the middle: AI can handle the setup and the cleanup, but humans have to be in the room for the real conversations.</span>
 
@@ -175,7 +175,7 @@ Where things move fast — and where it's easiest to distort the truth.
   <workflow-grip-diagram phase="analysis"></workflow-grip-diagram>
 </div>
 
-<img class="print-diagram-image" src="/images/print/workflow-grip-analysis.png?v=20260801-4" alt="Analysis workflow grip map showing human ownership tightening toward implications and actions" />
+<img class="print-diagram-image" src="/images/print/workflow-grip-analysis.png?v=20260801-6" alt="Analysis workflow grip map showing human ownership tightening toward implications and actions" />
 
 <span class="highlight">Here the grip tightens as you go: AI can spot what's there, but you own what it means and what to do about it.</span>
 
@@ -223,7 +223,7 @@ Where influence is executed.
   <workflow-grip-diagram phase="reporting"></workflow-grip-diagram>
 </div>
 
-<img class="print-diagram-image" src="/images/print/workflow-grip-reporting.png?v=20260801-4" alt="Reporting workflow grip map showing strong human ownership at both ends" />
+<img class="print-diagram-image" src="/images/print/workflow-grip-reporting.png?v=20260801-6" alt="Reporting workflow grip map showing strong human ownership at both ends" />
 
 <span class="highlight">Here the grip is at both ends: you decide what to say and you own how it lands, AI just helps with the craft in between.</span>
 
@@ -269,7 +269,7 @@ Where research compounds
   <workflow-grip-diagram phase="knowledge-management"></workflow-grip-diagram>
 </div>
 
-<img class="print-diagram-image" src="/images/print/workflow-grip-knowledge-management.png?v=20260801-4" alt="Knowledge management workflow grip map showing strongest human ownership at the end" />
+<img class="print-diagram-image" src="/images/print/workflow-grip-knowledge-management.png?v=20260801-6" alt="Knowledge management workflow grip map showing strongest human ownership at the end" />
 
 <span class="highlight">Here the grip is at the back again: AI can remember everything, but you decide what those memories actually mean.</span>
 

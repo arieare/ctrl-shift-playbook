@@ -276,8 +276,15 @@
   }
 
   #practice .print-diagram-image + h5 {
-    break-before: page;
-    page-break-before: always;
+    break-after: avoid;
+    break-before: auto;
+    page-break-after: avoid;
+    page-break-before: auto;
+  }
+
+  #practice .print-diagram-image + h5 + .interactive-diagram + .print-diagram-image {
+    break-before: avoid;
+    page-break-before: avoid;
   }
 
   #practice #the-spectrum-how-to-adjust-the-quadrant-for-your-project {
