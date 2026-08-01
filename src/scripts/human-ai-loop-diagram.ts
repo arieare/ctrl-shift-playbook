@@ -45,11 +45,9 @@ template.innerHTML = `
       display: flex;
       font-size: var(--text-h6, 1.125rem);
       font-weight: 750;
-      gap: 0.5rem;
       justify-content: center;
       letter-spacing: 0.02em;
       padding: 0.4rem 0.75rem 0.65rem;
-      text-transform: uppercase;
     }
 
     .lane-heading--human {
@@ -58,13 +56,6 @@ template.innerHTML = `
 
     .lane-heading--ai {
       color: var(--loop-accent-ai);
-    }
-
-    .lane-heading__dot {
-      background: currentColor;
-      border-radius: 50%;
-      height: 0.55rem;
-      width: 0.55rem;
     }
 
     .lane-divider {
@@ -226,7 +217,7 @@ template.innerHTML = `
       color: var(--color-red-5, #2c030f);
       font-size: var(--text-small, 0.8rem);
       hyphens: none;
-      left: calc(100% + clamp(0.75rem, 1.75vw, 1.25rem));
+      left: calc(100% - clamp(3rem, 5vw, 4.5rem));
       line-height: 1.2;
       margin: 0;
       overflow-wrap: anywhere;
@@ -385,6 +376,12 @@ template.innerHTML = `
       stroke-dashoffset: 0;
     }
 
+    :host(.is-static-view) .connector:not(.connector--return),
+    :host(.is-exporting) .connector:not(.connector--return) {
+      stroke-dasharray: none;
+      stroke-dashoffset: 0;
+    }
+
     :host(.is-exporting) .diagram-download,
     :host(.is-exporting) .diagram-reveal {
       display: none !important;
@@ -440,11 +437,6 @@ template.innerHTML = `
         padding: 0.25rem 0.2rem 0.4rem;
       }
 
-      .lane-heading__dot {
-        height: 0.45rem;
-        width: 0.45rem;
-      }
-
       .step {
         border-radius: 0.65rem;
         gap: 0.3rem;
@@ -472,7 +464,7 @@ template.innerHTML = `
       .step__warning {
         border-radius: 0.4rem;
         font-size: 0.58rem;
-        left: calc(100% + 0.25rem);
+        left: calc(100% - 2rem);
         line-height: 1.15;
         padding: 0.35rem 0.4rem;
         top: -0.75rem;
@@ -500,8 +492,8 @@ template.innerHTML = `
 
   <section class="diagram" aria-label="Five-step Human and AI execution loop">
     <div class="lane-headings" aria-hidden="true">
-      <div class="lane-heading lane-heading--human"><span class="lane-heading__dot"></span>Human</div>
-      <div class="lane-heading lane-heading--ai"><span class="lane-heading__dot"></span>AI</div>
+      <div class="lane-heading lane-heading--human">Human</div>
+      <div class="lane-heading lane-heading--ai">AI</div>
     </div>
 
     <div class="lane-divider" aria-hidden="true"></div>
@@ -586,7 +578,7 @@ template.innerHTML = `
     <a
       class="diagram-download"
       data-tooltip="download diagram"
-      href="/images/print/human-ai-loop-diagram.png"
+      href="/images/print/human-ai-loop-diagram.png?v=20260801-revealed-3"
       download="human-ai-loop-diagram.png"
       aria-label="Download diagram"
     >

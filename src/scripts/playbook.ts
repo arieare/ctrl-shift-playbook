@@ -3,6 +3,7 @@ import { confirmDownload } from "./download-confirm";
 import "./genai-context-diagram";
 import "./human-ai-loop-diagram";
 import "./project-ai-alignment-canvas";
+import "./workflow-grip-diagram";
 
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));
 const hero = document.querySelector<HTMLElement>("[data-hero]");
