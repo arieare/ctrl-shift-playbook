@@ -1,8 +1,12 @@
 import "./ai-quadrant-diagram";
 import { confirmDownload } from "./download-confirm";
 import "./genai-context-diagram";
+import "./grip-zone-flow-diagram";
 import "./human-ai-loop-diagram";
 import "./project-ai-alignment-canvas";
+import "./spectrum-guidance-selector";
+import "./spectrum-level-overview";
+import "./stakes-sensitivity-matrix";
 import "./workflow-grip-diagram";
 
 const printButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-print-button]"));
@@ -132,6 +136,36 @@ const markStepTableLabels = (table: HTMLTableElement) => {
   });
 };
 
+const markSpectrumStandardTable = (table: HTMLTableElement) => {
+  const headers = Array.from(table.tHead?.rows[0]?.cells ?? []).map((cell) =>
+    normalizeSearchText(cell.textContent ?? ""),
+  );
+
+  if (
+    headers.length === 5 &&
+    headers[0] === "project standard" &&
+    headers[1] === "observations" &&
+    headers[4] === "actions"
+  ) {
+    table.classList.add("spectrum-standard-table");
+  }
+};
+
+const markSpectrumLevelTable = (table: HTMLTableElement) => {
+  const headers = Array.from(table.tHead?.rows[0]?.cells ?? []).map((cell) =>
+    normalizeSearchText(cell.textContent ?? ""),
+  );
+
+  if (
+    headers.length === 3 &&
+    headers[0] === "level" &&
+    headers[1].startsWith("stakes:") &&
+    headers[2].startsWith("sensitivity:")
+  ) {
+    table.classList.add("spectrum-level-table");
+  }
+};
+
 const createSearchSnippet = (text: string, query: string) => {
   const normalizedText = normalizeSearchText(text);
   const normalizedQuery = normalizeSearchText(query);
@@ -175,6 +209,8 @@ const highlightTableCell = (cell: HTMLTableCellElement) => {
 interactiveTables.forEach((table) => {
   table.classList.add("is-interactive-table");
   markStepTableLabels(table);
+  markSpectrumLevelTable(table);
+  markSpectrumStandardTable(table);
 
   table.querySelectorAll<HTMLTableCellElement>("th, td").forEach((cell) => {
     cell.tabIndex = 0;

@@ -287,6 +287,11 @@
     page-break-before: avoid;
   }
 
+  #practice .print-diagram-image[src*="workflow-grip-"] + p {
+    break-before: page;
+    page-break-before: always;
+  }
+
   #practice #the-spectrum-how-to-adjust-the-quadrant-for-your-project {
     break-before: page;
     page-break-before: always;
@@ -435,6 +440,16 @@
   .playbook-section__body th:first-child,
   .playbook-section__body td:first-child {
     width: 15%;
+  }
+
+  .playbook-section__body table.spectrum-level-table {
+    table-layout: auto;
+  }
+
+  .playbook-section__body table.spectrum-level-table th:first-child,
+  .playbook-section__body table.spectrum-level-table td:first-child {
+    white-space: nowrap;
+    width: 1%;
   }
 
   .playbook-section__body table.table-fit-first-column {

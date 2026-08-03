@@ -300,18 +300,6 @@ The least glamorous, highest-payoff move in research: making sure your team can 
 
 The quadrant tells you where AI sits on a single task. 
 
-Every phase in this playbook follows the same five-step loop:
-- Human frames → set the direction, stakes, and constraints.
-- AI expands → generate options, surface patterns, increase range.
-- Human interprets → select meaning, prioritize, challenge bias.
-- AI scales → refine, structure, retrieve, operationalize.
-- Human owns → sign, defend, take responsibility.
-
-Skip any human step and something breaks:
-- Skip human framing → direction weakens
-- Skip human interpretation → meaning collapses
-- Skip human ownership → accountability disappears
-
 That is the standard. Not AI-first. Not human-only. A repeatable Human–AI execution loop across every phase.
 
 <div class="interactive-diagram">
@@ -322,11 +310,72 @@ That is the standard. Not AI-first. Not human-only. A repeatable Human–AI exec
 
 ---
 
-#### The Spectrum: how to adjust the Quadrant for your project
+<h4 id="the-spectrum-how-to-adjust-the-quadrant-for-your-project">The Spectrum</h4>
+<div class="sub-heading">
+How to adjust the Quadrant to your project.
+</div>
 
-The phases above describe a Standard project or the typical case. But not every project is typical. A study of snacking habits among urban Jakartans and a study of mental health among Acehnese teenagers are both qualitative research, and the quadrant says the same thing about both. The right way to use AI on them could not be more different.
+<div class="interactive-diagram">
+  <spectrum-level-overview></spectrum-level-overview>
+</div>
 
-The Spectrum is the leniency knob that tunes the quadrant to the project in front of you. It asks two questions, Stakes and Sensitivity:
+<img class="print-diagram-image" src="/images/print/spectrum-level-overview.png?v=20260803-1" alt="Spectrum levels from Light to Standard to Elevated to Critical, shown as progressively stronger ripple nodes" />
+
+The previous section describes a Standard project: the typical case. But a study of snacking habits among urban Jakartans and a study of mental health among Acehnese teenagers are both qualitative research, and the Quadrant says the same thing about both. The right way to use AI on them could not be more different.
+
+It runs the other way too. A competitive scan you are doing to orient yourself does not need the full apparatus. There is no recommendation to author and no decision riding on it. Holding that work to the same standard as a client deliverable is how a framework starts getting ignored.
+
+The Spectrum tunes the Quadrant to the project in front of you. It asks two questions.
+
+| Level | Stakes: the damage if it is wrong | Sensitivity: cultural and human nuance |
+| --- | --- | --- |
+| Low | Internal, for the team. Fixable within a quarter. Mistakes are cheap. | Mainstream context, general adult population, routine topics. AI blind spots will not distort much. |
+| Medium | Goes to other functions or execs. Fixable within a year, but it costs. | Distinct subcultures or sensitive groups and topics such as Gen Z norms, regional culture, parenting, money habits, religious-holiday rhythms. |
+| High | External-facing or hard to undo. Write-offs, public record, regulatory fallout if it is wrong. | Identity, faith, ethnicity, sexuality, regional politics, vulnerable groups, mental health. A misread can harm or offend. |
+
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-note-sticky infobox__icon" aria-hidden="true"></i>Note:</p>
+  <p>Sensitivity is a judgement call, and the call depends on who is making it. When a team spans cultures, generations, or regions, get a senior read before you settle on a level.</p>
+</blockquote>
+
+Once you have both answers, the next step is putting them together.
+
+<div class="interactive-diagram">
+  <stakes-sensitivity-matrix></stakes-sensitivity-matrix>
+</div>
+
+<img class="print-diagram-image" src="/images/print/stakes-sensitivity-matrix.svg" alt="Matrix mapping stakes and sensitivity levels to Light, Standard, Elevated, and Critical project standards" />
+
+The bands wrap the corner rather than running diagonally. That is the rule made visible. Nothing averages out. Critical sits in one corner only, where both dials are high at once, which is what makes it worth taking seriously when you land there.
+
+**The level travels with the work:** Pick your level from where the work will end up, not where it starts. Light notes that find their way into a client deck were never Light. If the destination changes halfway through, the level changes with it.
+
+**On calibration:** Where we drew these lines is a judgement call, and it leans safe on purpose. If your team finds it firing too often, or not often enough, move it, and tell us what you moved. This is version 1.0 of a calibration, not a standard.
+
+<div class="interactive-diagram">
+  <grip-zone-flow-diagram></grip-zone-flow-diagram>
+</div>
+
+<img class="print-diagram-image" src="/images/print/grip-zone-flow-diagram.png?v=20260803-1" alt="Grip zones moving from Automate to Assist to Guided to Human only" />
+
+Your grip slides along these four zones. Looser on the left, tighter on the right.
+
+| Project standard | Observations | Meaning | Implications | Actions |
+| --- | --- | --- | --- | --- |
+| Light | Automate | Assist | Guided | Human only |
+| Standard | Automate | Guided | Human only | Human only |
+| Elevated | Assist | Human only | Human only | Human only |
+| Critical | Guided | Human only | Human only | Human only |
+
+Here is the Analysis phase at all four levels. Read down a column to watch one step tighten. Read across a row to see the shape of a level.
+
+<div class="spectrum-guidance-selector-container">
+  <spectrum-guidance-selector></spectrum-guidance-selector>
+</div>
+
+**One notch is a default, not a law:** Some steps should not loosen even at Light. You would not slide a real interview out of Human only just because the stakes are low. Apply the shift, then check it reads sensibly. Where it does not, keep the tighter zone.
+
+**For solo researchers:** Most of what each level asks, you can do alone: the checking, the tracing, the tighter grip. What you cannot do alone is audit your own framing, which is the whole reason the senior reviewer and the cultural advisor are on those lists. A blindspot is by definition invisible to the person who has it. Bring in a peer, a trusted outside collaborator, or a community of practice. One conversation with someone who knows the community, before you interpret, is worth more than any amount of extra desk checking.
 
 ---
 

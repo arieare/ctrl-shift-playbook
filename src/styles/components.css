@@ -637,6 +637,33 @@
   font-weight: 700;
 }
 
+@media (min-width: 761px) {
+  .playbook-section__body table.spectrum-level-table {
+    display: table;
+    table-layout: auto;
+  }
+
+  .playbook-section__body table.spectrum-level-table th:first-child,
+  .playbook-section__body table.spectrum-level-table td:first-child {
+    min-width: 0;
+    white-space: nowrap;
+    width: 1%;
+  }
+
+  .playbook-section__body table.spectrum-standard-table {
+    display: table;
+    font-size: var(--text-tiny);
+    table-layout: fixed;
+  }
+
+  .playbook-section__body table.spectrum-standard-table th,
+  .playbook-section__body table.spectrum-standard-table td {
+    min-width: 0;
+    padding: var(--space-2);
+    vertical-align: middle;
+  }
+}
+
 .playbook-section__body table.table-fit-first-column {
   display: table;
   table-layout: auto;
