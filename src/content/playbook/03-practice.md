@@ -296,7 +296,10 @@ The least glamorous, highest-payoff move in research: making sure your team can 
 
 ---
 
-#### The Human X AI Loop: how humans and AI take turns
+<h4 id="the-human-x-ai-loop-how-humans-and-ai-take-turns">The Human X AI Loop</h4>
+<div class="sub-heading">
+How humans and AI take turns.
+</div>
 
 The quadrant tells you where AI sits on a single task. 
 
@@ -321,6 +324,11 @@ How to adjust the Quadrant to your project.
 
 <img class="print-diagram-image" src="/images/print/spectrum-level-overview.png?v=20260803-1" alt="Spectrum levels from Light to Standard to Elevated to Critical, shown as progressively stronger ripple nodes" />
 
+<blockquote class="infobox">
+  <p class="infobox__title"><i class="fa-regular fa-note-sticky infobox__icon" aria-hidden="true"></i>Not every project needs the same amount of AI:</p>
+  <p>The level moves the grip, and it moves how far outside yourself the work has to travel before you trust it.</p>
+</blockquote>
+
 The previous section describes a Standard project: the typical case. But a study of snacking habits among urban Jakartans and a study of mental health among Acehnese teenagers are both qualitative research, and the Quadrant says the same thing about both. The right way to use AI on them could not be more different.
 
 It runs the other way too. A competitive scan you are doing to orient yourself does not need the full apparatus. There is no recommendation to author and no decision riding on it. Holding that work to the same standard as a client deliverable is how a framework starts getting ignored.
@@ -340,6 +348,10 @@ The Spectrum tunes the Quadrant to the project in front of you. It asks two ques
 
 Once you have both answers, the next step is putting them together.
 
+##### Finding your level
+
+The higher of your two answers sets the level, never the average. When both are High, go one further.
+
 <div class="interactive-diagram">
   <stakes-sensitivity-matrix></stakes-sensitivity-matrix>
 </div>
@@ -351,6 +363,10 @@ The bands wrap the corner rather than running diagonally. That is the rule made 
 **The level travels with the work:** Pick your level from where the work will end up, not where it starts. Light notes that find their way into a client deck were never Light. If the destination changes halfway through, the level changes with it.
 
 **On calibration:** Where we drew these lines is a judgement call, and it leans safe on purpose. If your team finds it firing too often, or not often enough, move it, and tell us what you moved. This is version 1.0 of a calibration, not a standard.
+
+##### What the level does to your phases
+
+The level moves two things: how tight your grip is, and how much doubt the work has to survive before you believe it.
 
 <div class="interactive-diagram">
   <grip-zone-flow-diagram></grip-zone-flow-diagram>
@@ -369,6 +385,8 @@ Your grip slides along these four zones. Looser on the left, tighter on the righ
 
 Here is the Analysis phase at all four levels. Read down a column to watch one step tighten. Read across a row to see the shape of a level.
 
+Everything slides except the last step. Actions carries your name on it at every level.
+
 <div class="spectrum-guidance-selector-container">
   <spectrum-guidance-selector></spectrum-guidance-selector>
 </div>
@@ -380,5 +398,11 @@ Here is the Analysis phase at all four levels. Read down a column to watch one s
 ---
 
 ## Project AI Alignment Canvas
+
+Frameworks don't change practice on their own. What changes practice is a conversation with your stakeholder before the project starts. The one that, in 2026, most researchers and clients still aren't having, even though they should be.
+
+The AI Alignment Canvas makes that conversation cheap and structured. It's a one-page agreement: the research lead drafts it, then walks the stakeholder through it at kickoff. It records how AI will be used on this project and, just as importantly, what AI will not touch. It carries the project's Spectrum level forward, states what the team commits to, and asks the stakeholder for commitments in return.
+
+Use it on every project that runs through this playbook. Re-open it the moment scope, sensitivity, or AI posture shifts mid-project.
 
 <project-ai-alignment-canvas></project-ai-alignment-canvas>

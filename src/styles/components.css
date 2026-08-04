@@ -855,6 +855,23 @@
   overflow-wrap: normal;
 }
 
+@media (min-width: 761px) {
+  .playbook-section__body table.is-step-table {
+    display: table;
+    table-layout: fixed;
+  }
+
+  .playbook-section__body table.is-step-table th,
+  .playbook-section__body table.is-step-table td {
+    min-width: 0;
+  }
+
+  .playbook-section__body table.is-step-table th:first-child,
+  .playbook-section__body table.is-step-table td:first-child {
+    width: 13%;
+  }
+}
+
 .playbook-section__body table.is-interactive-table .is-table-zone-cell--human {
   --table-zone-bg: var(--color-red-1);
   --table-zone-hover-bg: color-mix(in srgb, var(--color-red-2) 46%, var(--color-bg));

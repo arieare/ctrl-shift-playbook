@@ -219,7 +219,7 @@ const styles = `
 
   .step__zone {
     align-self: end;
-    background: var(--grip-surface);
+    background: transparent;
     border: 1px solid var(--grip-border);
     border-radius: 999px;
     color: var(--grip-text);
@@ -231,25 +231,21 @@ const styles = `
   }
 
   .step--human .step__zone {
-    background: var(--color-red-1, #fde9ec);
     border-color: var(--color-red-2, #f793a7);
     color: var(--color-red-5, #2c030f);
   }
 
   .step--guided .step__zone {
-    background: var(--color-orange-1, #fbebdf);
     border-color: var(--color-orange-2, #f5c29c);
     color: var(--color-orange-5, #533114);
   }
 
   .step--assist .step__zone {
-    background: var(--color-yellow-1, #f3edce);
     border-color: var(--color-yellow-2, #f5e49c);
     color: var(--color-yellow-5, #695616);
   }
 
   .step--automate .step__zone {
-    background: var(--color-green-1, #e2f4e4);
     border-color: var(--color-green-2, #a5d9ac);
     color: var(--color-green-5, #29392b);
   }
