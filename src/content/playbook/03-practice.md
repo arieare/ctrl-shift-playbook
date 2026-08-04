@@ -296,6 +296,8 @@ The least glamorous, highest-payoff move in research: making sure your team can 
 
 ---
 
+<h2 style="display:none;">The Human X AI Loop</h2>
+
 <h4 id="the-human-x-ai-loop-how-humans-and-ai-take-turns">The Human X AI Loop</h4>
 <div class="sub-heading">
 How humans and AI take turns.
@@ -312,6 +314,8 @@ That is the standard. Not AI-first. Not human-only. A repeatable Human–AI exec
 <img class="print-diagram-image" src="/images/print/human-ai-loop-diagram.png?v=20260801-revealed-3" alt="Five-step Human and AI execution loop: Human Frames, AI Expands, Human Interprets, AI Scales, and Human Owns, returning to Human Frames" />
 
 ---
+
+<h2 style="display:none;">The Spectrum</h2>
 
 <h4 id="the-spectrum-how-to-adjust-the-quadrant-for-your-project">The Spectrum</h4>
 <div class="sub-heading">
