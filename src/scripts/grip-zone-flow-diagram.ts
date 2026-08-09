@@ -1,5 +1,54 @@
 export {};
 
+type GripLevel = "critical" | "elevated" | "light" | "standard";
+type GripZone = "assist" | "automate" | "guided" | "human";
+
+const gripLevelSequences: Record<GripLevel, Array<{ title: string; zone: GripZone }>> = {
+  light: [
+    { title: "Automate", zone: "automate" },
+    { title: "Assist", zone: "assist" },
+    { title: "Guided", zone: "guided" },
+    { title: "Human only", zone: "human" },
+  ],
+  standard: [
+    { title: "Automate", zone: "automate" },
+    { title: "Guided", zone: "guided" },
+    { title: "Human only", zone: "human" },
+    { title: "Human only", zone: "human" },
+  ],
+  elevated: [
+    { title: "Assist", zone: "assist" },
+    { title: "Human only", zone: "human" },
+    { title: "Human only", zone: "human" },
+    { title: "Human only", zone: "human" },
+  ],
+  critical: [
+    { title: "Guided", zone: "guided" },
+    { title: "Human only", zone: "human" },
+    { title: "Human only", zone: "human" },
+    { title: "Human only", zone: "human" },
+  ],
+};
+
+const gripLevelTitles: Record<GripLevel, string> = {
+  light: "Light",
+  standard: "Standard",
+  elevated: "Elevated",
+  critical: "Critical",
+};
+
+const gripLevelCaptions: Record<GripLevel, string> = {
+  light: "Everything has slid one notch left, except Actions. That is the step with your name on it.",
+  standard: "The grip as drawn. This is the baseline every other level moves away from.",
+  elevated:
+    "Meaning has moved to Human only. AI still helps clean and cluster, but it no longer proposes what any of it means.",
+  critical: "Even the mechanical front end is supervised now. Nothing here runs without a person watching it.",
+};
+
+const getGripLevel = (value: string | null): GripLevel => {
+  return value === "standard" || value === "elevated" || value === "critical" ? value : "light";
+};
+
 const template = document.createElement("template");
 
 template.innerHTML = `
@@ -32,15 +81,30 @@ template.innerHTML = `
       align-items: stretch;
       display: grid;
       gap: clamp(0.25rem, 0.65vw, 0.5rem);
-      grid-template-columns:
-        minmax(0, 1fr) auto
-        minmax(0, 1fr) auto
-        minmax(0, 1fr) auto
-        minmax(0, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       padding-inline: 0.25rem;
     }
 
     .step {
+      display: grid;
+      gap: 0.45rem;
+      min-width: 0;
+      opacity: 0;
+      transform: translateY(0.8rem) scale(0.985);
+      transition:
+        opacity 360ms ease,
+        transform 460ms cubic-bezier(0.2, 0.75, 0.2, 1);
+    }
+
+    .step__label {
+      color: var(--flow-text);
+      font-size: var(--text-small, 0.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      text-align: left;
+    }
+
+    .step__pill {
       align-items: center;
       background:
         linear-gradient(
@@ -55,13 +119,8 @@ template.innerHTML = `
       display: flex;
       justify-content: center;
       min-height: 0;
-      opacity: 0;
       padding: clamp(0.7rem, 1.2vw, 0.9rem) clamp(0.65rem, 1.5vw, 1rem);
       text-align: center;
-      transform: translateY(0.8rem) scale(0.985);
-      transition:
-        opacity 360ms ease,
-        transform 460ms cubic-bezier(0.2, 0.75, 0.2, 1);
     }
 
     .step--automate {
@@ -97,31 +156,14 @@ template.innerHTML = `
       white-space: nowrap;
     }
 
-    .connector {
-      align-items: center;
-      color: color-mix(in srgb, var(--flow-accent) 68%, var(--flow-text));
-      display: flex;
-      justify-content: center;
-      opacity: 0;
-      transform: translateX(-0.35rem);
-      transition:
-        opacity 280ms ease,
-        transform 360ms ease;
-    }
-
-    .connector svg {
-      height: 1rem;
-      overflow: visible;
-      width: clamp(1.45rem, 2vw, 2rem);
-    }
-
-    .connector__path {
-      fill: none;
-      stroke: currentColor;
-      stroke-linecap: round;
-      stroke-linejoin: miter;
-      stroke-width: 2.5;
-      vector-effect: non-scaling-stroke;
+    .diagram__caption {
+      color: color-mix(in srgb, var(--flow-text) 78%, var(--flow-bg));
+      font-family: var(--font-serif-alt, Georgia, serif);
+      font-size: var(--text-small, 0.8rem);
+      line-height: 1.5;
+      margin: 1rem 0 0;
+      padding: 0 4.75rem 0 0.25rem;
+      text-wrap: pretty;
     }
 
     .diagram-download,
@@ -210,44 +252,24 @@ template.innerHTML = `
       transform: none;
     }
 
-    :host(.is-revealed) .connector,
-    :host(.is-static-view) .connector {
-      opacity: 1;
-      transform: none;
-    }
-
     :host(.is-revealed) .step:nth-of-type(1) {
       transition-delay: 80ms;
     }
 
-    :host(.is-revealed) .connector:nth-of-type(1) {
+    :host(.is-revealed) .step:nth-of-type(2) {
       transition-delay: 360ms;
     }
 
-    :host(.is-revealed) .step:nth-of-type(2) {
-      transition-delay: 520ms;
-    }
-
-    :host(.is-revealed) .connector:nth-of-type(2) {
-      transition-delay: 800ms;
-    }
-
     :host(.is-revealed) .step:nth-of-type(3) {
-      transition-delay: 960ms;
-    }
-
-    :host(.is-revealed) .connector:nth-of-type(3) {
-      transition-delay: 1240ms;
+      transition-delay: 640ms;
     }
 
     :host(.is-revealed) .step:nth-of-type(4) {
-      transition-delay: 1400ms;
+      transition-delay: 920ms;
     }
 
     :host(.is-static-view) .step,
-    :host(.is-static-view) .connector,
-    :host(.is-exporting) .step,
-    :host(.is-exporting) .connector {
+    :host(.is-exporting) .step {
       transition: none;
     }
 
@@ -256,7 +278,7 @@ template.innerHTML = `
       display: none !important;
     }
 
-    :host(.is-exporting) .step {
+    :host(.is-exporting) .step__pill {
       box-shadow: none;
     }
 
@@ -271,7 +293,7 @@ template.innerHTML = `
         padding-inline: 0.25rem;
       }
 
-      .step {
+      .step__pill {
         border-radius: 0.65rem;
         min-height: 0;
         padding: 0.75rem;
@@ -281,36 +303,21 @@ template.innerHTML = `
         font-size: var(--text-base, 1rem);
       }
 
-      .connector {
-        line-height: 1;
-        min-height: 1.2rem;
-        transform: translateY(-0.25rem) rotate(90deg);
+      .diagram__caption {
+        font-size: 0.74rem;
+        margin-top: 0.85rem;
+        padding-inline: 0.25rem 3rem;
       }
 
-      .connector svg {
-        width: 2rem;
-      }
-
-      :host(.is-revealed) .connector,
-      :host(.is-static-view) .connector {
-        transform: rotate(90deg);
-      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .step,
-      .connector {
+      .step {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
       }
 
-    }
-
-    @media (prefers-reduced-motion: reduce) and (max-width: 560px) {
-      .connector {
-        transform: rotate(90deg) !important;
-      }
     }
 
     @media print {
@@ -320,51 +327,27 @@ template.innerHTML = `
     }
   </style>
 
-  <section class="diagram" aria-label="Grip zones from loosest to tightest">
+  <section class="diagram" aria-label="Light Analysis phase grip zones">
     <div class="flow" role="list">
       <article class="step step--automate" role="listitem">
-        <strong class="step__title">Automate</strong>
+        <span class="step__label">Observations</span>
+        <div class="step__pill"><strong class="step__title">Automate</strong></div>
       </article>
-      <span class="connector" aria-hidden="true">
-        <svg viewBox="0 0 42 16">
-          <defs>
-            <marker id="grip-arrow-1" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
-              <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor"></path>
-            </marker>
-          </defs>
-          <path class="connector__path" d="M 1 8 H 36" marker-end="url(#grip-arrow-1)"></path>
-        </svg>
-      </span>
       <article class="step step--assist" role="listitem">
-        <strong class="step__title">Assist</strong>
+        <span class="step__label">Meaning</span>
+        <div class="step__pill"><strong class="step__title">Assist</strong></div>
       </article>
-      <span class="connector" aria-hidden="true">
-        <svg viewBox="0 0 42 16">
-          <defs>
-            <marker id="grip-arrow-2" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
-              <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor"></path>
-            </marker>
-          </defs>
-          <path class="connector__path" d="M 1 8 H 36" marker-end="url(#grip-arrow-2)"></path>
-        </svg>
-      </span>
       <article class="step step--guided" role="listitem">
-        <strong class="step__title">Guided</strong>
+        <span class="step__label">Implications</span>
+        <div class="step__pill"><strong class="step__title">Guided</strong></div>
       </article>
-      <span class="connector" aria-hidden="true">
-        <svg viewBox="0 0 42 16">
-          <defs>
-            <marker id="grip-arrow-3" markerHeight="8" markerWidth="8" orient="auto" refX="7" refY="4">
-              <path d="M 0 0 L 8 4 L 0 8 z" fill="currentColor"></path>
-            </marker>
-          </defs>
-          <path class="connector__path" d="M 1 8 H 36" marker-end="url(#grip-arrow-3)"></path>
-        </svg>
-      </span>
       <article class="step step--human" role="listitem">
-        <strong class="step__title">Human only</strong>
+        <span class="step__label">Actions</span>
+        <div class="step__pill"><strong class="step__title">Human only</strong></div>
       </article>
     </div>
+
+    <p class="diagram__caption">Everything has slid one notch left, except Actions. That is the step with your name on it.</p>
 
     <button
       class="diagram-reveal"
@@ -382,7 +365,7 @@ template.innerHTML = `
     <a
       class="diagram-download"
       data-tooltip="download diagram"
-      href="/images/print/grip-zone-flow-diagram.png?v=20260803-1"
+      href="/images/print/grip-zone-flow-diagram.png?v=20260809-2"
       download="grip-zone-flow-diagram.png"
       aria-label="Download grip zone flow diagram"
     >
@@ -396,10 +379,20 @@ template.innerHTML = `
 class GripZoneFlowDiagram extends HTMLElement {
   private intersectionObserver?: IntersectionObserver;
 
+  static get observedAttributes() {
+    return ["level"];
+  }
+
+  attributeChangedCallback() {
+    this.applyLevel();
+  }
+
   connectedCallback() {
     if (!this.shadowRoot) {
       this.attachShadow({ mode: "open" }).appendChild(template.content.cloneNode(true));
     }
+
+    this.applyLevel();
 
     const isExporting = new URL(window.location.href).searchParams.get("diagram-export") === "revealed";
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -440,6 +433,47 @@ class GripZoneFlowDiagram extends HTMLElement {
 
     this.setStaticView(!this.classList.contains("is-static-view"));
   };
+
+  private applyLevel() {
+    if (!this.shadowRoot) {
+      return;
+    }
+
+    const level = getGripLevel(this.getAttribute("level"));
+    const levelTitle = gripLevelTitles[level];
+    const steps = Array.from(this.shadowRoot.querySelectorAll<HTMLElement>(".step"));
+
+    gripLevelSequences[level].forEach((item, index) => {
+      const step = steps[index];
+      const title = step?.querySelector<HTMLElement>(".step__title");
+
+      if (!step || !title) {
+        return;
+      }
+
+      step.className = `step step--${item.zone}`;
+      title.textContent = item.title;
+    });
+
+    this.shadowRoot
+      .querySelector<HTMLElement>(".diagram")
+      ?.setAttribute("aria-label", `${levelTitle} Analysis phase grip zones`);
+
+    const caption = this.shadowRoot.querySelector<HTMLElement>(".diagram__caption");
+
+    if (caption) {
+      caption.textContent = gripLevelCaptions[level];
+    }
+
+    const download = this.shadowRoot.querySelector<HTMLAnchorElement>(".diagram-download");
+    const filename = `grip-zone-flow-diagram-${level}.png`;
+
+    if (download) {
+      download.href = `/images/print/${filename}?v=20260809-2`;
+      download.download = filename;
+      download.setAttribute("aria-label", `Download ${levelTitle} Analysis phase grip diagram`);
+    }
+  }
 
   private setStaticView(isStatic: boolean) {
     const button = this.shadowRoot?.querySelector<HTMLButtonElement>("[data-diagram-reveal]");

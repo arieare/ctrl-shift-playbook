@@ -326,18 +326,11 @@ How to adjust the Quadrant to your project.
   <spectrum-level-overview></spectrum-level-overview>
 </div>
 
-<img class="print-diagram-image" src="/images/print/spectrum-level-overview.png?v=20260803-1" alt="Spectrum levels from Light to Standard to Elevated to Critical, shown as progressively stronger ripple nodes" />
-
-<blockquote class="infobox">
-  <p class="infobox__title"><i class="fa-regular fa-note-sticky infobox__icon" aria-hidden="true"></i>Not every project needs the same amount of AI:</p>
-  <p>The level moves the grip, and it moves how far outside yourself the work has to travel before you trust it.</p>
-</blockquote>
-
-The previous section describes a Standard project: the typical case. But a study of snacking habits among urban Jakartans and a study of mental health among Acehnese teenagers are both qualitative research, and the Quadrant says the same thing about both. The right way to use AI on them could not be more different.
-
-It runs the other way too. A competitive scan you are doing to orient yourself does not need the full apparatus. There is no recommendation to author and no decision riding on it. Holding that work to the same standard as a client deliverable is how a framework starts getting ignored.
+<img class="print-diagram-image" src="/images/print/spectrum-level-overview.png?v=20260808-2" alt="Spectrum levels from Light to Standard to Elevated to Critical, shown as progressively stronger ripple nodes" />
 
 The Spectrum tunes the Quadrant to the project in front of you. It asks two questions.
+
+##### The two questions
 
 | Level | Stakes: the damage if it is wrong | Sensitivity: cultural and human nuance |
 | --- | --- | --- |
@@ -354,31 +347,27 @@ Once you have both answers, the next step is putting them together.
 
 ##### Finding your level
 
-The higher of your two answers sets the level, never the average. When both are High, go one further.
-
 <div class="interactive-diagram">
   <stakes-sensitivity-matrix></stakes-sensitivity-matrix>
 </div>
 
-<img class="print-diagram-image" src="/images/print/stakes-sensitivity-matrix.svg" alt="Matrix mapping stakes and sensitivity levels to Light, Standard, Elevated, and Critical project standards" />
+<img class="print-diagram-image" src="/images/print/stakes-sensitivity-matrix.svg?v=20260809-1" alt="Matrix mapping stakes and sensitivity levels to Light, Standard, Elevated, and Critical project standards" />
 
-The bands wrap the corner rather than running diagonally. That is the rule made visible. Nothing averages out. Critical sits in one corner only, where both dials are high at once, which is what makes it worth taking seriously when you land there.
+<p class="spectrum-level-caption"><strong>The level travels with the work:</strong> Pick your level from where the work will end up, not where it starts. Light notes that find their way into a client deck were never Light. If the destination changes halfway through, the level changes with it.</p>
 
-**The level travels with the work:** Pick your level from where the work will end up, not where it starts. Light notes that find their way into a client deck were never Light. If the destination changes halfway through, the level changes with it.
-
-**On calibration:** Where we drew these lines is a judgement call, and it leans safe on purpose. If your team finds it firing too often, or not often enough, move it, and tell us what you moved. This is version 1.0 of a calibration, not a standard.
+<p class="spectrum-level-caption"><strong>On calibration:</strong> These thresholds are our starting calibration, not a standard. Move them if your work says otherwise, and tell us.</p>
 
 ##### What the level does to your phases
 
-The level moves two things: how tight your grip is, and how much doubt the work has to survive before you believe it.
+The level moves two things: **how tight your grip is**, and **how much doubt the work has to survive** before you believe it.
 
-<div class="interactive-diagram">
-  <grip-zone-flow-diagram></grip-zone-flow-diagram>
+<div class="spectrum-guidance-selector-container">
+  <spectrum-guidance-selector></spectrum-guidance-selector>
 </div>
 
-<img class="print-diagram-image" src="/images/print/grip-zone-flow-diagram.png?v=20260803-1" alt="Grip zones moving from Automate to Assist to Guided to Human only" />
+##### How the grip moves
 
-Your grip slides along these four zones. Looser on the left, tighter on the right.
+Here is the Analysis phase at all four levels. Read down a column to watch one step tighten. Read across a row to see the shape of a level.
 
 | Project standard | Observations | Meaning | Implications | Actions |
 | --- | --- | --- | --- | --- |
@@ -387,17 +376,9 @@ Your grip slides along these four zones. Looser on the left, tighter on the righ
 | Elevated | Assist | Human only | Human only | Human only |
 | Critical | Guided | Human only | Human only | Human only |
 
-Here is the Analysis phase at all four levels. Read down a column to watch one step tighten. Read across a row to see the shape of a level.
-
 Everything slides except the last step. Actions carries your name on it at every level.
 
-<div class="spectrum-guidance-selector-container">
-  <spectrum-guidance-selector></spectrum-guidance-selector>
-</div>
-
-**One notch is a default, not a law:** Some steps should not loosen even at Light. You would not slide a real interview out of Human only just because the stakes are low. Apply the shift, then check it reads sensibly. Where it does not, keep the tighter zone.
-
-**For solo researchers:** Most of what each level asks, you can do alone: the checking, the tracing, the tighter grip. What you cannot do alone is audit your own framing, which is the whole reason the senior reviewer and the cultural advisor are on those lists. A blindspot is by definition invisible to the person who has it. Bring in a peer, a trusted outside collaborator, or a community of practice. One conversation with someone who knows the community, before you interpret, is worth more than any amount of extra desk checking.
+<p class="spectrum-level-caption"><strong>For solo researchers:</strong> Most of what each level asks, you can do alone: the checking, the tracing, the tighter grip. What you cannot do alone is audit your own framing, which is the whole reason the senior reviewer and the cultural advisor are on those lists. A blindspot is by definition invisible to the person who has it. Bring in a peer, a trusted outside collaborator, or a community of practice. One conversation with someone who knows the community, before you interpret, is worth more than any amount of extra desk checking.</p>
 
 ---
 

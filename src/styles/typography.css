@@ -59,6 +59,17 @@ html {
   line-height: 1.6;
 }
 
+.playbook-section__body p.spectrum-level-caption {
+  color: color-mix(in srgb, var(--color-accent-2) 64%, var(--color-text));
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  line-height: 1.45;
+  margin-inline: auto;
+  max-width: 38rem;
+  text-align: left;
+  text-wrap: pretty;
+}
+
 .playbook-section__body .highlight {
   --highlight-fill: color-mix(in srgb, var(--color-yellow-2) 74%, transparent);
   -webkit-box-decoration-break: clone;

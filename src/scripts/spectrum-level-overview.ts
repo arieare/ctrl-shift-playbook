@@ -49,10 +49,26 @@ template.innerHTML = `
     }
 
     .diagram {
+      background:
+        linear-gradient(145deg, color-mix(in srgb, var(--overview-accent) 4%, transparent), transparent 48%);
+      border: 1px solid color-mix(in srgb, var(--overview-accent) 22%, var(--overview-border));
+      border-radius: 0.9rem;
+      box-sizing: border-box;
       color: var(--overview-text);
       font-family: var(--font-sans, system-ui, sans-serif);
-      padding: 0.5rem 0 3rem;
+      padding: 1.25rem 1.25rem 1rem;
       position: relative;
+    }
+
+    .diagram__title {
+      color: color-mix(in srgb, var(--overview-accent-2) 78%, var(--overview-text));
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: clamp(0.78rem, 1.35vw, 0.9rem);
+      font-weight: 500;
+      line-height: 1.2;
+      margin: 0 0 1.4rem;
+      text-align: center;
+      text-wrap: balance;
     }
 
     .levels {
@@ -168,6 +184,23 @@ template.innerHTML = `
       font-weight: 600;
     }
 
+    .diagram__caption {
+      align-items: center;
+      border-top: 1px solid color-mix(in srgb, var(--overview-accent) 16%, var(--overview-border));
+      box-sizing: border-box;
+      color: color-mix(in srgb, var(--overview-accent-2) 64%, var(--overview-text));
+      display: flex;
+      font-family: var(--font-serif, Georgia, serif);
+      font-size: 0.7rem;
+      justify-content: center;
+      line-height: 1.45;
+      margin: 1.5rem 0 0;
+      min-height: 2rem;
+      padding: 1rem 4.75rem 0;
+      text-align: center;
+      text-wrap: balance;
+    }
+
     .diagram-download,
     .diagram-reveal {
       align-items: center;
@@ -176,7 +209,7 @@ template.innerHTML = `
       background: color-mix(in srgb, var(--overview-bg) 88%, transparent);
       border: 1px solid var(--overview-border);
       border-radius: 50%;
-      bottom: 0.25rem;
+      bottom: 0.7rem;
       color: var(--overview-text);
       cursor: pointer;
       display: inline-flex;
@@ -275,7 +308,14 @@ template.innerHTML = `
       }
 
       .diagram {
-        padding-top: 0.25rem;
+        border-radius: 0.7rem;
+        padding: 0.8rem 0.5rem 0.8rem;
+      }
+
+      .diagram__title {
+        font-size: 0.68rem;
+        margin-bottom: 1rem;
+        padding-inline: 0.5rem;
       }
 
       .signal {
@@ -312,6 +352,13 @@ template.innerHTML = `
         font-size: 0.58rem;
         line-height: 1.25;
       }
+
+      .diagram__caption {
+        font-size: 0.56rem;
+        margin-top: 1rem;
+        min-height: 2rem;
+        padding: 0.8rem 4.75rem 0 0.5rem;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -329,7 +376,9 @@ template.innerHTML = `
     }
   </style>
 
-  <section class="diagram" aria-label="Spectrum levels from Light to Critical">
+  <section class="diagram" aria-labelledby="spectrum-level-overview-title">
+    <h3 class="diagram__title" id="spectrum-level-overview-title">Not every project needs the same amount of AI.</h3>
+
     <div class="levels" role="list">
       ${levels
         .map(
@@ -347,6 +396,8 @@ template.innerHTML = `
         .join("")}
     </div>
 
+    <p class="diagram__caption">The level moves the grip, and it moves how far outside yourself the work has to travel before you trust it.</p>
+
     <button
       class="diagram-reveal"
       data-diagram-reveal
@@ -363,7 +414,7 @@ template.innerHTML = `
     <a
       class="diagram-download"
       data-tooltip="download diagram"
-      href="/images/print/spectrum-level-overview.png?v=20260803-1"
+      href="/images/print/spectrum-level-overview.png?v=20260808-2"
       download="spectrum-level-overview.png"
       aria-label="Download Spectrum level overview"
     >

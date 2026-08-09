@@ -1,15 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="280" viewBox="0 0 1200 280" role="img" aria-labelledby="title desc">
   <title id="title">Project standard by stakes and sensitivity</title>
-  <desc id="desc">A three by three matrix mapping low, medium, and high stakes and sensitivity to Light, Standard, Elevated, and Critical project standards.</desc>
+  <desc id="desc">A three by three matrix with stakes in columns and sensitivity in rows, mapping low, medium, and high levels to Light, Standard, Elevated, and Critical project standards.</desc>
   <rect width="1200" height="400" fill="#ffffff"/>
   <g font-family="Plus Jakarta Sans, system-ui, sans-serif">
     <g fill="#5d5790" font-size="14" font-weight="600" letter-spacing="1">
-      <text x="302" y="26" text-anchor="middle">SENSITIVITY LOW</text>
-      <text x="654" y="26" text-anchor="middle">SENSITIVITY MEDIUM</text>
-      <text x="1006" y="26" text-anchor="middle">SENSITIVITY HIGH</text>
-      <text x="118" y="83" text-anchor="end">STAKES HIGH</text>
-      <text x="118" y="156" text-anchor="end">STAKES MEDIUM</text>
-      <text x="118" y="229" text-anchor="end">STAKES LOW</text>
+      <line x1="8" y1="3" x2="118" y2="35" stroke="#aaa6c3" stroke-width="1"/>
+      <text x="112" y="11" text-anchor="end" font-size="9">STAKES</text>
+      <text x="8" y="33" text-anchor="start" font-size="9">SENSITIVITY</text>
+      <text x="302" y="26" text-anchor="middle">LOW</text>
+      <text x="654" y="26" text-anchor="middle">MEDIUM</text>
+      <text x="1006" y="26" text-anchor="middle">HIGH</text>
+      <text x="118" y="83" text-anchor="end">HIGH</text>
+      <text x="118" y="156" text-anchor="end">MEDIUM</text>
+      <text x="118" y="229" text-anchor="end">LOW</text>
     </g>
     <g>
       <rect x="130" y="42" width="344" height="64" rx="8" fill="#dcd8ec"/>

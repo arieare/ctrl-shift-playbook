@@ -59,6 +59,46 @@ template.innerHTML = `
       padding: 0 0.25rem 0.55rem;
     }
 
+    .matrix-axis-label {
+      height: 2.5rem;
+      padding: 0 !important;
+      position: relative;
+      vertical-align: top;
+    }
+
+    .matrix-axis-label::after {
+      background: linear-gradient(
+        to top right,
+        transparent 49%,
+        color-mix(in srgb, var(--matrix-accent) 32%, var(--matrix-border)) 49.5%,
+        color-mix(in srgb, var(--matrix-accent) 32%, var(--matrix-border)) 50.5%,
+        transparent 51%
+      );
+      content: "";
+      inset: 0.1rem 0.2rem 0.15rem;
+      pointer-events: none;
+      position: absolute;
+    }
+
+    .matrix-axis-label span {
+      display: block;
+      font-size: 0.52rem;
+      line-height: 1;
+      position: absolute;
+      white-space: nowrap;
+      z-index: 1;
+    }
+
+    .matrix-axis-columns {
+      right: 0.25rem;
+      top: 0.05rem;
+    }
+
+    .matrix-axis-rows {
+      bottom: 0.05rem;
+      left: 0.2rem;
+    }
+
     col.matrix-row-label-column {
       width: 16%;
     }
@@ -289,6 +329,15 @@ template.innerHTML = `
         white-space: nowrap;
       }
 
+      .matrix-axis-label {
+        height: 2.2rem;
+      }
+
+      .matrix-axis-label span {
+        font-size: 0.38rem;
+        letter-spacing: 0.015em;
+      }
+
       tbody th {
         padding-right: 0.3rem;
       }
@@ -327,27 +376,30 @@ template.innerHTML = `
       </colgroup>
       <thead>
         <tr>
-          <th aria-hidden="true"></th>
-          <th scope="col"><span>Sensitivity</span> <span>low</span></th>
-          <th scope="col"><span>Sensitivity</span> <span>medium</span></th>
-          <th scope="col"><span>Sensitivity</span> <span>high</span></th>
+          <th class="matrix-axis-label" aria-label="Stakes columns and sensitivity rows">
+            <span class="matrix-axis-columns">Stakes</span>
+            <span class="matrix-axis-rows">Sensitivity</span>
+          </th>
+          <th scope="col">Low</th>
+          <th scope="col">Medium</th>
+          <th scope="col">High</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <th scope="row"><span>Stakes</span> <span>high</span></th>
+          <th scope="row">High</th>
           <td data-result="elevated" style="--reveal-index: 6" tabindex="0"><strong>Elevated</strong></td>
           <td data-result="elevated" style="--reveal-index: 7" tabindex="0"><strong>Elevated</strong></td>
           <td data-result="critical" style="--reveal-index: 8" tabindex="0"><strong>Critical</strong></td>
         </tr>
         <tr>
-          <th scope="row"><span>Stakes</span> <span>medium</span></th>
+          <th scope="row">Medium</th>
           <td data-result="standard" style="--reveal-index: 3" tabindex="0"><strong>Standard</strong></td>
           <td data-result="standard" style="--reveal-index: 4" tabindex="0"><strong>Standard</strong></td>
           <td data-result="elevated" style="--reveal-index: 5" tabindex="0"><strong>Elevated</strong></td>
         </tr>
         <tr>
-          <th scope="row"><span>Stakes</span> <span>low</span></th>
+          <th scope="row">Low</th>
           <td data-result="light" style="--reveal-index: 0" tabindex="0"><strong>Light</strong></td>
           <td data-result="standard" style="--reveal-index: 1" tabindex="0"><strong>Standard</strong></td>
           <td data-result="elevated" style="--reveal-index: 2" tabindex="0"><strong>Elevated</strong></td>
@@ -371,7 +423,7 @@ template.innerHTML = `
     <a
       class="diagram-download"
       data-tooltip="download diagram"
-      href="/images/print/stakes-sensitivity-matrix.svg"
+      href="/images/print/stakes-sensitivity-matrix.svg?v=20260809-1"
       download="stakes-sensitivity-matrix.svg"
       aria-label="Download diagram"
     >

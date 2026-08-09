@@ -217,9 +217,7 @@ template.innerHTML = `
     .panel {
       animation: panel-in 220ms ease-out;
       border: 1px solid var(--selector-border);
-      display: grid;
-      gap: clamp(1rem, 3vw, 2rem);
-      grid-template-columns: clamp(4.5rem, 14%, 7rem) minmax(0, 1fr);
+      display: block;
       padding: clamp(1rem, 3vw, 2rem);
     }
 
@@ -251,8 +249,15 @@ template.innerHTML = `
       --signal-ring-2: 1.02rem;
     }
 
+    .panel__header {
+      align-items: center;
+      display: grid;
+      gap: clamp(1rem, 3vw, 2rem);
+      grid-template-columns: clamp(4.5rem, 14%, 7rem) minmax(0, 1fr);
+      margin-bottom: clamp(1.25rem, 3vw, 2rem);
+    }
+
     .panel__signal {
-      align-self: start;
       aspect-ratio: 1;
       border: 1px dashed color-mix(in srgb, var(--selector-accent) 14%, transparent);
       border-radius: 50%;
@@ -289,6 +294,11 @@ template.innerHTML = `
 
     .panel__content {
       min-width: 0;
+      width: 100%;
+    }
+
+    .panel__heading {
+      min-width: 0;
     }
 
     .panel__title {
@@ -303,7 +313,7 @@ template.innerHTML = `
       font-size: var(--text-small, 0.8rem);
       font-weight: 760;
       letter-spacing: 0.025em;
-      margin: 0 0 1.35rem;
+      margin: 0;
       text-transform: uppercase;
     }
 
@@ -322,12 +332,32 @@ template.innerHTML = `
     }
 
     .panel__statement {
-      color: var(--selector-accent);
+      color: var(--selector-text);
+      font-family: var(--font-serif-alt, Georgia, serif);
       font-size: var(--text-base, 1rem);
-      font-weight: 650;
-      line-height: 1.45;
+      font-weight: 400;
+      line-height: 1.6;
       margin: 0;
       text-wrap: pretty;
+    }
+
+    .panel__grip-diagram {
+      margin-top: 1.25rem;
+    }
+
+    .panel__grip-diagram grip-zone-flow-diagram {
+      margin-block: 0;
+    }
+
+    .panel__grip-diagram-print {
+      display: none;
+      height: auto;
+      margin-inline: auto;
+      max-width: 100%;
+    }
+
+    .panel__grip-diagram + .panel__section {
+      margin-top: 1.25rem;
     }
 
     .panel__points-label {
@@ -430,9 +460,13 @@ template.innerHTML = `
       }
 
       .panel {
+        padding: 0.85rem;
+      }
+
+      .panel__header {
         gap: 0.75rem;
         grid-template-columns: 2.75rem minmax(0, 1fr);
-        padding: 0.85rem;
+        margin-bottom: 1rem;
       }
 
       .panel[data-spectrum-panel="light"] {
@@ -455,10 +489,6 @@ template.innerHTML = `
         --signal-core-size: 1.05rem;
         --signal-ring-1: 0.35rem;
         --signal-ring-2: 0.58rem;
-      }
-
-      .panel__condition {
-        margin-bottom: 1rem;
       }
 
     }
@@ -506,11 +536,21 @@ template.innerHTML = `
       }
 
       .panel__signal,
+      .panel__header,
       .panel__title,
       .panel__condition,
+      .panel__grip-diagram,
       .panel__section {
         break-inside: avoid;
         page-break-inside: avoid;
+      }
+
+      .panel__grip-diagram grip-zone-flow-diagram {
+        display: none;
+      }
+
+      .panel__grip-diagram-print {
+        display: block;
       }
 
       .panel__point-group,
@@ -557,11 +597,14 @@ template.innerHTML = `
               aria-labelledby="spectrum-tab-${level.id}"
               ${level.id === "standard" ? "" : "hidden"}
             >
-              <div class="panel__signal" aria-hidden="true"></div>
+              <div class="panel__header">
+                <div class="panel__signal" aria-hidden="true"></div>
+                <div class="panel__heading">
+                  <h5 class="panel__title">${level.title}</h5>
+                  <p class="panel__condition">${level.condition}</p>
+                </div>
+              </div>
               <div class="panel__content">
-                <h5 class="panel__title">${level.title}</h5>
-                <p class="panel__condition">${level.condition}</p>
-
                 <div class="panel__section">
                   <span class="panel__eyebrow">The grip</span>
                   <p class="panel__statement">${level.grip}</p>
@@ -570,6 +613,16 @@ template.innerHTML = `
                 <div class="panel__section">
                   <span class="panel__eyebrow">The doubt</span>
                   <p class="panel__statement">${level.doubt}</p>
+                </div>
+
+                <div class="panel__grip-diagram">
+                  <span class="panel__eyebrow">Example: the Analysis phase</span>
+                  <grip-zone-flow-diagram level="${level.id}"></grip-zone-flow-diagram>
+                  <img
+                    class="panel__grip-diagram-print"
+                    src="/images/print/grip-zone-flow-diagram-${level.id}.png?v=20260809-2"
+                    alt="${level.title} Analysis phase grip zones"
+                  />
                 </div>
 
                 <div class="panel__section">
